@@ -1,0 +1,541 @@
+/* Scarpetta Cucina — identidade tirada do pôster do menu executivo:
+   verde garrafa, creme de papel, o tomate do logo e a assinatura manuscrita. */
+
+:root {
+  --verde: #0f3d2c;
+  --verde-noite: #0a2b1f;
+  --verde-linha: rgba(239, 229, 200, 0.16);
+  --creme: #efe5c8;
+  --creme-suave: rgba(239, 229, 200, 0.74);
+  --papel: #f6f0df;
+  --pomodoro: #c4362b;
+  --ouro: #c9ad72;
+  --ouro-escuro: #7d6634;
+  --aberto: #8fd18f;
+
+  --script: 'Pinyon Script', cursive;
+  --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --sans: 'Jost', system-ui, sans-serif;
+
+  --margem: 1.25rem;
+  --cabecalho: 64px;
+  --curva: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--cabecalho) + 8px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--verde-noite);
+  color: var(--creme);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, video, svg { display: block; max-width: 100%; }
+h1, h2, h3, p, ul, figure { margin: 0; }
+ul { padding: 0; list-style: none; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+
+:focus-visible { outline: 2px solid var(--ouro); outline-offset: 3px; border-radius: 4px; }
+main:focus { outline: none; }
+html.sem-rolagem { overflow: hidden; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.pular {
+  position: fixed; top: .5rem; left: .5rem; z-index: 100;
+  padding: .6rem 1rem; background: var(--creme); color: var(--verde-noite);
+  border-radius: 999px; transform: translateY(-200%); transition: transform .2s;
+}
+.pular:focus { transform: none; }
+
+
+.foto {
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transition: opacity .8s var(--curva);
+}
+.foto.is-pronta { opacity: 1; }
+
+/* ---------- Botões ---------- */
+
+.botao {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 1.5rem; border-radius: 999px;
+  font-family: var(--sans); font-weight: 500; font-size: .95rem; letter-spacing: .01em;
+  text-decoration: none; white-space: nowrap;
+  transition: transform .3s var(--curva), background-color .3s, color .3s, border-color .3s;
+}
+.botao:active { transform: scale(.97); }
+.botao-creme { background: var(--creme); color: var(--verde-noite); }
+.botao-creme:hover { background: var(--papel); }
+.botao-linha { border: 1px solid var(--creme-suave); color: var(--creme); }
+.botao-linha:hover { background: rgba(239, 229, 200, .1); border-color: var(--creme); }
+.botao-verde { background: var(--verde); color: var(--creme); }
+.botao-verde:hover { background: var(--verde-noite); }
+.botao-linha-verde { border: 1px solid rgba(15, 61, 44, .45); color: var(--verde); }
+.botao-linha-verde:hover { border-color: var(--verde); background: rgba(15, 61, 44, .06); }
+
+.pulso {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--creme-suave); flex: none;
+}
+.is-aberto .pulso { background: var(--aberto); box-shadow: 0 0 0 0 rgba(143, 209, 143, .6); animation: pulsar 2.4s infinite; }
+@keyframes pulsar {
+  70% { box-shadow: 0 0 0 9px rgba(143, 209, 143, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(143, 209, 143, 0); }
+}
+
+/* ---------- Marca ---------- */
+
+.marca { position: relative; display: inline-flex; flex-direction: column; align-items: center; line-height: 1; }
+.marca-nome { font-family: var(--script); font-size: 1em; line-height: 1.15; padding: 0 .12em; }
+.marca-cucina {
+  font-family: var(--sans); font-weight: 400; font-size: max(.13em, .62rem);
+  letter-spacing: .6em; margin-right: -.6em; text-transform: uppercase; margin-top: -.15em;
+}
+.tomate { position: absolute; width: .17em; height: .17em; top: .02em; left: 50%; transform: translateX(-20%); }
+
+/* ---------- Cabeçalho ---------- */
+
+.cabecalho {
+  position: fixed; inset: 0 0 auto; z-index: 50; height: var(--cabecalho);
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 0 .5rem 0 var(--margem); padding-top: env(safe-area-inset-top);
+  transition: background-color .45s, border-color .45s, backdrop-filter .45s;
+  border-bottom: 1px solid transparent;
+}
+.cabecalho.is-solido {
+  background: rgba(10, 43, 31, .9);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  border-color: var(--verde-linha);
+}
+.cabecalho-marca { text-decoration: none; font-size: 2.1rem; opacity: 0; transform: translateY(6px); transition: opacity .45s, transform .45s var(--curva); }
+.is-solido .cabecalho-marca { opacity: 1; transform: none; }
+.cabecalho-marca .marca-nome { line-height: 1.3; }
+.cabecalho-nav, .cabecalho-reserva { display: none; }
+
+.cabecalho-menu { width: 48px; height: 48px; display: grid; place-items: center; position: relative; z-index: 2; }
+.hamburguer { width: 22px; height: 10px; position: relative; }
+.hamburguer i {
+  position: absolute; left: 0; right: 0; height: 1.5px; background: currentColor; border-radius: 2px;
+  transition: transform .45s var(--curva), top .45s var(--curva);
+}
+.hamburguer i:first-child { top: 0; }
+.hamburguer i:last-child { top: 100%; }
+.hamburguer.is-aberto i:first-child { top: 50%; transform: rotate(45deg); }
+.hamburguer.is-aberto i:last-child { top: 50%; transform: rotate(-45deg); }
+
+.menu-movel {
+  position: fixed; inset: 0; z-index: 45; background: var(--verde);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: calc(var(--cabecalho) + 2rem) var(--margem) calc(2rem + env(safe-area-inset-bottom));
+}
+.menu-movel nav { display: flex; flex-direction: column; }
+.menu-movel nav a {
+  font-family: var(--serif); font-size: clamp(2.2rem, 10vw, 3.4rem); font-weight: 500;
+  line-height: 1.15; padding: .35rem 0; text-decoration: none;
+  border-bottom: 1px solid var(--verde-linha);
+}
+.menu-movel-rodape { display: grid; gap: 1.2rem; color: var(--creme-suave); font-size: .95rem; }
+.menu-movel-rodape .botao { width: 100%; }
+
+/* ---------- Hero ---------- */
+
+/* No celular a foto ocupa a tela toda: o texto fica no alto, sobre o forno escuro, e a pizza aparece embaixo. */
+.hero {
+  position: relative; min-height: 100vh; min-height: 100svh;
+  overflow: hidden; background: var(--verde-noite); isolation: isolate;
+  display: flex; flex-direction: column;
+}
+.hero-midia { position: absolute; inset: 0; z-index: -2; transform-origin: 50% 80%; }
+.hero-midia .foto { object-position: 50% 100%; }
+.hero-veu {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(10, 43, 31, .88) 0%, rgba(10, 43, 31, .7) 34%, rgba(10, 43, 31, .25) 56%, rgba(10, 43, 31, 0) 68%, rgba(10, 43, 31, 0) 88%, rgba(10, 43, 31, .55) 100%);
+}
+.hero-conteudo {
+  position: relative; display: flex; flex-direction: column; align-items: center;
+  text-align: center; gap: 1rem;
+  padding: calc(var(--cabecalho) + 1.2rem + env(safe-area-inset-top)) var(--margem) 2rem;
+}
+.hero-marca { font-size: clamp(5rem, 25vw, 11rem); color: var(--creme); padding: .1em .2em 0; margin-bottom: -.2rem; }
+.hero-marca .marca-cucina { font-size: max(.11em, .7rem); }
+.hero-slogan { max-width: 30ch; font-size: 1.02rem; line-height: 1.55; color: var(--creme); text-wrap: balance; }
+.hero-acoes { display: flex; gap: .7rem; flex-wrap: wrap; justify-content: center; margin-top: .3rem; }
+.hero-status { display: inline-flex; align-items: center; gap: .55rem; font-size: .86rem; color: var(--creme); }
+
+/* ---------- Manifesto ---------- */
+
+.manifesto {
+  background: var(--papel); color: var(--verde);
+  padding: 5.5rem var(--margem) 4.5rem; overflow: hidden;
+}
+.verbete { font-family: var(--serif); font-size: 1.5rem; font-style: italic; margin-bottom: 1rem; }
+.verbete em { font-family: var(--sans); font-style: normal; font-size: .8rem; color: var(--ouro-escuro); margin-left: .4rem; }
+.manifesto h2 {
+  font-family: var(--serif); font-weight: 500; font-size: clamp(2.15rem, 8.6vw, 4.6rem);
+  line-height: 1.04; letter-spacing: -.01em; max-width: 17ch; text-wrap: balance;
+}
+.manifesto h2 span { font-style: italic; }
+.molho { width: 136%; margin: 1.6rem -18% .8rem; }
+.molho svg { width: 100%; overflow: visible; }
+.manifesto-corpo { display: grid; gap: 2rem; max-width: 36rem; }
+.manifesto-corpo > p { font-size: 1.06rem; line-height: 1.7; }
+.manifesto-fatos li { padding: 1rem 0; border-top: 1px solid rgba(15, 61, 44, .18); font-size: .98rem; }
+.manifesto-fatos strong { display: block; font-family: var(--serif); font-size: 1.4rem; font-weight: 600; line-height: 1.2; }
+
+/* ---------- Menu executivo ---------- */
+
+.executivo {
+  background: var(--verde-noite); padding: 4.5rem var(--margem) 5rem;
+  background-image: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(31, 90, 66, .55), transparent 70%);
+}
+.executivo-fotos { display: flex; justify-content: center; position: relative; z-index: 2; margin-bottom: -3.2rem; }
+.executivo-foto {
+  width: min(36vw, 200px); aspect-ratio: 4 / 5; overflow: hidden; border-radius: 4px;
+  background: #1a4a37; box-shadow: 0 24px 40px -12px rgba(0, 0, 0, .55);
+}
+.executivo-foto + .executivo-foto { margin-left: -1.6rem; margin-top: 1.6rem; }
+.executivo-cartao {
+  position: relative; max-width: 40rem; margin: 0 auto; background: var(--creme); color: var(--verde);
+  border-radius: 6px; padding: 4.8rem 1.3rem 2.4rem; text-align: center;
+  outline: 1px solid rgba(15, 61, 44, .35); outline-offset: -10px;
+}
+.executivo-selo {
+  display: inline-block; font-size: .78rem; font-weight: 500; letter-spacing: .04em;
+  padding: .3rem .85rem; border: 1px solid rgba(15, 61, 44, .4); border-radius: 999px;
+}
+.executivo-selo.is-hoje { background: var(--pomodoro); border-color: var(--pomodoro); color: var(--papel); }
+.executivo-titulo {
+  font-family: var(--serif); font-style: italic; font-weight: 500; line-height: 1;
+  font-size: clamp(2.6rem, 11vw, 3.8rem); margin: .7rem 0 .4rem; color: var(--verde);
+}
+.executivo-quando { display: flex; flex-direction: column; align-items: center; gap: .1rem; font-size: .95rem; }
+.executivo-preco { font-family: var(--serif); font-size: 2.2rem; font-weight: 600; line-height: 1.1; }
+.executivo-regra { font-size: .9rem; color: rgba(15, 61, 44, .75); margin-top: .4rem; }
+.executivo-etapa { margin-top: 2rem; }
+.executivo-etapa h3 {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem;
+  font-family: var(--serif); font-weight: 600; font-size: 1.55rem; font-variant: small-caps; letter-spacing: .1em;
+  margin-bottom: .6rem;
+}
+.executivo-etapa h3::before, .executivo-etapa h3::after { content: ''; height: 1px; background: rgba(15, 61, 44, .4); }
+.executivo-etapa li { padding: .55rem 0; }
+.executivo-prato { font-family: var(--serif); font-weight: 600; font-size: 1.32rem; line-height: 1.2; }
+.executivo-desc { font-size: .88rem; line-height: 1.5; color: rgba(15, 61, 44, .78); max-width: 34ch; margin: .15rem auto 0; }
+.executivo-acoes { display: grid; justify-items: center; gap: 1rem; margin-top: 2.2rem; }
+.executivo-acoes .botao { white-space: normal; text-align: center; }
+/* No celular o cartão mostra só os nomes; as descrições abrem num toque. */
+.executivo-detalhes {
+  display: none; margin: 1.4rem auto 0; min-height: 44px; padding: 0 1rem;
+  font-size: .88rem; color: var(--verde); text-decoration: underline; text-underline-offset: 3px;
+}
+@media (max-width: 719px) {
+  .executivo-detalhes { display: block; }
+  .executivo:not(.com-detalhes) .executivo-desc { display: none; }
+  .executivo-etapa { margin-top: 1.5rem; }
+  .executivo-etapa li { padding: .3rem 0; }
+}
+.link-sutil { font-size: .85rem; color: rgba(15, 61, 44, .8); text-underline-offset: 3px; }
+
+/* ---------- Traço de molho (assinatura) ---------- */
+
+.traco { width: 7.5rem; height: auto; margin: .5rem auto 0; overflow: visible; }
+
+/* ---------- Cardápio ---------- */
+
+.cardapio { background: var(--verde); padding: 4.5rem 0 4.5rem; }
+.cardapio-cabeca { padding: 0 var(--margem); max-width: 60rem; margin: 0 auto 1.6rem; text-align: center; }
+.cardapio-cabeca h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.4rem, 9vw, 3.6rem); line-height: 1.1; }
+.cardapio-cabeca p { color: var(--creme-suave); margin: .8rem auto 0; max-width: 40ch; font-size: .98rem; }
+
+/* Pratos da casa como pratos na mesa: círculos com a borda clara da louça. */
+.mesa {
+  display: flex; gap: 1.1rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+  padding: 1rem var(--margem) 2.6rem;
+}
+.mesa::-webkit-scrollbar { display: none; }
+.mesa-prato { flex: 0 0 min(42vw, 190px); scroll-snap-align: center; text-align: center; }
+.mesa-foto {
+  aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: #1a4a37;
+  box-shadow: 0 0 0 7px rgba(239, 229, 200, .9), 0 0 0 8px rgba(15, 61, 44, .4), 0 26px 40px -18px rgba(0, 0, 0, .6);
+  margin: 8px;
+}
+.mesa-prato p:not(.mesa-preco) { font-family: var(--serif); font-style: italic; font-size: 1.12rem; line-height: 1.2; margin-top: .9rem; }
+.mesa-preco { font-size: .85rem; color: var(--ouro); margin-top: .15rem; }
+
+/* As abas rolam sozinhas em telas estreitas; o degradê avisa que há mais categorias de cada lado. */
+.abas-moldura {
+  position: sticky; top: var(--cabecalho); z-index: 10; background: var(--verde);
+  border-bottom: 1px solid var(--verde-linha);
+}
+.abas-moldura::before, .abas-moldura::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 3rem; pointer-events: none;
+  opacity: 0; transition: opacity .25s; z-index: 1;
+}
+.abas-moldura::before { left: 0; background: linear-gradient(90deg, var(--verde), rgba(15, 61, 44, 0)); }
+.abas-moldura::after { right: 0; background: linear-gradient(270deg, var(--verde) 20%, rgba(15, 61, 44, 0)); }
+.abas-moldura.tem-antes::before, .abas-moldura.tem-depois::after { opacity: 1; }
+.abas {
+  display: flex; gap: .2rem; overflow-x: auto; scrollbar-width: none;
+  padding: 0 var(--margem);
+}
+.abas::-webkit-scrollbar { display: none; }
+.aba {
+  position: relative; flex: none; padding: .85rem .85rem .75rem;
+  font-family: var(--serif); font-style: italic; font-size: 1.35rem; color: var(--creme-suave);
+  transition: color .3s;
+}
+.aba[aria-selected='true'] { color: var(--creme); }
+.aba-marcador { position: absolute; left: .85rem; right: .85rem; bottom: -1px; height: 2px; background: var(--ouro); border-radius: 2px; }
+
+.cardapio-painel { max-width: 62rem; margin: 0 auto; padding: 1.6rem var(--margem) 0; min-height: 26rem; }
+.cardapio-intro { color: var(--ouro); font-size: .92rem; margin-bottom: .5rem; }
+.prato { padding: 1.15rem 0; border-bottom: 1px solid rgba(239, 229, 200, .1); }
+.prato-linha { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.prato-nome { font-family: var(--serif); font-weight: 600; font-size: 1.3rem; line-height: 1.2; }
+.prato-preco { font-size: .95rem; color: var(--ouro); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.prato-desc { display: block; margin-top: .3rem; font-size: .92rem; line-height: 1.55; color: var(--creme-suave); max-width: 52ch; }
+.prato-nota {
+  display: inline-block; margin-top: .55rem; font-size: .74rem; letter-spacing: .02em;
+  padding: .12rem .6rem; border: 1px solid rgba(201, 173, 114, .55); border-radius: 999px; color: var(--ouro);
+}
+.prato.tem-foto { display: grid; grid-template-columns: 76px 1fr; gap: 1rem; align-items: start; }
+.prato-botao { display: block; border-radius: 50%; }
+.prato-miniatura {
+  display: block; width: 76px; height: 76px; border-radius: 50%; overflow: hidden; background: #1a4a37;
+  box-shadow: 0 0 0 1px rgba(239, 229, 200, .2), 0 10px 20px -8px rgba(0, 0, 0, .5);
+  transition: transform .4s var(--curva);
+}
+.prato-botao:hover .prato-miniatura { transform: scale(1.06) rotate(-3deg); }
+.cardapio-mais { display: flex; margin: 1.6rem auto 0; }
+
+.especial {
+  max-width: 62rem; margin: 2.5rem var(--margem) 0; padding: 1.8rem 1.4rem; text-align: center;
+  border: 1px solid rgba(201, 173, 114, .45); border-radius: 6px;
+}
+.especial-rotulo { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ouro); }
+.especial-nome { font-family: var(--serif); font-style: italic; font-size: 1.6rem; font-weight: 500; margin-top: .3rem; }
+.especial-desc { color: var(--creme-suave); font-size: .92rem; margin-top: .3rem; }
+.especial-preco { color: var(--ouro); margin-top: .5rem; }
+.cardapio-rodape { text-align: center; color: var(--creme-suave); padding: 2rem var(--margem) 0; font-size: .92rem; }
+.cardapio-rodape a { color: var(--creme); text-underline-offset: 3px; }
+
+.lupa {
+  width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; border: 0;
+  padding: 1rem; background: transparent; color: var(--creme);
+}
+.lupa[open] { display: grid; place-items: center; animation: lupa-entra .3s var(--curva); }
+.lupa::backdrop { background: rgba(6, 26, 19, .86); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+@keyframes lupa-entra { from { opacity: 0; transform: scale(.97); } }
+.lupa-foto { width: min(92vw, 520px); border-radius: 10px; overflow: hidden; background: var(--verde-noite); }
+.lupa-imagem { aspect-ratio: 1; background-size: cover; background-position: center; }
+.lupa-foto figcaption { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 1.1rem; font-family: var(--serif); font-size: 1.25rem; font-style: italic; }
+.lupa-foto figcaption span:last-child { font-family: var(--sans); font-style: normal; font-size: .95rem; color: var(--ouro); }
+.lupa-fechar {
+  position: absolute; top: calc(1rem + env(safe-area-inset-top)); right: 1rem;
+  min-height: 44px; padding: 0 1.1rem; border-radius: 999px; border: 1px solid var(--creme-suave); font-size: .9rem;
+}
+
+/* ---------- Da nossa cozinha ---------- */
+
+.cozinha { background: var(--verde-noite); padding: 4.5rem 0 4rem; }
+.cozinha-cabeca { padding: 0 var(--margem); max-width: 40rem; }
+.cozinha-cabeca h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.2rem, 8vw, 3.2rem); line-height: 1.1; }
+.cozinha-cabeca p { color: var(--creme-suave); margin-top: .6rem; font-size: .98rem; }
+.cozinha-cabeca a { color: var(--creme); text-underline-offset: 3px; }
+.reels {
+  display: flex; gap: .9rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+  padding: 1.8rem var(--margem) .5rem;
+}
+.reels::-webkit-scrollbar { display: none; }
+.reel { flex: 0 0 min(64vw, 260px); scroll-snap-align: center; }
+.reel-midia { position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden; background: #133b2b; }
+.reel-midia video { width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
+.reel-controles { position: absolute; right: .55rem; bottom: .55rem; display: flex; gap: .4rem; }
+.reel-botao {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-items: center; background: rgba(6, 26, 19, .6); color: #fff;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); transition: background .3s;
+}
+.reel-botao svg { width: 18px; height: 18px; }
+.reel-botao.is-ligado { background: var(--pomodoro); }
+.reel-legenda { font-family: var(--serif); font-style: italic; font-size: 1.1rem; line-height: 1.3; margin-top: .7rem; color: var(--creme); }
+
+/* ---------- Eventos ---------- */
+
+.eventos {
+  background: var(--papel); color: var(--verde);
+  padding: 5rem var(--margem); display: grid; gap: 2.6rem; align-items: center;
+}
+.eventos-foto {
+  width: 100%; max-width: 26rem; margin: 0 auto; aspect-ratio: 4 / 5; overflow: hidden;
+  border-radius: 200px 200px 6px 6px; background: #d9cfb2;
+}
+.eventos-texto { max-width: 34rem; }
+.eventos h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.2rem, 8vw, 3.4rem); line-height: 1.08; }
+.eventos-texto > p:not(.eventos-email) { margin-top: 1rem; font-size: 1.04rem; line-height: 1.7; }
+.eventos-acoes { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.8rem; }
+.eventos-email { margin-top: 1rem; font-size: .85rem; color: var(--ouro-escuro); }
+
+/* ---------- Como chegar ---------- */
+
+.visite { background: var(--verde); }
+.visite-info { padding: 4.5rem var(--margem) 2.5rem; max-width: 32rem; }
+.visite h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.4rem, 9vw, 3.4rem); line-height: 1.05; }
+.visite address { font-style: normal; margin-top: 1.2rem; font-size: 1.04rem; line-height: 1.55; }
+.visite-referencia { color: var(--ouro); font-size: .95rem; margin-top: .5rem; }
+.horarios { width: 100%; border-collapse: collapse; margin-top: 1.6rem; font-size: .94rem; }
+.horarios caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.horarios th, .horarios td { padding: .8rem 0; border-top: 1px solid var(--verde-linha); vertical-align: top; }
+.horarios th { text-align: left; font-weight: 500; }
+.horarios td { text-align: right; color: var(--creme-suave); }
+.horarios td span { display: block; }
+.visite-status { display: flex; align-items: center; gap: .55rem; font-size: .88rem; color: var(--creme-suave); padding-top: .8rem; border-top: 1px solid var(--verde-linha); }
+.visite-acoes { display: grid; gap: .7rem; margin-top: 1.8rem; }
+.visite-nota { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1.5rem; font-size: .9rem; color: var(--creme-suave); text-underline-offset: 3px; }
+.estrelas { color: var(--ouro); letter-spacing: .12em; }
+
+.visite-mapa { height: 360px; background: var(--verde-noite); overflow: hidden; }
+.visite-mapa iframe { width: 100%; height: 100%; border: 0; filter: saturate(.75) contrast(1.05); }
+.visite-mapa-capa {
+  width: 100%; height: 100%; display: grid; place-items: center; align-content: center; gap: 1rem;
+  font-size: .95rem; color: var(--creme);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(239, 229, 200, .08) 0 22%, transparent 22.2%),
+    repeating-radial-gradient(circle at 50% 45%, transparent 0 34px, rgba(239, 229, 200, .07) 34px 35px),
+    linear-gradient(115deg, #0c3324, #124530);
+}
+.visite-mapa-capa span:last-child { text-decoration: underline; text-underline-offset: 4px; }
+.visite-pino { width: 26px; height: 26px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--pomodoro); box-shadow: 0 0 0 6px rgba(196, 54, 43, .25); }
+
+.em-casa { background: var(--verde); padding: 3.5rem var(--margem) 4.5rem; text-align: center; border-top: 1px solid var(--verde-linha); }
+.em-casa h2 { font-family: var(--serif); font-weight: 500; font-size: 2rem; line-height: 1.1; }
+.em-casa p { color: var(--creme-suave); margin-top: .5rem; }
+.em-casa-acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; margin-top: 1.5rem; }
+
+/* ---------- Rodapé e barra de ações ---------- */
+
+.rodape {
+  background: var(--verde-noite); color: var(--creme-suave); text-align: center;
+  padding: 4rem var(--margem) calc(7rem + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--verde-linha);
+}
+.rodape-marca { font-size: 4rem; color: var(--creme); }
+.rodape-slogan { margin-top: 1.2rem; color: var(--creme); }
+.rodape-endereco { margin-top: .6rem; font-size: .9rem; line-height: 1.6; }
+.rodape-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 1.4rem; margin-top: 1rem; font-size: .92rem; }
+.rodape-links a { display: inline-block; padding: .65rem .2rem; text-underline-offset: 3px; }
+.rodape-legal { margin-top: 1.4rem; font-size: .8rem; }
+
+.barra-acoes {
+  position: fixed; z-index: 30; left: .7rem; right: .7rem; bottom: calc(.7rem + env(safe-area-inset-bottom));
+  display: grid; grid-template-columns: 1.7fr 1fr 1fr; gap: .2rem; padding: .3rem;
+  background: rgba(10, 43, 31, .92); border: 1px solid var(--verde-linha); border-radius: 999px;
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, .6);
+}
+.barra-acoes a {
+  min-height: 46px; display: grid; place-items: center; border-radius: 999px;
+  font-size: .9rem; font-weight: 500; text-decoration: none; color: var(--creme);
+}
+.barra-acoes .barra-principal { background: var(--creme); color: var(--verde-noite); }
+
+/* ---------- Telas maiores ---------- */
+
+@media (min-width: 720px) {
+  :root { --margem: 2.5rem; }
+  .visite-acoes { grid-template-columns: auto auto; justify-content: start; }
+}
+
+@media (min-width: 960px) {
+  :root { --margem: 4vw; --cabecalho: 76px; }
+
+  .cabecalho { padding-right: var(--margem); }
+  .cabecalho-menu { display: none; }
+  .cabecalho-nav { display: flex; gap: 2rem; font-size: .92rem; }
+  .cabecalho-nav a { text-decoration: none; opacity: .85; transition: opacity .2s; }
+  .cabecalho-nav a:hover { opacity: 1; }
+  .cabecalho-reserva { display: inline-flex; min-height: 42px; }
+  .cabecalho-marca { font-size: 2.4rem; }
+
+  /* No desktop a foto vertical ocupa a metade direita de ponta a ponta; o texto fica no verde à esquerda. */
+  .hero { background: radial-gradient(ellipse 70% 80% at 25% 60%, #134a35, var(--verde-noite) 70%); min-height: max(640px, 100svh); }
+  .hero-midia { inset: 0 0 0 auto; width: 46vw; transform-origin: 50% 60%; }
+  .hero-midia .foto { object-position: 50% 70%; }
+  .hero-veu {
+    inset: 0 0 0 auto; width: 46vw;
+    background: linear-gradient(180deg, rgba(10, 43, 31, .55) 0%, rgba(10, 43, 31, 0) 22%);
+  }
+  .hero-conteudo {
+    flex: 1; width: 54vw; justify-content: center; gap: 1.5rem;
+    padding: var(--cabecalho) var(--margem) 2rem;
+  }
+  .hero-marca { font-size: clamp(7rem, 11vw, 11.5rem); }
+  .hero-slogan { font-size: 1.15rem; max-width: 36ch; }
+
+  .manifesto { display: grid; grid-template-columns: 1.15fr 1fr; column-gap: 6vw; align-items: end; padding: 8rem var(--margem) 6rem; }
+  .manifesto-texto { grid-column: 1; grid-row: 1; }
+  .manifesto-corpo { grid-column: 2; grid-row: 1; }
+  .molho { grid-column: 1 / -1; grid-row: 2; width: 80%; margin: 3.5rem auto 0; }
+
+  .executivo { display: grid; grid-template-columns: 1fr minmax(0, 40rem) 1fr; align-items: center; padding: 7rem var(--margem); }
+  /* Uma foto de cada lado do cartão, como pratos ao redor do menu na mesa. */
+  .executivo-fotos { display: contents; }
+  .executivo-foto { grid-row: 1; width: min(19vw, 280px); }
+  .executivo-foto:first-child { grid-column: 1; justify-self: end; align-self: start; margin: 4rem -2.5rem 0 0; }
+  .executivo-foto + .executivo-foto { grid-column: 3; justify-self: start; align-self: end; margin: 0 0 5rem -2.5rem; z-index: 2; }
+  .executivo-cartao { grid-column: 2; grid-row: 1; z-index: 1; padding: 3.5rem 3.5rem 3rem; }
+
+  .cardapio { padding-top: 7rem; }
+  .mesa { justify-content: center; gap: 2.4vw; padding-bottom: 3.5rem; }
+  .mesa-prato { flex: 0 1 14vw; max-width: 210px; }
+  .mesa-prato:nth-child(even) { margin-top: 2.2rem; }
+
+  .pratos { display: grid; grid-template-columns: 1fr 1fr; column-gap: 4rem; }
+  .abas { justify-content: center; }
+  .especial { margin-inline: auto; }
+
+  .reels { justify-content: center; }
+  .reel { flex-basis: 220px; }
+  .cozinha-cabeca { margin: 0 auto; text-align: center; }
+
+  .eventos { grid-template-columns: 1fr 1fr; gap: 6vw; padding: 7rem var(--margem); }
+  .eventos-foto { max-width: 30rem; }
+
+  /* Informação e mapa lado a lado, cada um no seu espaço. */
+  .visite {
+    display: grid; grid-template-columns: minmax(0, 28rem) minmax(0, 1fr); gap: 5vw; align-items: stretch;
+    padding: 7rem var(--margem);
+  }
+  .visite-info { padding: 0; }
+  .visite-mapa { height: auto; min-height: 520px; border-radius: 6px; }
+
+  .barra-acoes { display: none; }
+  .rodape { padding-bottom: 3.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .is-aberto .pulso { animation: none; }
+  .foto { transition: none; }
+  .lupa[open] { animation: none; }
+}
