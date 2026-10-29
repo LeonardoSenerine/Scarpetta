@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { info, wa } from '../data/info'
 import { Foto } from './Foto'
+import { Titulo } from './Movimento'
 
 export function Eventos() {
   const reduzir = useReducedMotion()
@@ -16,7 +17,7 @@ export function Eventos() {
         <Foto nome="medaglioni" alt="Medalhões de filé com risoto à milanese e uma taça de vinho tinto" sizes="(min-width: 900px) 40vw, 90vw" />
       </motion.div>
       <div className="eventos-texto">
-        <h2 id="eventos-titulo">Eventos e confraternizações</h2>
+        <Titulo id="eventos-titulo">Eventos e confraternizações</Titulo>
         <p>
           Aniversários, almoços de empresa e jantares fechados no nosso salão. Montamos o menu com você, com
           antepastos para a mesa, massas servidas na travessa e a sobremesa que fecha a noite.

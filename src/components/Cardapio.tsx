@@ -1,24 +1,14 @@
-import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react'
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { cardapio, especialDoChef, type Prato } from '../data/cardapio'
 import { info } from '../data/info'
 import { precoBR } from '../lib/horario'
 import { Foto } from './Foto'
+import { Titulo } from './Movimento'
 import { Traco } from './Traco'
+import { Destaques } from './Destaques'
 
 const LIMITE = 8
-
-// Pratos da casa, vistos como na mesa: fotos quadradas recortadas em círculo.
-// O nome tem de bater com o cardápio, de onde vem o preço.
-const destaques = [
-  { prato: 'Fettuccine Alfredo di Roma', foto: 'fettuccine' },
-  { prato: 'Risotto ai gamberi', foto: 'risotto-gamberi' },
-  { prato: 'Parma', foto: 'pizza-parma', rotulo: 'Pizza Parma' },
-  { prato: 'Medaglioni di filetto e risotto alla milanese', foto: 'medaglioni-quadrado', rotulo: 'Medaglioni di filetto' },
-  { prato: 'Robalo in crosta di erbe', foto: 'robalo-quadrado' },
-]
-
-const todosOsPratos = cardapio.flatMap((c) => c.pratos)
 
 export function Cardapio() {
   const [ativa, setAtiva] = useState(cardapio[0].id)
@@ -69,25 +59,12 @@ export function Cardapio() {
   return (
     <section className="cardapio" id="cardapio" aria-labelledby="cardapio-titulo">
       <div className="cardapio-cabeca">
-        <h2 id="cardapio-titulo">O cardápio</h2>
+        <Titulo id="cardapio-titulo">O cardápio</Titulo>
         <Traco />
         <p>Receitas italianas de sempre e algumas criações da casa. Os pratos com foto abrem em tamanho maior.</p>
       </div>
 
-      <ul className="mesa" aria-label="Pratos da casa">
-        {destaques.map((d) => {
-          const prato = todosOsPratos.find((p) => p.nome === d.prato)
-          return (
-            <li key={d.foto} className="mesa-prato">
-              <div className="mesa-foto">
-                <Foto nome={d.foto} alt={d.rotulo ?? d.prato} sizes="(min-width: 960px) 15vw, 42vw" />
-              </div>
-              <p lang="it">{d.rotulo ?? d.prato}</p>
-              {prato && <p className="mesa-preco">{precoBR(prato.preco)}</p>}
-            </li>
-          )
-        })}
-      </ul>
+      <Destaques />
 
       <div className={`abas-moldura ${bordas.inicio ? 'tem-antes' : ''} ${bordas.fim ? 'tem-depois' : ''}`}>
         <div className="abas" role="tablist" aria-label="Categorias do cardápio" onKeyDown={navegar} ref={trilho} onScroll={medirBordas}>
@@ -122,8 +99,8 @@ export function Cardapio() {
           >
             {categoria.intro && <p className="cardapio-intro">{categoria.intro}</p>}
             <ul className="pratos">
-              {visiveis.map((p) => (
-                <ItemPrato key={p.nome} prato={p} onVer={() => setAberto(p)} />
+              {visiveis.map((p, i) => (
+                <ItemPrato key={p.nome} prato={p} ordem={i} onVer={() => setAberto(p)} />
               ))}
             </ul>
             {ocultos > 0 && (
@@ -193,7 +170,9 @@ function Lupa({ prato, foto, onFechar }: { prato: Prato; foto: string; onFechar:
   )
 }
 
-function ItemPrato({ prato, onVer }: { prato: Prato; onVer: () => void }) {
+// `ordem` escalona a entrada dos pratos (animação em CSS) a cada troca de categoria.
+function ItemPrato({ prato, ordem, onVer }: { prato: Prato; ordem: number; onVer: () => void }) {
+  const estilo = { '--ordem': ordem } as CSSProperties
   const conteudo = (
     <>
       <span className="prato-linha">
@@ -205,10 +184,10 @@ function ItemPrato({ prato, onVer }: { prato: Prato; onVer: () => void }) {
     </>
   )
 
-  if (!prato.foto) return <li className="prato">{conteudo}</li>
+  if (!prato.foto) return <li className="prato" style={estilo}>{conteudo}</li>
 
   return (
-    <li className="prato tem-foto">
+    <li className="prato tem-foto" style={estilo}>
       <button className="prato-botao" onClick={onVer} aria-label={`Ver foto: ${prato.nome}`}>
         <span className="prato-miniatura">
           <Foto nome={prato.foto} alt="" sizes="120px" />

@@ -5,7 +5,7 @@ const diasNome = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', '
 export const hora = (min: number) => `${Math.floor(min / 60)}h${min % 60 ? String(min % 60).padStart(2, '0') : ''}`
 
 // Hora local de Itatiba, independente do fuso de quem visita.
-function agoraEmItatiba(data: Date) {
+export function agoraEmItatiba(data: Date) {
   const partes = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/Sao_Paulo',
     weekday: 'short',

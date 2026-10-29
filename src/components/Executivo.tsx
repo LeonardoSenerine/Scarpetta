@@ -4,6 +4,7 @@ import { executivo } from '../data/executivo'
 import { info, wa } from '../data/info'
 import { hojeEmItatiba, precoBR } from '../lib/horario'
 import { Foto } from './Foto'
+import { Titulo } from './Movimento'
 
 const dataCurta = (iso: string) =>
   new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(iso))
@@ -48,7 +49,7 @@ export function Executivo() {
       <div className="executivo-cartao">
         <header className="executivo-topo">
           <p className={`executivo-selo ${valeHoje ? 'is-hoje' : ''}`}>{selo}</p>
-          <h2 id="executivo-titulo" className="executivo-titulo">Menu executivo</h2>
+          <Titulo id="executivo-titulo" className="executivo-titulo">Menu executivo</Titulo>
           <p className="executivo-quando">
             <span>{encerrado ? 'Toda quinta e sexta' : `Quinta e sexta, ${periodo(executivo.inicio, executivo.fim)}`}</span>
             <span className="executivo-preco">{precoBR(executivo.preco)}</span>

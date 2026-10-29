@@ -2,6 +2,8 @@ import { MotionConfig } from 'motion/react'
 import { Cabecalho } from './components/Cabecalho'
 import { Hero } from './components/Hero'
 import { Manifesto } from './components/Manifesto'
+import { Faixa } from './components/Faixa'
+import { Reserva } from './components/Reserva'
 import { Executivo } from './components/Executivo'
 import { Cardapio } from './components/Cardapio'
 import { Cozinha } from './components/Cozinha'
@@ -17,7 +19,9 @@ export default function App() {
       <Cabecalho />
       <main id="conteudo" tabIndex={-1}>
         <Hero />
+        <Reserva />
         <Manifesto />
+        <Faixa />
         <Executivo />
         <Cardapio />
         <Cozinha />

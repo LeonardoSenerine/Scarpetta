@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { funcionamento, info } from '../data/info'
 import { hora } from '../lib/horario'
 import { useStatus } from '../lib/useStatus'
+import { Titulo } from './Movimento'
 
 export function Visite() {
   const [mapaAtivo, setMapaAtivo] = useState(false)
@@ -10,7 +11,7 @@ export function Visite() {
   return (
     <section className="visite" id="visite" aria-labelledby="visite-titulo">
       <div className="visite-info">
-        <h2 id="visite-titulo">Como chegar</h2>
+        <Titulo id="visite-titulo">Como chegar</Titulo>
         <p className="visite-referencia">{info.endereco.referencia}, num espaço cercado de natureza.</p>
         <address>
           {info.endereco.rua}<br />
@@ -80,7 +81,7 @@ export function EmCasa() {
 
   return (
     <section className="em-casa" id="delivery" aria-labelledby="em-casa-titulo">
-      <h2 id="em-casa-titulo">Scarpetta em casa</h2>
+      <Titulo id="em-casa-titulo">Scarpetta em casa</Titulo>
       <p>As mesmas massas e pizzas, para pedir por delivery.</p>
       <div className="em-casa-acoes">
         {canais.length > 0 ? (

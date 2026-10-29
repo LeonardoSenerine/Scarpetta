@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { useReducedMotion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { info } from '../data/info'
+import { Titulo, curva } from './Movimento'
 
 const reels = [
   { id: '1793290484309', legenda: 'Travessa de gnocchi com cinco molhos' },
@@ -16,20 +17,20 @@ export function Cozinha() {
   return (
     <section className="cozinha" id="cozinha" aria-labelledby="cozinha-titulo">
       <div className="cozinha-cabeca">
-        <h2 id="cozinha-titulo">Da nossa cozinha</h2>
+        <Titulo id="cozinha-titulo">Da nossa cozinha</Titulo>
         <p>
           Bastidores, pratos novos e as noites especiais. Os vídeos tocam sem som; pause ou ligue o som em cada um, e
           acompanhe tudo no <a href={info.instagram} target="_blank" rel="noreferrer">{info.instagramUsuario}</a>.
         </p>
       </div>
       <ul className="reels">
-        {reels.map((r) => <Reel key={r.id} {...r} />)}
+        {reels.map((r, i) => <Reel key={r.id} indice={i} {...r} />)}
       </ul>
     </section>
   )
 }
 
-function Reel({ id, legenda }: { id: string; legenda: string }) {
+function Reel({ id, legenda, indice }: { id: string; legenda: string; indice: number }) {
   const video = useRef<HTMLVideoElement>(null)
   const pausadoPeloUsuario = useRef(false)
   const [comSom, setComSom] = useState(false)
@@ -77,7 +78,13 @@ function Reel({ id, legenda }: { id: string; legenda: string }) {
   }
 
   return (
-    <li className="reel">
+    <motion.li
+      className="reel"
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.9, delay: indice * 0.09, ease: curva }}
+    >
       <div className="reel-midia">
         <video
           ref={video}
@@ -104,6 +111,6 @@ function Reel({ id, legenda }: { id: string; legenda: string }) {
         </div>
       </div>
       <p className="reel-legenda">{legenda}</p>
-    </li>
+    </motion.li>
   )
 }

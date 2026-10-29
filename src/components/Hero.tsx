@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { Marca } from './Marca'
 import { Foto } from './Foto'
-import { info } from '../data/info'
 import { useStatus } from '../lib/useStatus'
 
 // A pizza saindo do forno a lenha: o alto da foto é escuro e segura o texto no celular;
@@ -23,19 +22,27 @@ export function Hero() {
   return (
     <section className="hero" id="topo" ref={ref}>
       <motion.div className="hero-midia" style={{ scale: escala }}>
-        <Foto
-          nome={FOTO_HERO}
-          alt="Pizza de fermentação natural saindo do forno a lenha"
-          sizes={TAMANHOS_HERO}
-          prioridade
-        />
+        {/* A foto entra levemente aproximada e assenta, como o olhar chegando perto do forno. */}
+        <motion.div
+          className="hero-assentar"
+          initial={reduzir ? false : { scale: 1.12 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 2.6, ease: [0.2, 0.7, 0.2, 1] }}
+        >
+          <Foto
+            nome={FOTO_HERO}
+            alt="Pizza de fermentação natural saindo do forno a lenha"
+            sizes={TAMANHOS_HERO}
+            prioridade
+          />
+        </motion.div>
       </motion.div>
       <div className="hero-veu" aria-hidden="true" />
 
       <div className="hero-conteudo">
         <h1 className="sr-only">Scarpetta Cucina, cozinha italiana afetiva em Itatiba</h1>
         <div className="hero-marca" aria-hidden="true">
-          <Marca />
+          <Marca animar />
         </div>
 
         <p className="hero-slogan">
@@ -43,7 +50,7 @@ export function Hero() {
         </p>
 
         <div className="hero-acoes">
-          <a className="botao botao-creme" href={info.reserva} target="_blank" rel="noreferrer">Reservar mesa</a>
+          <a className="botao botao-creme" href="#reserva">Reservar mesa</a>
           <a className="botao botao-linha" href="#cardapio">Ver cardápio</a>
         </div>
 

@@ -7,7 +7,7 @@ import { Marca } from './Marca'
 export function Rodape() {
   return (
     <footer className="rodape">
-      <Marca className="rodape-marca" />
+      <Marca className="rodape-marca" animar />
       <p className="rodape-slogan">{info.slogan} em Itatiba.</p>
       <p className="rodape-endereco">
         {info.endereco.rua} · {info.endereco.cidade}<br />
@@ -49,7 +49,7 @@ export function BarraAcoes() {
           exit={{ y: '120%' }}
           transition={{ type: 'spring', stiffness: 380, damping: 34 }}
         >
-          <a className="barra-principal" href={info.reserva} target="_blank" rel="noreferrer">Reservar mesa</a>
+          <a className="barra-principal" href="#reserva">Reservar mesa</a>
           <a href="#cardapio">Cardápio</a>
           <a href={info.rotas} target="_blank" rel="noreferrer">Rota</a>
         </motion.nav>

@@ -23,6 +23,12 @@ for (const [n, name] of Object.entries(map)) {
   console.log(`${name}: data:image/webp;base64,${tiny.toString('base64')}`)
 }
 
+// A foto 26 é uma montagem (arancini em cima, bruschetta embaixo); o manifesto usa só a metade de baixo.
+for (const w of widths) {
+  await sharp('raw/img/26.jpg').extract({ left: 0, top: 675, width: 1080, height: 675 })
+    .resize({ width: w, withoutEnlargement: true }).webp({ quality: 74 }).toFile(`public/img/bruschetta-${w}.webp`)
+}
+
 // Imagem de compartilhamento (WhatsApp, Instagram): a pizza saindo do forno, em 1200x630.
 await sharp('raw/img/23.jpg').resize({ width: 1200 }).extract({ left: 0, top: 520, width: 1200, height: 630 })
   .jpeg({ quality: 80 }).toFile('public/og.jpg')

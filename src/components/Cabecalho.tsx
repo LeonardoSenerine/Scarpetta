@@ -40,7 +40,7 @@ export function Cabecalho() {
             <a key={l.href} href={l.href}>{l.rotulo}</a>
           ))}
         </nav>
-        <a className="botao botao-creme cabecalho-reserva" href={info.reserva} target="_blank" rel="noreferrer">
+        <a className="botao botao-creme cabecalho-reserva" href="#reserva">
           Reservar mesa
         </a>
         <button
@@ -84,7 +84,7 @@ export function Cabecalho() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <a className="botao botao-creme" href={info.reserva} target="_blank" rel="noreferrer">Reservar mesa</a>
+              <a className="botao botao-creme" href="#reserva" onClick={() => setAberto(false)}>Reservar mesa</a>
               <p>{info.endereco.rua}<br />{info.endereco.cidade}</p>
             </motion.div>
           </motion.div>
