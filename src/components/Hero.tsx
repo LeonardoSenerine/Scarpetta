@@ -1,63 +1,48 @@
-import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { Marca } from './Marca'
 import { Foto } from './Foto'
 import { useStatus } from '../lib/useStatus'
 
-// A pizza saindo do forno a lenha: o alto da foto é escuro e segura o texto no celular;
-// no desktop a foto ocupa a metade direita, de ponta a ponta. O index.html pré-carrega a mesma foto:
-// se trocar o nome ou os tamanhos aqui, troque lá também.
-const FOTO_HERO = 'forno'
-const TAMANHOS_HERO = '(min-width: 960px) 46vw, 165vw'
-
+// O texto à esquerda e, à direita, um prato da casa visto de cima: a pizza de peperoni.
+// Ela entra girando uma vez e depois só gira conforme a página rola.
 export function Hero() {
-  const ref = useRef<HTMLElement>(null)
   const status = useStatus()
   const reduzir = useReducedMotion()
-
-  // O conteúdo está visível desde o primeiro quadro; o único movimento é um leve zoom da foto ao rolar.
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const escala = useTransform(scrollYProgress, [0, 1], [1, reduzir ? 1 : 1.08])
+  const { scrollY } = useScroll()
+  const giro = useTransform(scrollY, (v) => (reduzir ? 0 : v * 0.06))
 
   return (
-    <section className="hero" id="topo" ref={ref}>
-      <motion.div className="hero-midia" style={{ scale: escala }}>
-        {/* A foto entra levemente aproximada e assenta, como o olhar chegando perto do forno. */}
-        <motion.div
-          className="hero-assentar"
-          initial={reduzir ? false : { scale: 1.12 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2.6, ease: [0.2, 0.7, 0.2, 1] }}
-        >
-          <Foto
-            nome={FOTO_HERO}
-            alt="Pizza de fermentação natural saindo do forno a lenha"
-            sizes={TAMANHOS_HERO}
-            prioridade
-          />
-        </motion.div>
-      </motion.div>
-      <div className="hero-veu" aria-hidden="true" />
-
+    <section className="hero" id="topo">
       <div className="hero-conteudo">
         <h1 className="sr-only">Scarpetta Cucina, cozinha italiana afetiva em Itatiba</h1>
         <div className="hero-marca" aria-hidden="true">
           <Marca animar />
         </div>
-
         <p className="hero-slogan">
-          Cozinha italiana afetiva, com massa feita à mão e pizza de fermentação natural, num salão cercado de verde em Itatiba.
+          Massa feita à mão, pizza de fermentação natural e um salão no meio do verde, dentro do Doda Training Center.
         </p>
-
         <div className="hero-acoes">
           <a className="botao botao-creme" href="#reserva">Reservar mesa</a>
           <a className="botao botao-linha" href="#cardapio">Ver cardápio</a>
         </div>
-
         <p className={`hero-status ${status.aberto ? 'is-aberto' : ''}`}>
           <span className="pulso" aria-hidden="true" />
           {status.texto}
         </p>
+      </div>
+
+      <div className="hero-prato">
+        <motion.div
+          className="hero-prato-entrada"
+          initial={reduzir ? false : { rotate: -110, scale: 0.82, opacity: 0 }}
+          animate={{ rotate: 0, scale: 1, opacity: 1 }}
+          transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <motion.div className="hero-prato-giro" style={{ rotate: giro }}>
+            {/* O index.html pré-carrega esta mesma foto; se trocar aqui, troque lá. */}
+            <Foto nome="pizza-hero" alt="Pizza de peperoni artesanal da casa, vista de cima" sizes="(min-width: 960px) 46vw, 96vw" prioridade />
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   )

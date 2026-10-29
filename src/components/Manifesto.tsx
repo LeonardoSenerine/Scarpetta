@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
-import { Foto } from './Foto'
+import { Clipe } from './Clipe'
 import { Leitura, curva } from './Movimento'
 import { Selo } from './Selo'
 
@@ -11,7 +11,7 @@ const fatos = [
 ]
 
 // O nome da casa explicado: fare la scarpetta. A definição ganha tinta conforme é lida,
-// e ao lado o pão (bruschetta) e a massa se sobrepõem em velocidades diferentes.
+// e ao lado o prato com molho e a pizza se sobrepõem em velocidades diferentes.
 export function Manifesto() {
   const colagem = useRef<HTMLDivElement>(null)
   const reduzir = useReducedMotion()
@@ -53,10 +53,10 @@ export function Manifesto() {
 
       <div className="manifesto-colagem" ref={colagem}>
         <motion.div className="colagem-pao" style={{ y: yPao }}>
-          <Foto nome="bruschetta" alt="Bruschettas de tomate servidas na tábua" sizes="(min-width: 960px) 60vw, 130vw" />
+          <Clipe nome="prato" rotulo="Capeletti di burrata servido no molho de tomate da casa" />
         </motion.div>
         <motion.div className="colagem-massa" style={{ y: yMassa }}>
-          <Foto nome="fettuccine-garfo" alt="Garfo enrolando fettuccine fresco ao molho de manteiga e parmesão" sizes="(min-width: 960px) 20vw, 52vw" />
+          <Clipe nome="peperoni" rotulo="Pizza de peperoni artesanal sendo cortada" />
         </motion.div>
         <Selo className="colagem-selo" />
       </div>

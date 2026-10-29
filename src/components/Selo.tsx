@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { Tomate } from './Marca'
 
@@ -5,6 +6,7 @@ import { Tomate } from './Marca'
 const TEXTO = 'Fare la scarpetta · Cucina italiana · Itatiba · '
 
 export function Selo({ className = '' }: { className?: string }) {
+  const id = useId()
   const reduzir = useReducedMotion()
   const { scrollY } = useScroll()
   const giro = useTransform(scrollY, (v) => (reduzir ? 0 : v * 0.1))
@@ -13,10 +15,10 @@ export function Selo({ className = '' }: { className?: string }) {
     <div className={`selo ${className}`} aria-hidden="true">
       <motion.svg viewBox="0 0 200 200" style={{ rotate: giro }}>
         <defs>
-          <path id="selo-circulo" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0" />
+          <path id={id} d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0" />
         </defs>
         <text className="selo-texto">
-          <textPath href="#selo-circulo" textLength="474" lengthAdjust="spacing">{TEXTO}</textPath>
+          <textPath href={`#${id}`} textLength="474" lengthAdjust="spacing">{TEXTO}</textPath>
         </text>
       </motion.svg>
       <Tomate className="selo-tomate" />

@@ -23,10 +23,16 @@ for (const [n, name] of Object.entries(map)) {
   console.log(`${name}: data:image/webp;base64,${tiny.toString('base64')}`)
 }
 
-// A foto 26 é uma montagem (arancini em cima, bruschetta embaixo); o manifesto usa só a metade de baixo.
-for (const w of widths) {
-  await sharp('raw/img/26.jpg').extract({ left: 0, top: 675, width: 1080, height: 675 })
-    .resize({ width: w, withoutEnlargement: true }).webp({ quality: 74 }).toFile(`public/img/bruschetta-${w}.webp`)
+// Prato do hero: a pizza de peperoni (foto 19, vista de cima) recortada em círculo, com fundo transparente.
+{
+  const W = 1500, cx = 0.503 * W, cy = 0.518 * W, r = 0.402 * W
+  const mascara = Buffer.from(`<svg width="${W}" height="${W}"><defs><filter id="f"><feGaussianBlur stdDeviation="2.5"/></filter></defs><circle cx="${cx}" cy="${cy}" r="${r}" fill="#fff" filter="url(#f)"/></svg>`)
+  const lado = Math.round(r * 2 + 8)
+  const recorte = await sharp('raw/img/19.jpg').composite([{ input: mascara, blend: 'dest-in' }]).png().toBuffer()
+  const prato = await sharp(recorte).extract({ left: Math.round(cx - lado / 2), top: Math.round(cy - lado / 2), width: lado, height: lado }).png().toBuffer()
+  for (const w of widths) {
+    await sharp(prato).resize({ width: w }).webp({ quality: 80, alphaQuality: 90 }).toFile(`public/img/pizza-hero-${w}.webp`)
+  }
 }
 
 // Imagem de compartilhamento (WhatsApp, Instagram): a pizza saindo do forno, em 1200x630.

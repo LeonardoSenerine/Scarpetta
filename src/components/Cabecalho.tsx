@@ -6,7 +6,7 @@ import { info } from '../data/info'
 const links = [
   { href: '#executivo', rotulo: 'Menu executivo' },
   { href: '#cardapio', rotulo: 'Cardápio' },
-  { href: '#cozinha', rotulo: 'Da nossa cozinha' },
+  { href: '#salao', rotulo: 'O salão' },
   { href: '#eventos', rotulo: 'Eventos' },
   { href: '#visite', rotulo: 'Como chegar' },
 ]

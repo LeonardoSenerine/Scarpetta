@@ -158,30 +158,30 @@ html.sem-rolagem { overflow: hidden; }
 
 /* ---------- Hero ---------- */
 
-/* No celular a foto ocupa a tela toda: o texto fica no alto, sobre o forno escuro, e a pizza aparece embaixo. */
+/* O texto e um prato da casa visto de cima: embaixo do texto no celular, à direita no desktop. */
 .hero {
-  position: relative; min-height: 100vh; min-height: 100svh;
-  overflow: hidden; background: var(--verde-noite); isolation: isolate;
-  display: flex; flex-direction: column;
-}
-.hero-midia { position: absolute; inset: 0; z-index: -2; transform-origin: 50% 80%; }
-.hero-assentar { width: 100%; height: 100%; }
-.hero-midia .foto { object-position: 50% 100%; }
-.hero-veu {
-  position: absolute; inset: 0; z-index: -1;
-  background:
-    linear-gradient(180deg, rgba(10, 43, 31, .88) 0%, rgba(10, 43, 31, .7) 34%, rgba(10, 43, 31, .25) 56%, rgba(10, 43, 31, 0) 68%, rgba(10, 43, 31, 0) 88%, rgba(10, 43, 31, .55) 100%);
+  position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; isolation: isolate;
+  display: flex; flex-direction: column; padding-bottom: 2.4rem;
+  background: radial-gradient(ellipse 90% 55% at 50% 78%, #17543c, var(--verde-noite) 72%);
 }
 .hero-conteudo {
-  position: relative; display: flex; flex-direction: column; align-items: center;
-  text-align: center; gap: 1rem;
-  padding: calc(var(--cabecalho) + 1.2rem + env(safe-area-inset-top)) var(--margem) 2rem;
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: .9rem;
+  padding: calc(var(--cabecalho) + .4rem + env(safe-area-inset-top)) var(--margem) 0;
 }
-.hero-marca { font-size: clamp(5rem, 25vw, 11rem); color: var(--creme); padding: .1em .2em 0; margin-bottom: -.2rem; }
+.hero-marca { font-size: clamp(4.4rem, 21vw, 11rem); color: var(--creme); padding: .1em .2em 0; margin-bottom: -.3rem; }
 .hero-marca .marca-cucina { font-size: max(.11em, .7rem); }
-.hero-slogan { max-width: 30ch; font-size: 1.02rem; line-height: 1.55; color: var(--creme); text-wrap: balance; }
-.hero-acoes { display: flex; gap: .7rem; flex-wrap: wrap; justify-content: center; margin-top: .3rem; }
-.hero-status { display: inline-flex; align-items: center; gap: .55rem; font-size: .86rem; color: var(--creme); }
+.hero-slogan { max-width: 32ch; font-size: .98rem; line-height: 1.55; color: var(--creme); text-wrap: balance; }
+.hero-acoes { display: flex; gap: .7rem; flex-wrap: wrap; justify-content: center; }
+.hero-status { display: inline-flex; align-items: center; gap: .55rem; font-size: .86rem; color: var(--creme-suave); }
+
+.hero-prato { position: relative; display: grid; place-items: center; margin-top: 1.8rem; }
+.hero-prato-entrada { width: min(90vw, 420px); aspect-ratio: 1; filter: drop-shadow(0 34px 40px rgba(0, 0, 0, .5)); }
+.hero-prato-giro { width: 100%; height: 100%; }
+.hero-prato .foto { width: 100%; height: 100%; object-fit: contain; }
+.etapa-estacao {
+  position: absolute; top: .8rem; left: .8rem; padding: .25rem .7rem; border-radius: 999px;
+  font-size: .74rem; font-weight: 500; letter-spacing: .03em; background: rgba(246, 240, 223, .92); color: var(--verde);
+}
 
 /* ---------- Manifesto ---------- */
 
@@ -212,6 +212,7 @@ html.sem-rolagem { overflow: hidden; }
   position: absolute; left: 0; bottom: 0; width: 54%; aspect-ratio: 1; overflow: hidden; border-radius: 50%;
   background: #d9cfb2; box-shadow: 0 0 0 8px var(--papel), 0 30px 50px -20px rgba(6, 26, 19, .5);
 }
+.colagem-pao .clipe, .colagem-massa .clipe { display: block; width: 100%; height: 100%; object-fit: cover; }
 .colagem-selo { position: absolute; left: 2%; top: 4%; width: 36%; max-width: 170px; }
 
 /* ---------- Selo giratório ---------- */
@@ -307,22 +308,6 @@ html.sem-rolagem { overflow: hidden; }
 /* A máscara de cada palavra ganha folga embaixo para não cortar descendentes (p, g, ç). */
 .palavra { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .14em; margin-bottom: -.14em; }
 .palavra-dentro { display: inline-block; }
-
-/* ---------- Faixa com o vocabulário da casa ---------- */
-
-.faixa {
-  background: var(--verde); color: var(--creme); overflow: hidden;
-  border-block: 1px solid var(--verde-linha); padding: 1.1rem 0;
-}
-.faixa-trilho { display: flex; width: max-content; animation: faixa-corre 55s linear infinite; }
-.faixa:hover .faixa-trilho { animation-play-state: paused; }
-.faixa-grupo { display: flex; }
-.faixa-item {
-  display: inline-flex; align-items: center; gap: 2rem; padding-right: 2rem;
-  font-family: var(--serif); font-style: italic; font-size: clamp(1.5rem, 4.4vw, 2.4rem); line-height: 1.2; white-space: nowrap;
-}
-.faixa .tomate { position: static; width: .7em; height: .7em; transform: none; flex: none; }
-@keyframes faixa-corre { to { transform: translateX(-50%); } }
 
 /* ---------- Traço de molho (assinatura) ---------- */
 
@@ -428,30 +413,51 @@ html.sem-rolagem { overflow: hidden; }
   min-height: 44px; padding: 0 1.1rem; border-radius: 999px; border: 1px solid var(--creme-suave); font-size: .9rem;
 }
 
-/* ---------- Da nossa cozinha ---------- */
+/* ---------- Da bancada à mesa (carrossel) ---------- */
 
-.cozinha { background: var(--verde-noite); padding: 4.5rem 0 4rem; }
-.cozinha-cabeca { padding: 0 var(--margem); max-width: 40rem; }
-.cozinha-cabeca h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.2rem, 8vw, 3.2rem); line-height: 1.1; }
-.cozinha-cabeca p { color: var(--creme-suave); margin-top: .6rem; font-size: .98rem; }
-.cozinha-cabeca a { color: var(--creme); text-underline-offset: 3px; }
-.reels {
-  display: flex; gap: .9rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-  padding: 1.8rem var(--margem) .5rem;
+/* A seção fica presa na tela e o trilho anda de lado com a rolagem; sem movimento, vira rolagem lateral comum. */
+.experiencias { position: relative; background: var(--verde-noite); color: var(--creme); }
+.experiencias-palco { overflow-x: auto; padding: 4.5rem 0; scrollbar-width: none; }
+.experiencias-palco::-webkit-scrollbar { display: none; }
+.is-presa .experiencias-palco {
+  position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center; padding: calc(var(--cabecalho) + 1rem) 0 1.6rem;
 }
-.reels::-webkit-scrollbar { display: none; }
-.reel { flex: 0 0 min(64vw, 260px); scroll-snap-align: center; }
-.reel-midia { position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden; background: #133b2b; }
-.reel-midia video { width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
-.reel-controles { position: absolute; right: .55rem; bottom: .55rem; display: flex; gap: .4rem; }
-.reel-botao {
-  width: 44px; height: 44px; border-radius: 50%;
-  display: grid; place-items: center; background: rgba(6, 26, 19, .6); color: #fff;
-  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); transition: background .3s;
+.experiencias-trilho { display: flex; align-items: center; gap: 1.2rem; width: max-content; padding: 0 var(--margem); }
+.experiencias-intro { flex: none; width: min(80vw, 30rem); }
+.experiencias-intro h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.8rem, 12vw, 5.6rem); line-height: 1; }
+.experiencias-intro p { color: var(--creme-suave); margin-top: 1rem; max-width: 34ch; }
+.link-claro { display: inline-block; margin-top: .8rem; padding: .6rem 0; color: var(--creme); text-underline-offset: 3px; }
+.etapa { flex: none; width: min(62vw, 290px); }
+.etapa-midia { position: relative; aspect-ratio: 4 / 5; border-radius: 22px; overflow: hidden; background: #133b2b; }
+.etapa-midia .clipe { display: block; width: 100%; height: 100%; object-fit: cover; }
+.etapa h3 { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(2.1rem, 9vw, 3.4rem); line-height: 1; margin-top: 1rem; }
+.etapa > p { color: var(--creme-suave); font-size: .94rem; line-height: 1.55; margin-top: .5rem; max-width: 32ch; }
+.etapa-final {
+  align-self: stretch; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: .4rem;
+  padding: 2rem 1.6rem; border: 1px solid var(--verde-linha); border-radius: 22px;
 }
-.reel-botao svg { width: 18px; height: 18px; }
-.reel-botao.is-ligado { background: var(--pomodoro); }
-.reel-legenda { font-family: var(--serif); font-style: italic; font-size: 1.1rem; line-height: 1.3; margin-top: .7rem; color: var(--creme); }
+.etapa-final h3 { margin-top: .6rem; }
+.etapa-final .botao { margin-top: 1rem; }
+.etapa-selo { width: 118px; }
+.experiencias-progresso { margin: 1.6rem var(--margem) 0; height: 3px; border-radius: 3px; background: rgba(239, 229, 200, .15); overflow: hidden; }
+.experiencias-progresso span { display: block; height: 100%; background: var(--pomodoro); transform-origin: left; }
+
+/* ---------- O salão ---------- */
+
+.salao { background: var(--creme); color: var(--verde); padding: 4.5rem var(--margem); display: grid; gap: 2.6rem; }
+.salao-mosaico { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+.salao-tile { position: relative; overflow: hidden; border-radius: 24px; background: #d9cfb2; aspect-ratio: 1; }
+.salao-tile-0 { grid-column: 1 / -1; aspect-ratio: 4 / 5; }
+.salao-tile .clipe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.salao-chamada { font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ouro-escuro); }
+.salao-painel h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.4rem, 9vw, 4rem); line-height: 1.05; margin-top: .5rem; }
+.salao-intro { margin-top: 1rem; font-size: 1.04rem; line-height: 1.7; max-width: 38ch; }
+.salao-lista { margin: 1.6rem 0 2rem; display: grid; gap: 1rem; max-width: 34rem; }
+.salao-lista li { display: grid; grid-template-columns: 1.1rem 1fr; gap: .8rem; align-items: start; padding-top: 1rem; border-top: 1px solid rgba(15, 61, 44, .18); }
+.salao-lista .tomate { position: static; width: 1.1rem; height: 1.1rem; transform: none; margin-top: .25rem; }
+.salao-lista h3 { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; line-height: 1.2; }
+.salao-lista p { font-size: .95rem; color: rgba(15, 61, 44, .8); margin-top: .15rem; }
 
 /* ---------- Eventos ---------- */
 
@@ -460,7 +466,7 @@ html.sem-rolagem { overflow: hidden; }
   padding: 5rem var(--margem); display: grid; gap: 2.6rem; align-items: center;
 }
 .eventos-foto {
-  width: 100%; max-width: 26rem; margin: 0 auto; aspect-ratio: 4 / 5; overflow: hidden;
+  width: min(100%, 22rem); max-width: 26rem; margin: 0 auto; aspect-ratio: 4 / 5; overflow: hidden;
   border-radius: 200px 200px 6px 6px; background: #d9cfb2;
 }
 .eventos-texto { max-width: 34rem; }
@@ -487,7 +493,7 @@ html.sem-rolagem { overflow: hidden; }
 .visite-nota { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1.5rem; font-size: .9rem; color: var(--creme-suave); text-underline-offset: 3px; }
 .estrelas { color: var(--ouro); letter-spacing: .12em; }
 
-.visite-mapa { height: 360px; background: var(--verde-noite); overflow: hidden; }
+.visite-mapa { height: 300px; background: var(--verde-noite); overflow: hidden; }
 .visite-mapa iframe { width: 100%; height: 100%; border: 0; filter: saturate(.75) contrast(1.05); }
 .visite-mapa-capa {
   width: 100%; height: 100%; display: grid; place-items: center; align-content: center; gap: 1rem;
@@ -550,20 +556,17 @@ html.sem-rolagem { overflow: hidden; }
   .cabecalho-reserva { display: inline-flex; min-height: 42px; }
   .cabecalho-marca { font-size: 2.4rem; }
 
-  /* No desktop a foto vertical ocupa a metade direita de ponta a ponta; o texto fica no verde à esquerda. */
-  .hero { background: radial-gradient(ellipse 70% 80% at 25% 60%, #134a35, var(--verde-noite) 70%); min-height: max(640px, 100svh); }
-  .hero-midia { inset: 0 0 0 auto; width: 46vw; transform-origin: 50% 60%; }
-  .hero-midia .foto { object-position: 50% 70%; }
-  .hero-veu {
-    inset: 0 0 0 auto; width: 46vw;
-    background: linear-gradient(180deg, rgba(10, 43, 31, .55) 0%, rgba(10, 43, 31, 0) 22%);
+  /* No desktop: texto à esquerda, a pizza grande à direita, passando um pouco da borda. */
+  .hero {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center;
+    min-height: max(680px, 100svh); padding: var(--cabecalho) var(--margem) 2rem;
+    background: radial-gradient(ellipse 60% 80% at 72% 55%, #17543c, var(--verde-noite) 70%);
   }
-  .hero-conteudo {
-    flex: 1; width: 54vw; justify-content: center; gap: 1.5rem;
-    padding: var(--cabecalho) var(--margem) 2rem;
-  }
-  .hero-marca { font-size: clamp(7rem, 11vw, 11.5rem); }
-  .hero-slogan { font-size: 1.15rem; max-width: 36ch; }
+  .hero-conteudo { padding: 0; gap: 1.4rem; }
+  .hero-marca { font-size: clamp(6.5rem, 10vw, 11rem); }
+  .hero-slogan { font-size: 1.12rem; max-width: 34ch; }
+  .hero-prato { margin: 0; }
+  .hero-prato-entrada { width: min(44vw, 680px); margin-right: -7vw; }
 
   .manifesto { grid-template-columns: 1.1fr 1fr; column-gap: 6vw; align-items: center; padding: 8rem var(--margem) 7rem; }
   .manifesto-colagem { height: 600px; }
@@ -599,9 +602,14 @@ html.sem-rolagem { overflow: hidden; }
   .abas { justify-content: center; }
   .especial { margin-inline: auto; }
 
-  .reels { justify-content: center; }
-  .reel { flex-basis: 220px; }
-  .cozinha-cabeca { margin: 0 auto; text-align: center; }
+  .experiencias-intro { width: 32vw; padding-right: 2vw; }
+  .etapa { width: min(23vw, 340px); }
+  .etapa h3 { font-size: clamp(2.6rem, 3.6vw, 3.8rem); }
+
+  .salao { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 6vw; align-items: center; padding: 7rem var(--margem); }
+  .salao-mosaico { grid-template-columns: 1.25fr 1fr; }
+  .salao-tile-0 { grid-column: 1; grid-row: 1 / span 2; }
+  .salao-tile-1, .salao-tile-2 { aspect-ratio: auto; }
 
   .eventos { grid-template-columns: 1fr 1fr; gap: 6vw; padding: 7rem var(--margem); }
   .eventos-foto { max-width: 30rem; }
@@ -623,5 +631,4 @@ html.sem-rolagem { overflow: hidden; }
   .is-aberto .pulso { animation: none; }
   .foto { transition: none; }
   .lupa[open], .prato { animation: none; }
-  .faixa-trilho { animation: none; }
 }
