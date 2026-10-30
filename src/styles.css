@@ -180,7 +180,7 @@ html.sem-rolagem { overflow: hidden; }
 
 /* ---------- Hero ---------- */
 
-/* O texto e um prato da casa visto de cima: embaixo do texto no celular, à direita no desktop. */
+/* Celular: a pizza saindo do forno em tela cheia, atrás do texto. Desktop: o texto e a pizza vista de cima, lado a lado. */
 .hero {
   position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; isolation: isolate;
   display: flex; flex-direction: column; padding-bottom: 2.4rem;
@@ -196,6 +196,19 @@ html.sem-rolagem { overflow: hidden; }
 .hero-acoes { display: flex; gap: .7rem; flex-wrap: wrap; justify-content: center; }
 .hero-status { display: inline-flex; align-items: center; gap: .55rem; font-size: .95rem; color: var(--creme-suave); }
 
+/* A foto passa um pouco das bordas para o parallax não revelar o fundo ao rolar. */
+.hero-fundo { position: absolute; inset: 0 0 -12%; z-index: -1; overflow: hidden; }
+.hero-fundo picture, .hero-fundo img { display: block; width: 100%; height: 100%; }
+.hero-fundo img { object-fit: cover; object-position: 50% 78%; }
+/* Um escuro quente em cima para o texto, sem esconder o brilho do forno; a pizza fica livre no meio. */
+.hero-fundo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(14, 18, 13, .88) 0%, rgba(14, 18, 13, .72) 32%, rgba(14, 18, 13, .3) 50%, rgba(14, 18, 13, 0) 62%);
+}
+.hero-fundo-sombra { position: absolute; inset: 0; z-index: 1; background: var(--verde-noite); }
+.hero-conteudo .hero-slogan, .hero-conteudo .hero-status { text-shadow: 0 1px 12px rgba(10, 43, 31, .8); }
+
 /* A foto aberta, solta sobre o fundo, sem moldura. */
 .hero-mesa { position: relative; display: grid; place-items: center; margin-top: 2rem; --lado: min(88vw, 400px); }
 .hero-mesa-quadro {
@@ -203,6 +216,15 @@ html.sem-rolagem { overflow: hidden; }
   box-shadow: 0 40px 70px -34px rgba(0, 0, 0, .8);
 }
 .hero-mesa-quadro img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 959px) {
+  .hero { background: var(--verde-noite); }
+  .hero-mesa { display: none; }
+  /* Presa à base do hero (e não à foto, que desce com o parallax): a foto se dissolve no verde da casa. */
+  .hero::after {
+    content: ''; position: absolute; inset: auto 0 0; height: 26%; z-index: -1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(10, 43, 31, 0), rgba(10, 43, 31, .75) 55%, var(--verde-noite));
+  }
+}
 .etapa-estacao {
   position: absolute; top: .8rem; left: .8rem; padding: .25rem .7rem; border-radius: 999px;
   font-size: .8rem; font-weight: 600; letter-spacing: .03em; background: rgba(246, 240, 223, .92); color: var(--verde);
@@ -674,6 +696,7 @@ html.sem-rolagem { overflow: hidden; }
   .hero-conteudo { padding: 0; gap: 1.4rem; }
   .hero-marca { font-size: clamp(6.5rem, 10vw, 11rem); }
   .hero-slogan { font-size: 1.25rem; max-width: 34ch; }
+  .hero-fundo { display: none; }
   .hero-mesa { margin: 0; --lado: min(44vw, 82svh, 720px); }
   .hero-mesa-quadro { border-radius: 8px; box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .8); }
 
