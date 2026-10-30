@@ -16,7 +16,7 @@ export function Eventos() {
       >
         <Foto nome="medaglioni" alt="Medalhões de filé com risoto à milanese e uma taça de vinho tinto" sizes="(min-width: 900px) 40vw, 90vw" />
       </motion.div>
-      <div className="eventos-texto">
+      <div className="eventos-texto" data-revelar>
         <Titulo id="eventos-titulo">Eventos e confraternizações</Titulo>
         <p>
           Aniversários, almoços de empresa e jantares fechados no nosso salão. Montamos o menu com você, com

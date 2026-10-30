@@ -61,7 +61,7 @@ export function Cardapio() {
       <div className="cardapio-cabeca">
         <Titulo id="cardapio-titulo">O cardápio</Titulo>
         <Traco />
-        <p>Receitas italianas de sempre e algumas criações da casa. Os pratos com foto abrem em tamanho maior.</p>
+        <p data-revelar>Receitas italianas de sempre e algumas criações da casa. Os pratos com foto abrem em tamanho maior.</p>
       </div>
 
       <Destaques />
@@ -112,7 +112,7 @@ export function Cardapio() {
         </AnimatePresence>
       </div>
 
-      <aside className="especial">
+      <aside className="especial" data-revelar>
         <p className="especial-rotulo">Especial do chef</p>
         <p className="especial-nome" lang="it">{especialDoChef.nome}</p>
         <p className="especial-desc">{especialDoChef.descricao}</p>
@@ -151,6 +151,7 @@ function Lupa({ prato, foto, onFechar }: { prato: Prato; foto: string; onFechar:
     <dialog
       ref={ref}
       className="lupa"
+      data-lenis-prevent
       aria-label={prato.nome}
       onCancel={(e) => { e.preventDefault(); onFechar() }}
       onClick={(e) => { if (e.target === e.currentTarget) onFechar() }}

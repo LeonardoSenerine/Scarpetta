@@ -4,6 +4,7 @@ import { executivo } from '../data/executivo'
 import { info, wa } from '../data/info'
 import { hojeEmItatiba, precoBR } from '../lib/horario'
 import { Foto } from './Foto'
+import { BotaoReserva } from './BotaoReserva'
 import { Titulo } from './Movimento'
 
 const dataCurta = (iso: string) =>
@@ -46,7 +47,7 @@ export function Executivo() {
         ))}
       </div>
 
-      <div className="executivo-cartao">
+      <div className="executivo-cartao" data-revelar>
         <header className="executivo-topo">
           <p className={`executivo-selo ${valeHoje ? 'is-hoje' : ''}`}>{selo}</p>
           <Titulo id="executivo-titulo" className="executivo-titulo">Menu executivo</Titulo>
@@ -85,9 +86,9 @@ export function Executivo() {
             </a>
           ) : (
             <>
-              <a className="botao botao-verde" href={wa('Olá! Quero reservar para o menu executivo desta semana.')} target="_blank" rel="noreferrer">
+              <BotaoReserva variante="verde" href={wa('Olá! Quero reservar para o menu executivo desta semana.')}>
                 Reservar para o executivo
-              </a>
+              </BotaoReserva>
               <a className="link-sutil" href={info.instagram} target="_blank" rel="noreferrer">
                 O menu da próxima semana sai no {info.instagramUsuario}
               </a>

@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { info } from '../data/info'
 import { turnosResumo } from '../lib/horario'
 import { Marca } from './Marca'
+import { BotaoReserva } from './BotaoReserva'
 
 export function Rodape() {
   return (
@@ -13,7 +14,7 @@ export function Rodape() {
         {info.endereco.rua} · {info.endereco.cidade}<br />
         Quinta a domingo, {turnosResumo()}
       </p>
-      <nav className="rodape-links" aria-label="Contato e redes">
+      <nav className="rodape-links" aria-label="Contato e redes" data-revelar>
         <a href={info.instagram} target="_blank" rel="noreferrer">Instagram</a>
         <a href={info.reserva} target="_blank" rel="noreferrer">WhatsApp {info.whatsappExibicao}</a>
         <a href={`mailto:${info.email}`}>{info.email}</a>
@@ -49,7 +50,7 @@ export function BarraAcoes() {
           exit={{ y: '120%' }}
           transition={{ type: 'spring', stiffness: 380, damping: 34 }}
         >
-          <a className="barra-principal" href="#reserva">Reservar mesa</a>
+          <BotaoReserva className="barra-principal" />
           <a href="#cardapio">Cardápio</a>
           <a href={info.rotas} target="_blank" rel="noreferrer">Rota</a>
         </motion.nav>

@@ -2,17 +2,12 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { info } from '../data/info'
 import { Clipe } from './Clipe'
-import { Selo } from './Selo'
+import { BotaoReserva } from './BotaoReserva'
+import { Tomate } from './Marca'
 import { Titulo } from './Movimento'
 
 // Cada etapa é um trecho real gravado na cozinha e no salão do Scarpetta.
 const etapas = [
-  {
-    clipe: 'rechear',
-    estacao: 'Na bancada',
-    verbo: 'Farcire',
-    texto: 'Burrata e raspas de limão-siciliano em cada disco de massa fresca. Depois, cada capeletti é fechado à mão.',
-  },
   {
     clipe: 'molho',
     estacao: 'No forno',
@@ -88,10 +83,10 @@ export function Experiencias() {
           ))}
 
           <article className="etapa etapa-final">
-            <Selo className="etapa-selo" />
+            <Tomate className="etapa-tomate" />
             <h3 lang="it">Fare la scarpetta</h3>
             <p>E no fim, o pão passa pelo prato até não sobrar nada do molho.</p>
-            <a className="botao botao-creme" href="#reserva">Reservar mesa</a>
+            <BotaoReserva />
           </article>
         </motion.div>
 

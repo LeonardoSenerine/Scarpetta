@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { funcionamento, wa } from '../data/info'
 import { agoraEmItatiba, hojeEmItatiba, hora } from '../lib/horario'
 import { Titulo } from './Movimento'
+import { BotaoReserva } from './BotaoReserva'
 
 const diasCurto = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
 const diasLongo = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']
@@ -55,7 +56,7 @@ export function Reserva() {
   return (
     <section className="reserva" id="reserva" aria-labelledby="reserva-titulo">
       <Titulo id="reserva-titulo" className="reserva-titulo">Reserve sua mesa</Titulo>
-      <div className="reserva-campos">
+      <div className="reserva-campos" data-revelar>
         <label className="campo">
           <span>Dia</span>
           <select id="reserva-dia" value={dia?.iso ?? ''} onChange={(e) => setDiaIso(e.target.value)}>
@@ -74,9 +75,7 @@ export function Reserva() {
             {PESSOAS.map((p) => <option key={p} value={p}>{p}</option>)}
           </select>
         </label>
-        <a className="botao botao-creme reserva-enviar" href={wa(mensagem)} target="_blank" rel="noreferrer">
-          Reservar pelo WhatsApp
-        </a>
+        <BotaoReserva className="reserva-enviar" href={wa(mensagem)}>Reservar pelo WhatsApp</BotaoReserva>
       </div>
       <p className="reserva-nota">
         A confirmação chega pelo WhatsApp. Para grupos maiores e jantares fechados, veja <a href="#eventos">eventos</a>.

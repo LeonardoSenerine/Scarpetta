@@ -23,20 +23,8 @@ for (const [n, name] of Object.entries(map)) {
   console.log(`${name}: data:image/webp;base64,${tiny.toString('base64')}`)
 }
 
-// Prato do hero: a pizza de peperoni (foto 19, vista de cima) recortada em círculo, com fundo transparente.
-{
-  const W = 1500, cx = 0.503 * W, cy = 0.518 * W, r = 0.402 * W
-  const mascara = Buffer.from(`<svg width="${W}" height="${W}"><defs><filter id="f"><feGaussianBlur stdDeviation="2.5"/></filter></defs><circle cx="${cx}" cy="${cy}" r="${r}" fill="#fff" filter="url(#f)"/></svg>`)
-  const lado = Math.round(r * 2 + 8)
-  const recorte = await sharp('raw/img/19.jpg').composite([{ input: mascara, blend: 'dest-in' }]).png().toBuffer()
-  const prato = await sharp(recorte).extract({ left: Math.round(cx - lado / 2), top: Math.round(cy - lado / 2), width: lado, height: lado }).png().toBuffer()
-  for (const w of widths) {
-    await sharp(prato).resize({ width: w }).webp({ quality: 80, alphaQuality: 90 }).toFile(`public/img/pizza-hero-${w}.webp`)
-  }
-}
-
-// Hero no desktop: a mesma pizza em plano aberto, com a tábua e a mesa, na resolução máxima do original.
-for (const w of [1200, 1500]) {
+// Hero: a pizza de peperoni (foto 19) em plano aberto, com a tábua e a mesa, até a resolução máxima do original.
+for (const w of [640, 1200, 1500]) {
   await sharp('raw/img/19.jpg').resize({ width: w, withoutEnlargement: true }).webp({ quality: 84 }).toFile(`public/img/pizza-mesa-${w}.webp`)
 }
 

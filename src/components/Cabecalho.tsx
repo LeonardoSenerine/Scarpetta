@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { Marca } from './Marca'
+import { BotaoReserva } from './BotaoReserva'
 import { info } from '../data/info'
 
 const links = [
@@ -13,14 +14,28 @@ const links = [
 
 export function Cabecalho() {
   const [solido, setSolido] = useState(false)
+  const [oculto, setOculto] = useState(false)
   const [aberto, setAberto] = useState(false)
 
+  // Some ao rolar para baixo depois do hero e volta ao rolar para cima.
   useEffect(() => {
-    const onScroll = () => setSolido(window.scrollY > window.innerHeight * 0.6)
+    let anterior = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      setSolido(y > window.innerHeight * 0.6)
+      if (Math.abs(y - anterior) > 6) {
+        setOculto(y > anterior && y > window.innerHeight)
+        anterior = y
+      }
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('cabecalho-oculto', oculto && !aberto)
+  }, [oculto, aberto])
 
   useEffect(() => {
     document.body.style.overflow = aberto ? 'hidden' : ''
@@ -31,7 +46,7 @@ export function Cabecalho() {
 
   return (
     <>
-      <header className={`cabecalho ${solido ? 'is-solido' : ''}`}>
+      <header className={`cabecalho ${solido ? 'is-solido' : ''} ${oculto && !aberto ? 'is-oculto' : ''}`}>
         <a href="#topo" className="cabecalho-marca" aria-label="Scarpetta Cucina, início">
           <Marca comCucina={false} />
         </a>
@@ -40,9 +55,7 @@ export function Cabecalho() {
             <a key={l.href} href={l.href}>{l.rotulo}</a>
           ))}
         </nav>
-        <a className="botao botao-creme cabecalho-reserva" href="#reserva">
-          Reservar mesa
-        </a>
+        <BotaoReserva className="cabecalho-reserva" />
         <button
           className="cabecalho-menu"
           aria-expanded={aberto}
@@ -84,7 +97,7 @@ export function Cabecalho() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <a className="botao botao-creme" href="#reserva" onClick={() => setAberto(false)}>Reservar mesa</a>
+              <BotaoReserva onClick={() => setAberto(false)} />
               <p>{info.endereco.rua}<br />{info.endereco.cidade}</p>
             </motion.div>
           </motion.div>

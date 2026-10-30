@@ -1,8 +1,7 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
-import { Clipe } from './Clipe'
+import { Foto } from './Foto'
 import { Leitura, curva } from './Movimento'
-import { Selo } from './Selo'
 
 const fatos = [
   { titulo: 'Massa fresca', texto: 'aberta na casa, do capeletti de burrata ao fettuccine.' },
@@ -11,13 +10,13 @@ const fatos = [
 ]
 
 // O nome da casa explicado: fare la scarpetta. A definição ganha tinta conforme é lida,
-// e ao lado o prato com molho e a pizza se sobrepõem em velocidades diferentes.
+// e ao lado duas fotos se revelam como cortina e se sobrepõem em velocidades diferentes.
 export function Manifesto() {
   const colagem = useRef<HTMLDivElement>(null)
   const reduzir = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: colagem, offset: ['start end', 'end start'] })
-  const yPao = useTransform(scrollYProgress, [0, 1], reduzir ? [0, 0] : [40, -40])
-  const yMassa = useTransform(scrollYProgress, [0, 1], reduzir ? [0, 0] : [110, -110])
+  const yGrande = useTransform(scrollYProgress, [0, 1], reduzir ? [0, 0] : [40, -40])
+  const yPequena = useTransform(scrollYProgress, [0, 1], reduzir ? [0, 0] : [120, -120])
 
   return (
     <section className="manifesto" aria-labelledby="manifesto-titulo">
@@ -52,13 +51,30 @@ export function Manifesto() {
       </div>
 
       <div className="manifesto-colagem" ref={colagem}>
-        <motion.div className="colagem-pao" style={{ y: yPao }}>
-          <Clipe nome="prato" rotulo="Capeletti di burrata servido no molho de tomate da casa" />
-        </motion.div>
-        <motion.div className="colagem-massa" style={{ y: yMassa }}>
-          <Clipe nome="peperoni" rotulo="Pizza de peperoni artesanal sendo cortada" />
-        </motion.div>
-        <Selo className="colagem-selo" />
+        {[
+          { classe: 'colagem-grande', y: yGrande, nome: 'lasagna-detalhe', alt: 'Lasagna alla bolognese em detalhe, com camadas de massa fresca e sálvia', sizes: '(min-width: 960px) 30vw, 66vw' },
+          { classe: 'colagem-pequena', y: yPequena, nome: 'fettuccine-garfo', alt: 'Garfo enrolando fettuccine fresco ao molho de manteiga e parmesão', sizes: '(min-width: 960px) 20vw, 48vw' },
+        ].map((f, i) => (
+          // O gatilho fica no pai: um elemento 100% recortado não conta como visível.
+          <motion.div
+            key={f.nome}
+            className={f.classe}
+            style={{ y: f.y }}
+            initial={reduzir ? false : 'oculta'}
+            whileInView="visivel"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <motion.div
+              className="colagem-revela"
+              variants={{
+                oculta: { clipPath: 'inset(0% 0% 100% 0%)' },
+                visivel: { clipPath: 'inset(0% 0% 0% 0%)', transition: { duration: 1.2, delay: i * 0.25, ease: [0.65, 0, 0.25, 1] } },
+              }}
+            >
+              <Foto nome={f.nome} alt={f.alt} sizes={f.sizes} />
+            </motion.div>
+          </motion.div>
+        ))}
       </div>
     </section>
   )

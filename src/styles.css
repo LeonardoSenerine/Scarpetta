@@ -26,6 +26,8 @@
 *::before,
 *::after { box-sizing: border-box; }
 
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--cabecalho) + 8px);
@@ -81,7 +83,37 @@ html.sem-rolagem { overflow: hidden; }
   text-decoration: none; white-space: nowrap;
   transition: transform .3s var(--curva), background-color .3s, color .3s, border-color .3s;
 }
+.botao:hover { transform: translateY(-2px); }
 .botao:active { transform: scale(.97); }
+
+.botao-reserva { position: relative; overflow: hidden; gap: .65rem; padding: 0 1.2rem 0 .35rem; isolation: isolate; }
+.botao-reserva::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, .45) 50%, transparent 70%);
+  transform: translateX(-120%); transition: transform .8s var(--curva);
+}
+.botao-reserva:hover::after { transform: translateX(120%); }
+.botao-reserva-icone {
+  width: 38px; height: 38px; flex: none; display: grid; place-items: center; border-radius: 50%;
+  background: var(--pomodoro); color: var(--papel); transition: transform .5s var(--curva);
+}
+.botao-reserva-icone svg { width: 18px; height: 18px; }
+.botao-reserva:hover .botao-reserva-icone { transform: rotate(-14deg) scale(1.06); }
+.botao-reserva-seta { width: 15px; height: 15px; flex: none; transition: transform .4s var(--curva); }
+.botao-reserva:hover .botao-reserva-seta { transform: translateX(4px); }
+.botao-reserva-creme { background: var(--creme); color: var(--verde-noite); }
+.botao-reserva-creme:hover { background: var(--papel); }
+.botao-reserva-verde { background: var(--verde); color: var(--creme); }
+.botao-reserva-verde:hover { background: var(--verde-noite); }
+.botao-reserva-linha { border: 1px solid var(--creme-suave); color: var(--creme); }
+.botao-reserva-linha:hover { background: rgba(239, 229, 200, .1); border-color: var(--creme); }
+
+/* Blocos que sobem e acendem ao entrar na tela (components/Revelador.tsx). */
+[data-revelar] {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .9s var(--curva), transform .9s var(--curva); transition-delay: var(--atraso, 0ms);
+}
+[data-revelar].is-visivel { opacity: 1; transform: none; }
 .botao-creme { background: var(--creme); color: var(--verde-noite); }
 .botao-creme:hover { background: var(--papel); }
 .botao-linha { border: 1px solid var(--creme-suave); color: var(--creme); }
@@ -117,9 +149,10 @@ html.sem-rolagem { overflow: hidden; }
   position: fixed; inset: 0 0 auto; z-index: 50; height: var(--cabecalho);
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   padding: 0 .5rem 0 var(--margem); padding-top: env(safe-area-inset-top);
-  transition: background-color .45s, border-color .45s, backdrop-filter .45s;
+  transition: background-color .45s, border-color .45s, backdrop-filter .45s, transform .45s var(--curva);
   border-bottom: 1px solid transparent;
 }
+.cabecalho.is-oculto { transform: translateY(-100%); }
 .cabecalho.is-solido {
   background: rgba(10, 43, 31, .9);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
@@ -174,10 +207,17 @@ html.sem-rolagem { overflow: hidden; }
 .hero-acoes { display: flex; gap: .7rem; flex-wrap: wrap; justify-content: center; }
 .hero-status { display: inline-flex; align-items: center; gap: .55rem; font-size: .86rem; color: var(--creme-suave); }
 
-.hero-prato { position: relative; display: grid; place-items: center; margin-top: 1.8rem; }
-.hero-prato-entrada { width: min(90vw, 420px); aspect-ratio: 1; filter: drop-shadow(0 34px 40px rgba(0, 0, 0, .5)); }
-.hero-prato-giro { width: 100%; height: 100%; }
-.hero-prato .foto { width: 100%; height: 100%; object-fit: contain; }
+/* Quadro quadrado com a foto aberta e um contorno fino afastado, como passe-partout. */
+.hero-mesa { position: relative; display: grid; place-items: center; margin-top: 2rem; --lado: min(84vw, 380px); }
+.hero-mesa-quadro {
+  position: relative; width: var(--lado); aspect-ratio: 1; overflow: hidden; border-radius: 24px;
+  box-shadow: 0 40px 70px -34px rgba(0, 0, 0, .8);
+}
+.hero-mesa-quadro img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hero-mesa::after {
+  content: ''; position: absolute; width: calc(var(--lado) + 22px); aspect-ratio: 1;
+  border: 1px solid rgba(239, 229, 200, .22); border-radius: 32px; pointer-events: none;
+}
 .etapa-estacao {
   position: absolute; top: .8rem; left: .8rem; padding: .25rem .7rem; border-radius: 999px;
   font-size: .74rem; font-weight: 500; letter-spacing: .03em; background: rgba(246, 240, 223, .92); color: var(--verde);
@@ -202,25 +242,14 @@ html.sem-rolagem { overflow: hidden; }
 .manifesto-intro { font-size: 1.06rem; line-height: 1.7; max-width: 36rem; }
 .manifesto-fatos { max-width: 36rem; }
 
-/* Colagem: o pão (bruschetta) ao fundo, a massa em círculo na frente e o selo girando por cima. */
-.manifesto-colagem { position: relative; height: min(112vw, 520px); }
-.colagem-pao {
-  position: absolute; top: 0; right: 0; width: 72%; aspect-ratio: 4 / 5; overflow: hidden;
-  border-radius: 6px; background: #d9cfb2; box-shadow: 0 30px 50px -26px rgba(6, 26, 19, .55);
-}
-.colagem-massa {
-  position: absolute; left: 0; bottom: 0; width: 54%; aspect-ratio: 1; overflow: hidden; border-radius: 50%;
-  background: #d9cfb2; box-shadow: 0 0 0 8px var(--papel), 0 30px 50px -20px rgba(6, 26, 19, .5);
-}
-.colagem-pao .clipe, .colagem-massa .clipe { display: block; width: 100%; height: 100%; object-fit: cover; }
-.colagem-selo { position: absolute; left: 2%; top: 4%; width: 36%; max-width: 170px; }
-
-/* ---------- Selo giratório ---------- */
-
-.selo { position: relative; aspect-ratio: 1; border-radius: 50%; background: var(--papel); box-shadow: 0 14px 30px -18px rgba(6, 26, 19, .5); }
-.selo svg { width: 100%; height: 100%; overflow: visible; }
-.selo-texto { font-family: var(--sans); font-size: 15px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; fill: var(--verde); }
-.selo .selo-tomate { position: absolute; left: 50%; top: 50%; width: 30%; height: 30%; transform: translate(-50%, -50%); }
+/* Colagem: uma foto grande ao fundo e outra menor na frente, em profundidades diferentes. */
+.manifesto-colagem { position: relative; height: min(118vw, 540px); }
+.colagem-grande, .colagem-pequena { position: absolute; }
+.colagem-grande { top: 0; right: 0; width: 70%; aspect-ratio: 4 / 5; }
+.colagem-pequena { left: 0; bottom: 0; width: 50%; aspect-ratio: 4 / 5; z-index: 1; }
+.colagem-revela { width: 100%; height: 100%; overflow: hidden; border-radius: 20px; background: #d9cfb2; box-shadow: 0 30px 50px -26px rgba(6, 26, 19, .55); }
+.colagem-pequena .colagem-revela { outline: 8px solid var(--papel); }
+.colagem-revela .foto { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 /* ---------- Barra de reserva ---------- */
 
@@ -339,8 +368,9 @@ html.sem-rolagem { overflow: hidden; }
 /* As abas rolam sozinhas em telas estreitas; o degradê avisa que há mais categorias de cada lado. */
 .abas-moldura {
   position: sticky; top: var(--cabecalho); z-index: 10; background: var(--verde);
-  border-bottom: 1px solid var(--verde-linha);
+  border-bottom: 1px solid var(--verde-linha); transition: top .45s var(--curva);
 }
+.cabecalho-oculto .abas-moldura { top: 0; }
 .abas-moldura::before, .abas-moldura::after {
   content: ''; position: absolute; top: 0; bottom: 0; width: 3rem; pointer-events: none;
   opacity: 0; transition: opacity .25s; z-index: 1;
@@ -439,7 +469,7 @@ html.sem-rolagem { overflow: hidden; }
 }
 .etapa-final h3 { margin-top: .6rem; }
 .etapa-final .botao { margin-top: 1rem; }
-.etapa-selo { width: 118px; }
+.etapa-tomate { width: 46px; height: 46px; }
 .experiencias-progresso { margin: 1.6rem var(--margem) 0; height: 3px; border-radius: 3px; background: rgba(239, 229, 200, .15); overflow: hidden; }
 .experiencias-progresso span { display: block; height: 100%; background: var(--pomodoro); transform-origin: left; }
 
@@ -536,7 +566,11 @@ html.sem-rolagem { overflow: hidden; }
   min-height: 46px; display: grid; place-items: center; border-radius: 999px;
   font-size: .9rem; font-weight: 500; text-decoration: none; color: var(--creme);
 }
-.barra-acoes .barra-principal { background: var(--creme); color: var(--verde-noite); }
+.barra-acoes .barra-principal {
+  display: inline-flex; min-height: 46px; padding-right: .9rem; font-size: .9rem; justify-content: flex-start;
+  background: var(--creme); color: var(--verde-noite);
+}
+.barra-acoes .barra-principal .botao-reserva-seta { display: none; }
 
 /* ---------- Telas maiores ---------- */
 
@@ -565,18 +599,9 @@ html.sem-rolagem { overflow: hidden; }
   .hero-conteudo { padding: 0; gap: 1.4rem; }
   .hero-marca { font-size: clamp(6.5rem, 10vw, 11rem); }
   .hero-slogan { font-size: 1.12rem; max-width: 34ch; }
-  /* Quadro quadrado com a foto aberta e um contorno fino afastado, como passe-partout. */
-  .hero-mesa { display: grid; place-items: center; }
-  .hero-mesa-quadro {
-    position: relative; width: min(44vw, 82svh, 720px); aspect-ratio: 1; overflow: hidden; border-radius: 28px;
-    box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .8);
-  }
-  .hero-mesa-quadro img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .hero-mesa::after {
-    content: ''; position: absolute; width: calc(min(44vw, 82svh, 720px) + 28px); aspect-ratio: 1;
-    border: 1px solid rgba(239, 229, 200, .22); border-radius: 38px; pointer-events: none;
-  }
-  .hero-mesa { position: relative; }
+  .hero-mesa { margin: 0; --lado: min(44vw, 82svh, 720px); }
+  .hero-mesa-quadro { border-radius: 28px; box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .8); }
+  .hero-mesa::after { width: calc(var(--lado) + 28px); border-radius: 38px; }
 
   .manifesto { grid-template-columns: 1.1fr 1fr; column-gap: 6vw; align-items: center; padding: 8rem var(--margem) 7rem; }
   .manifesto-colagem { height: 600px; }
@@ -641,4 +666,6 @@ html.sem-rolagem { overflow: hidden; }
   .is-aberto .pulso { animation: none; }
   .foto { transition: none; }
   .lupa[open], .prato { animation: none; }
+  [data-revelar] { opacity: 1; transform: none; transition: none; }
+  .botao, .botao-reserva::after, .botao-reserva-icone, .botao-reserva-seta, .cabecalho { transition: none; }
 }

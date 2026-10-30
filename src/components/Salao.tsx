@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { motion } from 'motion/react'
 import { info } from '../data/info'
 import { Clipe } from './Clipe'
@@ -36,13 +37,13 @@ export function Salao() {
       <div className="salao-painel">
         <p className="salao-chamada">O salão</p>
         <Titulo id="salao-titulo">Um almoço no meio do verde</Titulo>
-        <p className="salao-intro">
+        <p className="salao-intro" data-revelar>
           O Scarpetta fica dentro do Doda Training Center, cercado de mata. De dia a luz entra pelas janelas; à noite, a
           varanda acende.
         </p>
         <ul className="salao-lista">
-          {ambientes.map((a) => (
-            <li key={a.titulo}>
+          {ambientes.map((a, i) => (
+            <li key={a.titulo} data-revelar style={{ '--atraso': `${i * 120}ms` } as CSSProperties}>
               <Tomate />
               <div>
                 <h3>{a.titulo}</h3>

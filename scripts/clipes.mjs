@@ -15,11 +15,7 @@ const A = 900
 // formato: '4:5' (720x900, padrão) ou '1:1' (720x720, para molduras redondas)
 // vaivem: trecho curto tocado para frente e para trás, para o loop não dar salto
 const clipes = {
-  // Manifesto
-  prato: { trechos: [['v1793290556327', 23.3, 25.0, 20]], vaivem: true },
-  peperoni: { trechos: [['v1793290591008', 0, 4.25, 0, 720]], formato: '1:1' },
   // Experiências
-  rechear: { trechos: [['v1793290556327', 33.0, 40.5, 20]] },
   molho: { trechos: [['v1793290496114', 3.6, 6.4, 20]] },
   girar: { trechos: [['v1793290535649', 2.85, 3.9, 60], ['v1793290535649', 4.0, 5.65, 60]] },
   adocar: { trechos: [['v1793290506895', 3.5, 6.0, 80]] },

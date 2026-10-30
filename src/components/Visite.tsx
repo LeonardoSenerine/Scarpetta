@@ -3,6 +3,7 @@ import { funcionamento, info } from '../data/info'
 import { hora } from '../lib/horario'
 import { useStatus } from '../lib/useStatus'
 import { Titulo } from './Movimento'
+import { BotaoReserva } from './BotaoReserva'
 
 export function Visite() {
   const [mapaAtivo, setMapaAtivo] = useState(false)
@@ -13,7 +14,7 @@ export function Visite() {
       <div className="visite-info">
         <Titulo id="visite-titulo">Como chegar</Titulo>
         <p className="visite-referencia">{info.endereco.referencia}, num espaço cercado de natureza.</p>
-        <address>
+        <address data-revelar>
           {info.endereco.rua}<br />
           {info.endereco.bairro}<br />
           {info.endereco.cidade}, {info.endereco.cep}
@@ -40,9 +41,9 @@ export function Visite() {
           <span className="pulso" aria-hidden="true" />{status.texto}
         </p>
 
-        <div className="visite-acoes">
+        <div className="visite-acoes" data-revelar>
           <a className="botao botao-creme" href={info.rotas} target="_blank" rel="noreferrer">Abrir rota no mapa</a>
-          <a className="botao botao-linha" href={info.reserva} target="_blank" rel="noreferrer">Reservar pelo WhatsApp</a>
+          <BotaoReserva variante="linha" href={info.reserva}>Reservar pelo WhatsApp</BotaoReserva>
         </div>
 
         {info.avaliacoes && (
@@ -83,7 +84,7 @@ export function EmCasa() {
     <section className="em-casa" id="delivery" aria-labelledby="em-casa-titulo">
       <Titulo id="em-casa-titulo">Scarpetta em casa</Titulo>
       <p>As mesmas massas e pizzas, para pedir por delivery.</p>
-      <div className="em-casa-acoes">
+      <div className="em-casa-acoes" data-revelar>
         {canais.length > 0 ? (
           canais.map((c, i) => (
             <a key={c.href} className={`botao ${i ? 'botao-linha' : 'botao-creme'}`} href={c.href} target="_blank" rel="noreferrer">{c.rotulo}</a>
