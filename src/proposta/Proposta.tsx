@@ -8,7 +8,7 @@ import { curva } from '../components/Movimento'
 // Proposta para o Scarpetta: o que muda quando o link da bio deixa de ser o Linktree e passa a ser o site.
 // As capturas em public/proposta vêm de scripts/proposta.mjs; o print do Linktree, do celular.
 
-const AUTOR = { nome: 'Leonardo', marca: 'senerine.dev', link: 'https://senerine.dev' }
+const AUTOR = { nome: 'Leonardo', marca: 'senerine.dev', link: info.desenvolvedor.link }
 // O convite abre a conversa com o Leonardo já com a mensagem escrita.
 const conversa = `https://wa.me/5518997307852?text=${encodeURIComponent(`Olá, Leonardo! Vi a proposta de site para o ${info.nome} e gostaria de conversar.`)}`
 // O endereço de onde a página está sendo vista: o mesmo do site, seja qual for o domínio.

@@ -36,6 +36,8 @@ export const info = {
   mapaEmbed: `https://www.google.com/maps?q=${encodeURIComponent(enderecoBusca)}&z=15&output=embed`,
   // Preencher só com nota e total conferidos no perfil do Google Business, na data da publicação.
   avaliacoes: null as Avaliacoes | null,
+  // Crédito no rodapé e contato na proposta.
+  desenvolvedor: { nome: 'Senerine.dev', link: 'https://senerinedev.com.br' },
 }
 
 // 0 = domingo. Turnos em minutos desde a meia-noite.

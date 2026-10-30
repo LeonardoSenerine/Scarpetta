@@ -582,7 +582,12 @@ html.sem-rolagem { overflow: hidden; }
 .visite-nota { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1.5rem; font-size: .9rem; color: var(--creme-suave); text-underline-offset: 3px; }
 .estrelas { color: var(--manjericao); letter-spacing: .12em; }
 
-.visite-mapa { height: 300px; background: var(--verde-noite); overflow: hidden; }
+.visite-mapa { position: relative; height: 300px; background: var(--verde-noite); overflow: hidden; }
+.visite-mapa-aviso {
+  position: absolute; left: 0; right: 0; bottom: .9rem; padding: 0 1rem; text-align: center;
+  font-size: .85rem; color: var(--creme-suave);
+}
+.visite-mapa-aviso a { color: var(--creme); text-underline-offset: 3px; }
 .visite-mapa iframe { width: 100%; height: 100%; border: 0; filter: saturate(.75) contrast(1.05); }
 .visite-mapa-capa {
   width: 100%; height: 100%; display: grid; place-items: center; align-content: center; gap: 1rem;
@@ -613,6 +618,29 @@ html.sem-rolagem { overflow: hidden; }
 .rodape-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 1.4rem; margin-top: 1rem; font-size: 1rem; }
 .rodape-links a { display: inline-block; padding: .65rem .2rem; text-underline-offset: 3px; }
 .rodape-legal { margin-top: 1.4rem; font-size: .88rem; }
+.rodape-legal a, .rodape-credito a { color: var(--creme); text-underline-offset: 3px; }
+.rodape-credito { margin-top: .5rem; font-size: .88rem; }
+
+/* ---------- Convite final (CTA) ---------- */
+
+/* Fundo tomate, a faixa dos pratos correndo com a rolagem em cima e embaixo e o convite no meio. */
+.convite { position: relative; overflow: hidden; background: var(--pomodoro); color: var(--papel); }
+.convite-faixa { overflow: hidden; padding: .15em 0; font-family: var(--serif); font-style: italic; font-size: clamp(3rem, 13vw, 7.5rem); line-height: 1.1; color: rgba(246, 240, 223, .16); }
+.convite-faixa-trilho { display: flex; width: max-content; white-space: nowrap; will-change: transform; }
+.convite-faixa-trilho span { padding-right: .3em; }
+.convite-conteudo { display: grid; justify-items: center; text-align: center; padding: 1.5rem var(--margem) 2rem; }
+.convite .sobretitulo { color: var(--papel); opacity: .85; }
+.convite h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.8rem, 12vw, 5.6rem); line-height: 1.05; }
+/* Cada palavra sobe de dentro da própria linha. */
+.convite-palavra { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .12em .08em; }
+.convite-palavra > span { display: inline-block; }
+.convite h2 .italico { font-style: italic; }
+.convite-texto { margin-top: .9rem; max-width: 34ch; font-size: 1.1rem; color: rgba(246, 240, 223, .9); }
+.convite-acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; margin-top: 1.8rem; }
+.convite .botao-linha { border-color: rgba(246, 240, 223, .7); color: var(--papel); }
+.convite .botao-linha:hover { background: rgba(246, 240, 223, .12); border-color: var(--papel); }
+/* No tomate, o ícone da reserva ganha o verde para não sumir no fundo. */
+.convite .botao-reserva-icone { background: var(--verde); }
 
 .barra-acoes {
   position: fixed; z-index: 30; left: .7rem; right: .7rem; bottom: calc(.7rem + env(safe-area-inset-bottom));

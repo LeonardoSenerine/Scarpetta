@@ -48,6 +48,7 @@ function metadados(): Plugin {
   const tags = [
     `<title>${titulo}</title>`,
     `<meta name="description" content="${attr(info.descricao)}" />`,
+    `<meta name="robots" content="index, follow, max-image-preview:large" />`,
     `<link rel="canonical" href="${site}/" />`,
     `<meta property="og:type" content="restaurant" />`,
     `<meta property="og:locale" content="pt_BR" />`,
@@ -66,33 +67,77 @@ function metadados(): Plugin {
     `<meta name="twitter:image" content="${imagem}" />`,
     `<script type="application/ld+json">${JSON.stringify(restaurante).replace(/</g, '\\u003c')}</script>`,
   ]
-  // A proposta (proposta.html) tem prévia própria, com a mesma capa.
-  const tituloProposta = `Proposta de site para o ${info.nome} · senerine.dev`
-  const descricaoProposta = 'Uma solução para melhorar a captação de clientes do Scarpetta: um site com a identidade da casa que centraliza tudo o que hoje está no Linktree.'
-  const tagsProposta = [
-    `<title>${attr(tituloProposta)}</title>`,
-    `<meta name="description" content="${attr(descricaoProposta)}" />`,
+  // As páginas avulsas têm prévia própria, com a mesma capa. A proposta e a 404 ficam fora dos buscadores.
+  const avulsa = (p: { titulo: string; descricao: string; caminho: string; indexar: boolean }) => [
+    `<title>${attr(p.titulo)}</title>`,
+    `<meta name="description" content="${attr(p.descricao)}" />`,
+    `<meta name="robots" content="${p.indexar ? 'index, follow' : 'noindex, nofollow'}" />`,
+    ...(p.indexar ? [`<link rel="canonical" href="${site}${p.caminho}" />`] : []),
     `<meta property="og:type" content="website" />`,
     `<meta property="og:locale" content="pt_BR" />`,
-    `<meta property="og:title" content="${attr(tituloProposta)}" />`,
-    `<meta property="og:description" content="${attr(descricaoProposta)}" />`,
-    `<meta property="og:url" content="${site}/proposta" />`,
+    `<meta property="og:site_name" content="${info.nome}" />`,
+    `<meta property="og:title" content="${attr(p.titulo)}" />`,
+    `<meta property="og:description" content="${attr(p.descricao)}" />`,
+    `<meta property="og:url" content="${site}${p.caminho}" />`,
     `<meta property="og:image" content="${imagem}" />`,
     `<meta property="og:image:width" content="1200" />`,
     `<meta property="og:image:height" content="630" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
   ]
+  const paginas: Record<string, string[]> = {
+    '<!-- metadados -->': tags,
+    '<!-- metadados-proposta -->': avulsa({
+      titulo: `Proposta de site para o ${info.nome} · senerine.dev`,
+      descricao: 'Uma solução para melhorar a captação de clientes do Scarpetta: um site com a identidade da casa que centraliza tudo o que hoje está no Linktree.',
+      caminho: '/proposta',
+      indexar: false,
+    }),
+    '<!-- metadados-privacidade -->': avulsa({
+      titulo: `Política de privacidade e cookies · ${info.nome}`,
+      descricao: `Como o site do ${info.nome} trata seus dados: sem cadastro, sem cookies próprios e sem ferramentas de análise ou publicidade.`,
+      caminho: '/privacidade',
+      indexar: true,
+    }),
+    '<!-- metadados-404 -->': avulsa({
+      titulo: `Página não encontrada · ${info.nome}`,
+      descricao: 'Esse prato não está no cardápio. Volte ao início, veja o cardápio ou reserve sua mesa.',
+      caminho: '/404',
+      indexar: false,
+    }),
+  }
+
+  // robots.txt e sitemap.xml saem do mesmo endereço público, para nunca apontarem para um domínio errado.
+  const robots = ['User-agent: *', 'Allow: /', '', `Sitemap: ${site}/sitemap.xml`, ''].join('\n')
+  const hoje = new Date().toISOString().slice(0, 10)
+  const mapa = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...[{ caminho: '/', prioridade: '1.0' }, { caminho: '/privacidade', prioridade: '0.3' }].map(
+      (u) => `  <url><loc>${site}${u.caminho}</loc><lastmod>${hoje}</lastmod><priority>${u.prioridade}</priority></url>`,
+    ),
+    '</urlset>',
+    '',
+  ].join('\n')
+
   return {
     name: 'metadados',
-    transformIndexHtml: (html) => html
-      .replace('<!-- metadados -->', tags.join('\n    '))
-      .replace('<!-- metadados-proposta -->', tagsProposta.join('\n    ')),
+    transformIndexHtml: (html) =>
+      Object.entries(paginas).reduce((h, [marca, t]) => h.replace(marca, t.join('\n    ')), html),
+    generateBundle() {
+      this.emitFile({ type: 'asset', fileName: 'robots.txt', source: robots })
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: mapa })
+    },
   }
 }
 
 export default defineConfig({
   plugins: [react(), metadados()],
-  // Duas páginas: o site (index.html) e a proposta para o cliente (proposta.html, servida em /proposta).
-  build: { rollupOptions: { input: { site: 'index.html', proposta: 'proposta.html' } } },
+  // O site, a proposta para o cliente (/proposta), a política de privacidade (/privacidade) e a 404,
+  // que a Vercel serve sozinha em qualquer endereço que não existe.
+  build: {
+    rollupOptions: {
+      input: { site: 'index.html', proposta: 'proposta.html', privacidade: 'privacidade.html', 404: '404.html' },
+    },
+  },
   server: { host: true, port: Number(process.env.PORT) || 5173 },
 })

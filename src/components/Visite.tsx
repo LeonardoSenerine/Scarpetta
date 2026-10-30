@@ -63,10 +63,15 @@ export function Visite() {
             referrerPolicy="no-referrer-when-downgrade"
           />
         ) : (
-          <button className="visite-mapa-capa" onClick={() => setMapaAtivo(true)}>
-            <span className="visite-pino" aria-hidden="true" />
-            <span>Mostrar mapa interativo</span>
-          </button>
+          <>
+            <button className="visite-mapa-capa" onClick={() => setMapaAtivo(true)}>
+              <span className="visite-pino" aria-hidden="true" />
+              <span>Mostrar mapa interativo</span>
+            </button>
+            <p className="visite-mapa-aviso">
+              O mapa é do Google e pode usar cookies. <a href="/privacidade#cookies">Saiba mais</a>
+            </p>
+          </>
         )}
       </div>
     </section>
