@@ -3,7 +3,6 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { cardapio } from '../data/cardapio'
 import { precoBR } from '../lib/horario'
 import { Foto } from './Foto'
-import { curva } from './Movimento'
 
 // Pratos da casa, servidos um a um: o prato gira devagar conforme passa pela tela.
 // O nome tem de bater com o cardápio, de onde vêm descrição, preço e categoria.
@@ -43,18 +42,12 @@ function Destaque({ prato: nome, foto, rotulo, indice }: (typeof itens)[number] 
       <motion.div className="destaque-prato" style={{ rotate: giro }}>
         <Foto nome={foto} alt={rotulo ?? nome} sizes="(min-width: 960px) 30vw, 62vw" />
       </motion.div>
-      <motion.div
-        className="destaque-texto"
-        initial={{ opacity: 0, x: 30 * sentido }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.9, ease: curva }}
-      >
+      <div className="destaque-texto">
         {dados && <p className="destaque-categoria" lang="it">{dados.categoria}</p>}
         <h3 lang="it">{rotulo ?? nome}</h3>
         {dados && <p className="destaque-desc">{dados.prato.descricao}</p>}
         {dados && <p className="destaque-preco">{precoBR(dados.prato.preco)}</p>}
-      </motion.div>
+      </div>
     </li>
   )
 }

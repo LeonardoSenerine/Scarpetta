@@ -56,7 +56,7 @@ export function Reserva() {
   return (
     <section className="reserva" id="reserva" aria-labelledby="reserva-titulo">
       <Titulo id="reserva-titulo" className="reserva-titulo">Reserve sua mesa</Titulo>
-      <div className="reserva-campos" data-revelar>
+      <div className="reserva-campos">
         <label className="campo">
           <span>Dia</span>
           <select id="reserva-dia" value={dia?.iso ?? ''} onChange={(e) => setDiaIso(e.target.value)}>

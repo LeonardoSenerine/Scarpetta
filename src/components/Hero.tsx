@@ -45,8 +45,8 @@ export function Hero() {
       <div className="hero-mesa" ref={quadro}>
         <motion.div
           className="hero-mesa-quadro"
-          initial={reduzir ? false : { clipPath: 'inset(100% 0% 0% 0% round 28px)' }}
-          animate={{ clipPath: 'inset(0% 0% 0% 0% round 28px)' }}
+          initial={reduzir ? false : { clipPath: 'inset(100% 0% 0% 0% round 4px)' }}
+          animate={{ clipPath: 'inset(0% 0% 0% 0% round 4px)' }}
           transition={{ duration: 1.5, delay: 0.2, ease: [0.65, 0, 0.25, 1] }}
         >
           <motion.img

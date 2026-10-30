@@ -14,7 +14,7 @@ export function Visite() {
       <div className="visite-info">
         <Titulo id="visite-titulo">Como chegar</Titulo>
         <p className="visite-referencia">{info.endereco.referencia}, num espaço cercado de natureza.</p>
-        <address data-revelar>
+        <address>
           {info.endereco.rua}<br />
           {info.endereco.bairro}<br />
           {info.endereco.cidade}, {info.endereco.cep}
@@ -41,7 +41,7 @@ export function Visite() {
           <span className="pulso" aria-hidden="true" />{status.texto}
         </p>
 
-        <div className="visite-acoes" data-revelar>
+        <div className="visite-acoes">
           <a className="botao botao-creme" href={info.rotas} target="_blank" rel="noreferrer">Abrir rota no mapa</a>
           <BotaoReserva variante="linha" href={info.reserva}>Reservar pelo WhatsApp</BotaoReserva>
         </div>
@@ -84,7 +84,7 @@ export function EmCasa() {
     <section className="em-casa" id="delivery" aria-labelledby="em-casa-titulo">
       <Titulo id="em-casa-titulo">Scarpetta em casa</Titulo>
       <p>As mesmas massas e pizzas, para pedir por delivery.</p>
-      <div className="em-casa-acoes" data-revelar>
+      <div className="em-casa-acoes">
         {canais.length > 0 ? (
           canais.map((c, i) => (
             <a key={c.href} className={`botao ${i ? 'botao-linha' : 'botao-creme'}`} href={c.href} target="_blank" rel="noreferrer">{c.rotulo}</a>

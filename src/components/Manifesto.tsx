@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { Foto } from './Foto'
-import { Leitura, curva } from './Movimento'
+import { Leitura } from './Movimento'
 
 const fatos = [
   { titulo: 'Massa fresca', texto: 'aberta na casa, do capeletti de burrata ao fettuccine.' },
@@ -10,7 +10,7 @@ const fatos = [
 ]
 
 // O nome da casa explicado: fare la scarpetta. A definição ganha tinta conforme é lida,
-// e ao lado duas fotos se revelam como cortina e se sobrepõem em velocidades diferentes.
+// e ao lado duas fotos se sobrepõem e correm em velocidades diferentes com a rolagem.
 export function Manifesto() {
   const colagem = useRef<HTMLDivElement>(null)
   const reduzir = useReducedMotion()
@@ -36,16 +36,10 @@ export function Manifesto() {
           ciabatta, grissini, focaccia e o molho de tomate da casa.
         </p>
         <ul className="manifesto-fatos">
-          {fatos.map((f, i) => (
-            <motion.li
-              key={f.titulo}
-              initial={{ opacity: 0, x: -18 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '0px 0px -10% 0px' }}
-              transition={{ duration: 0.8, delay: i * 0.12, ease: curva }}
-            >
+          {fatos.map((f) => (
+            <li key={f.titulo}>
               <strong>{f.titulo}</strong> {f.texto}
-            </motion.li>
+            </li>
           ))}
         </ul>
       </div>
@@ -54,25 +48,11 @@ export function Manifesto() {
         {[
           { classe: 'colagem-grande', y: yGrande, nome: 'lasagna-detalhe', alt: 'Lasagna alla bolognese em detalhe, com camadas de massa fresca e sálvia', sizes: '(min-width: 960px) 30vw, 66vw' },
           { classe: 'colagem-pequena', y: yPequena, nome: 'fettuccine-garfo', alt: 'Garfo enrolando fettuccine fresco ao molho de manteiga e parmesão', sizes: '(min-width: 960px) 20vw, 48vw' },
-        ].map((f, i) => (
-          // O gatilho fica no pai: um elemento 100% recortado não conta como visível.
-          <motion.div
-            key={f.nome}
-            className={f.classe}
-            style={{ y: f.y }}
-            initial={reduzir ? false : 'oculta'}
-            whileInView="visivel"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <motion.div
-              className="colagem-revela"
-              variants={{
-                oculta: { clipPath: 'inset(0% 0% 100% 0%)' },
-                visivel: { clipPath: 'inset(0% 0% 0% 0%)', transition: { duration: 1.2, delay: i * 0.25, ease: [0.65, 0, 0.25, 1] } },
-              }}
-            >
+        ].map((f) => (
+          <motion.div key={f.nome} className={f.classe} style={{ y: f.y }}>
+            <div className="colagem-revela">
               <Foto nome={f.nome} alt={f.alt} sizes={f.sizes} />
-            </motion.div>
+            </div>
           </motion.div>
         ))}
       </div>

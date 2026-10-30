@@ -11,14 +11,12 @@ import { Eventos } from './components/Eventos'
 import { EmCasa, Visite } from './components/Visite'
 import { BarraAcoes, Rodape } from './components/Rodape'
 import { RolagemSuave } from './components/RolagemSuave'
-import { Revelador } from './components/Revelador'
 
 // Ordem da visita: quem somos, como cozinhamos, o que comer, reservar, onde fica, eventos e como chegar.
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <RolagemSuave />
-      <Revelador />
       <a className="pular" href="#conteudo">Pular para o conteúdo</a>
       <a className="pular" href="#cardapio">Pular para o cardápio</a>
       <Cabecalho />

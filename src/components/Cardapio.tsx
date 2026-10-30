@@ -61,7 +61,7 @@ export function Cardapio() {
       <div className="cardapio-cabeca">
         <Titulo id="cardapio-titulo">O cardápio</Titulo>
         <Traco />
-        <p data-revelar>Receitas italianas de sempre e algumas criações da casa. Os pratos com foto abrem em tamanho maior.</p>
+        <p>Receitas italianas de sempre e algumas criações da casa. Os pratos com foto abrem em tamanho maior.</p>
       </div>
 
       <Destaques />
@@ -112,7 +112,7 @@ export function Cardapio() {
         </AnimatePresence>
       </div>
 
-      <aside className="especial" data-revelar>
+      <aside className="especial">
         <p className="especial-rotulo">Especial do chef</p>
         <p className="especial-nome" lang="it">{especialDoChef.nome}</p>
         <p className="especial-desc">{especialDoChef.descricao}</p>

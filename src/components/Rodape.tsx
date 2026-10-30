@@ -8,13 +8,13 @@ import { BotaoReserva } from './BotaoReserva'
 export function Rodape() {
   return (
     <footer className="rodape">
-      <Marca className="rodape-marca" animar />
+      <Marca className="rodape-marca" />
       <p className="rodape-slogan">{info.slogan} em Itatiba.</p>
       <p className="rodape-endereco">
-        {info.endereco.rua} · {info.endereco.cidade}<br />
+        {info.endereco.rua}, {info.endereco.cidade}<br />
         Quinta a domingo, {turnosResumo()}
       </p>
-      <nav className="rodape-links" aria-label="Contato e redes" data-revelar>
+      <nav className="rodape-links" aria-label="Contato e redes">
         <a href={info.instagram} target="_blank" rel="noreferrer">Instagram</a>
         <a href={info.reserva} target="_blank" rel="noreferrer">WhatsApp {info.whatsappExibicao}</a>
         <a href={`mailto:${info.email}`}>{info.email}</a>

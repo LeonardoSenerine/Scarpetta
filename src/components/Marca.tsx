@@ -36,7 +36,7 @@ export function Marca({ className = '', comCucina = true, animar = false }: { cl
     )
   }
 
-  // whileInView: no hero dispara ao carregar; no rodapé, quando ele aparece.
+  // whileInView: no hero, dispara assim que a página carrega.
   return (
     <motion.span className={`marca ${className}`} initial="oculto" whileInView="visivel" viewport={{ once: true, amount: 0.6 }}>
       <motion.svg

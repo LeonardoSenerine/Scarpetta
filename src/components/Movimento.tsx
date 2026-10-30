@@ -3,35 +3,10 @@ import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } f
 
 export const curva = [0.2, 0.7, 0.2, 1] as const
 
-// Título que sobe palavra por palavra de dentro de uma máscara, uma vez, quando entra na tela.
-// É a assinatura de movimento dos títulos de seção.
+// Título de seção. Fica parado: o movimento da página está concentrado no hero, na leitura do manifesto,
+// no carrossel e nos pratos que giram.
 export function Titulo({ id, className, children }: { id?: string; className?: string; children: string }) {
-  const palavras = children.split(' ')
-  return (
-    <h2 id={id} className={className}>
-      <motion.span
-        className="titulo-palavras"
-        initial="oculto"
-        whileInView="visivel"
-        viewport={{ once: true, margin: '0px 0px -12% 0px' }}
-        variants={{ visivel: { transition: { staggerChildren: 0.07 } } }}
-      >
-        {palavras.map((p, i) => (
-          <span key={i}>
-            <span className="palavra">
-              <motion.span
-                className="palavra-dentro"
-                variants={{ oculto: { y: '115%' }, visivel: { y: '0%', transition: { duration: 0.9, ease: curva } } }}
-              >
-                {p}
-              </motion.span>
-            </span>
-            {i < palavras.length - 1 && ' '}
-          </span>
-        ))}
-      </motion.span>
-    </h2>
-  )
+  return <h2 id={id} className={className}>{children}</h2>
 }
 
 type Trecho = { texto: string; lang?: string; italico?: boolean }

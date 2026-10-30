@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { motion, useReducedMotion } from 'motion/react'
 import { executivo } from '../data/executivo'
 import { info, wa } from '../data/info'
 import { hojeEmItatiba, precoBR } from '../lib/horario'
@@ -17,7 +16,6 @@ const periodo = (inicio: string, fim: string) =>
     : `${dataCurta(inicio)} e ${dataCurta(fim)}`
 
 export function Executivo() {
-  const reduzir = useReducedMotion()
   const [detalhes, setDetalhes] = useState(false)
   const hoje = hojeEmItatiba()
   const valeHoje = hoje >= executivo.inicio && hoje <= executivo.fim
@@ -34,20 +32,13 @@ export function Executivo() {
     <section className={`executivo ${detalhes ? 'com-detalhes' : ''}`} id="executivo" aria-labelledby="executivo-titulo">
       <div className="executivo-fotos" aria-hidden="true">
         {executivo.fotos.map((f, i) => (
-          <motion.div
-            key={f}
-            className="executivo-foto"
-            initial={reduzir ? false : { opacity: 0, rotate: i ? 6 : -6, y: 40 }}
-            whileInView={{ opacity: 1, rotate: i ? 3 : -4, y: 0 }}
-            viewport={{ once: true, margin: '-15%' }}
-            transition={{ duration: 1, delay: i * 0.12, ease: [0.2, 0.7, 0.2, 1] }}
-          >
+          <div key={f} className="executivo-foto" style={{ rotate: `${i ? 3 : -4}deg` }}>
             <Foto nome={f} alt="" sizes="(min-width: 900px) 22vw, 36vw" />
-          </motion.div>
+          </div>
         ))}
       </div>
 
-      <div className="executivo-cartao" data-revelar>
+      <div className="executivo-cartao">
         <header className="executivo-topo">
           <p className={`executivo-selo ${valeHoje ? 'is-hoje' : ''}`}>{selo}</p>
           <Titulo id="executivo-titulo" className="executivo-titulo">Menu executivo</Titulo>

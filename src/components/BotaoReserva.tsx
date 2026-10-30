@@ -9,7 +9,7 @@ type Props = {
   children?: ReactNode
 }
 
-// Botão único para todas as chamadas de reserva: ícone num círculo tomate, texto e uma seta que avança ao passar o mouse.
+// Botão único para todas as chamadas de reserva: ícone num círculo tomate e o texto da ação.
 export function BotaoReserva({ href = '#reserva', variante = 'creme', className = '', onClick, children = 'Reservar mesa' }: Props) {
   const externo = href.startsWith('http')
   return (
@@ -24,9 +24,6 @@ export function BotaoReserva({ href = '#reserva', variante = 'creme', className 
         {externo ? <IconeWhatsApp /> : <IconeMesa />}
       </span>
       <span>{children}</span>
-      <svg className="botao-reserva-seta" viewBox="0 0 16 16" aria-hidden="true">
-        <path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
     </a>
   )
 }
