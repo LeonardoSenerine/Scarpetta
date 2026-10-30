@@ -21,7 +21,12 @@ export function Rodape() {
         <a href={`mailto:${info.email}`}>{info.email}</a>
         <a href={info.cardapioDigital} target="_blank" rel="noreferrer">Cardápio digital</a>
       </nav>
-      <p className="rodape-legal">© {new Date().getFullYear()} {info.nome}</p>
+      <p className="rodape-legal">
+        © {new Date().getFullYear()} {info.nome} · <a href="/privacidade">Privacidade e cookies</a>
+      </p>
+      <p className="rodape-credito">
+        Desenvolvido por <a href={info.desenvolvedor.link} target="_blank" rel="noreferrer">{info.desenvolvedor.nome}</a>
+      </p>
     </footer>
   )
 }

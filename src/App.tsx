@@ -11,6 +11,7 @@ import { Eventos } from './components/Eventos'
 import { EmCasa, Visite } from './components/Visite'
 import { BarraAcoes, Rodape } from './components/Rodape'
 import { RolagemSuave } from './components/RolagemSuave'
+import { Convite } from './components/Convite'
 
 // Ordem da visita: quem somos, como cozinhamos, o que comer, reservar, onde fica, eventos e como chegar.
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
         <Eventos />
         <Visite />
         <EmCasa />
+        <Convite />
       </main>
       <Rodape />
       <BarraAcoes />
