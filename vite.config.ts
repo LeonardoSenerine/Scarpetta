@@ -66,13 +66,33 @@ function metadados(): Plugin {
     `<meta name="twitter:image" content="${imagem}" />`,
     `<script type="application/ld+json">${JSON.stringify(restaurante).replace(/</g, '\\u003c')}</script>`,
   ]
+  // A proposta (proposta.html) tem prévia própria, com a mesma capa.
+  const tituloProposta = `Proposta de site para o ${info.nome} · senerine.dev`
+  const descricaoProposta = 'Uma solução para melhorar a captação de clientes do Scarpetta: um site com a identidade da casa que centraliza tudo o que hoje está no Linktree.'
+  const tagsProposta = [
+    `<title>${attr(tituloProposta)}</title>`,
+    `<meta name="description" content="${attr(descricaoProposta)}" />`,
+    `<meta property="og:type" content="website" />`,
+    `<meta property="og:locale" content="pt_BR" />`,
+    `<meta property="og:title" content="${attr(tituloProposta)}" />`,
+    `<meta property="og:description" content="${attr(descricaoProposta)}" />`,
+    `<meta property="og:url" content="${site}/proposta" />`,
+    `<meta property="og:image" content="${imagem}" />`,
+    `<meta property="og:image:width" content="1200" />`,
+    `<meta property="og:image:height" content="630" />`,
+    `<meta name="twitter:card" content="summary_large_image" />`,
+  ]
   return {
     name: 'metadados',
-    transformIndexHtml: (html) => html.replace('<!-- metadados -->', tags.join('\n    ')),
+    transformIndexHtml: (html) => html
+      .replace('<!-- metadados -->', tags.join('\n    '))
+      .replace('<!-- metadados-proposta -->', tagsProposta.join('\n    ')),
   }
 }
 
 export default defineConfig({
   plugins: [react(), metadados()],
+  // Duas páginas: o site (index.html) e a proposta para o cliente (proposta.html, servida em /proposta).
+  build: { rollupOptions: { input: { site: 'index.html', proposta: 'proposta.html' } } },
   server: { host: true, port: Number(process.env.PORT) || 5173 },
 })

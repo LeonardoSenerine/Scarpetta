@@ -1,0 +1,236 @@
+/* Proposta para o Scarpetta: usa as cores, fontes e botões de src/styles.css, com classes próprias (p-*).
+   Pensada primeiro para o celular, onde o dono provavelmente vai abrir o link. */
+
+.p-topo {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: calc(.9rem + env(safe-area-inset-top)) var(--margem) .9rem;
+  font-size: .9rem; color: var(--creme-suave); border-bottom: 1px solid var(--verde-linha);
+}
+.p-autor { font-weight: 600; color: var(--creme); text-decoration: none; letter-spacing: .01em; }
+.p-topo span { text-align: right; }
+
+main h1, main h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; }
+main h1 em, main h2 em { font-style: italic; color: #e2574a; }
+.p-cabeca { max-width: 40rem; }
+.p-cabeca h2 { font-size: clamp(2.1rem, 8.4vw, 3.4rem); line-height: 1.06; }
+
+/* ---------- Abertura ---------- */
+
+.p-abertura {
+  display: grid; gap: 2.6rem; padding: 3rem var(--margem) 4rem;
+  background: radial-gradient(ellipse 90% 60% at 100% 0%, rgba(31, 90, 66, .6), transparent 70%), var(--verde-noite);
+}
+.p-abertura h1 { font-size: clamp(2.5rem, 11vw, 4.6rem); line-height: 1.02; }
+.p-lead { margin-top: 1.1rem; font-size: 1.15rem; line-height: 1.6; color: var(--creme-suave); max-width: 36ch; }
+.p-endereco {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 1rem;
+  margin-top: 1.8rem; padding: 1rem 1.2rem; max-width: 26rem; border-radius: 14px; text-decoration: none;
+  background: var(--creme); color: var(--verde-noite); transition: transform .3s var(--curva), background-color .3s;
+}
+.p-endereco:hover { background: var(--papel); transform: translateY(-2px); }
+.p-endereco-rotulo { grid-column: 1; font-size: .8rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--pomodoro); }
+.p-endereco strong { grid-column: 1; font-size: 1.15rem; font-weight: 600; overflow-wrap: anywhere; }
+.p-endereco .p-seta { grid-column: 2; grid-row: 1 / span 2; width: 26px; height: 26px; }
+.p-descer { display: inline-block; margin-top: 1.1rem; padding: .4rem 0; color: var(--creme); text-underline-offset: 4px; }
+
+/* A prévia de link como aparece no WhatsApp. */
+.p-previa figure { max-width: 30rem; }
+.p-previa-cartao { overflow: hidden; border-radius: 12px; background: #1f2c33; box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .7); }
+.p-previa-cartao img { width: 100%; height: auto; border-bottom: 3px solid var(--pomodoro); }
+.p-previa-texto { display: grid; gap: .35rem; padding: .9rem 1rem 1rem; font-family: system-ui, sans-serif; }
+.p-previa-texto strong { font-size: 1rem; line-height: 1.3; color: #e9edef; }
+.p-previa-texto span { font-size: .88rem; line-height: 1.4; color: #8696a0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.p-previa-texto small { font-size: .85rem; color: #8696a0; }
+.p-previa figcaption { margin-top: .9rem; font-size: .92rem; color: var(--creme-suave); }
+
+.p-seta { width: 22px; height: 22px; flex: none; }
+
+/* ---------- Comparação ---------- */
+
+.p-comparacao { background: var(--papel); color: var(--verde); padding: 4.5rem var(--margem); }
+.p-comparacao .sobretitulo, .p-reserva .sobretitulo, .p-convite .sobretitulo { color: var(--musgo); }
+.p-comparacao h2 em { color: var(--pomodoro); }
+
+/* No celular, um lado por vez, escolhido nas abas. */
+.p-alternar {
+  display: grid; grid-template-columns: 1fr 1fr; gap: .3rem; margin: 2rem auto 0; max-width: 22rem; padding: .3rem;
+  background: rgba(15, 61, 44, .08); border-radius: 999px;
+}
+.p-alternar button { min-height: 44px; border-radius: 999px; font-weight: 600; color: var(--verde); transition: background-color .25s, color .25s; }
+.p-alternar button[aria-selected='true'] { background: var(--verde); color: var(--creme); }
+.p-lados { margin-top: 2rem; }
+.p-lado { display: none; }
+.p-lado.is-ativo { display: block; animation: p-entra .45s var(--curva); }
+@keyframes p-entra { from { opacity: 0; transform: translateY(10px); } }
+.p-lado-cabeca { display: flex; align-items: center; justify-content: center; gap: .7rem; margin-bottom: 1.2rem; }
+.p-lado-cabeca h3 { font-family: var(--serif); font-weight: 500; font-size: 1.3rem; overflow-wrap: anywhere; }
+.p-etiqueta { padding: .25rem .75rem; border-radius: 999px; font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.p-lado-hoje .p-etiqueta { background: rgba(15, 61, 44, .1); color: rgba(15, 61, 44, .8); }
+.p-lado-site .p-etiqueta { background: var(--pomodoro); color: var(--papel); }
+
+/* Moldura de celular, na proporção do print do Linktree. */
+.celular {
+  width: min(78vw, 300px); margin: 0 auto; padding: 10px; border-radius: 40px; background: #121614;
+  box-shadow: 0 40px 70px -30px rgba(10, 43, 31, .55), inset 0 0 0 1px rgba(255, 255, 255, .08);
+}
+.celular-tela { position: relative; aspect-ratio: 9 / 17; overflow: hidden; border-radius: 30px; background: #eceef2; }
+.celular-tela > img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+/* O site de verdade, em 390px de largura e reduzido (pelo JS) para caber na tela do celular desenhado. */
+.celular-tela iframe { position: absolute; top: 0; left: 0; width: 390px; border: 0; transform-origin: 0 0; }
+.p-capa-site { display: block; width: 100%; height: 100%; position: relative; }
+.p-capa-site img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.p-tocar {
+  position: absolute; left: 50%; bottom: 1.2rem; transform: translateX(-50%); white-space: nowrap;
+  padding: .55rem 1rem; border-radius: 999px; font-size: .85rem; font-weight: 600;
+  background: rgba(246, 240, 223, .95); color: var(--verde-noite); box-shadow: 0 10px 24px -8px rgba(0, 0, 0, .6);
+  animation: p-pulsa 2.4s var(--curva) infinite;
+}
+@keyframes p-pulsa { 50% { transform: translateX(-50%) scale(1.05); } }
+
+.p-pontos { display: grid; gap: .9rem; max-width: 30rem; margin: 2rem auto 0; }
+.p-pontos li { position: relative; padding-left: 2rem; font-size: 1.02rem; line-height: 1.55; }
+.p-pontos li::before {
+  content: ''; position: absolute; left: 0; top: .2rem; width: 1.25rem; height: 1.25rem; border-radius: 50%;
+  background: no-repeat center / 12px;
+}
+.p-lado-hoje .p-pontos li { color: rgba(15, 61, 44, .85); }
+.p-lado-hoje .p-pontos li::before {
+  background-color: rgba(15, 61, 44, .12);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 3l6 6M9 3l-6 6' stroke='%230f3d2c' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.p-lado-site .p-pontos li::before {
+  background-color: var(--pomodoro);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.3l2.3 2.2L9.5 3.5' fill='none' stroke='%23f6f0df' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* ---------- Onde cada botão vai parar ---------- */
+
+.p-trocas { background: var(--verde); padding: 4.5rem var(--margem); }
+.p-trocas-lista { display: grid; gap: 1.2rem; margin: 2.2rem 0 0; padding: 0; list-style: none; }
+.p-troca {
+  display: grid; justify-items: start; gap: .8rem; padding: 1.2rem; border-radius: 14px;
+  background: rgba(10, 43, 31, .55); border: 1px solid var(--verde-linha);
+}
+.p-troca-de { display: flex; flex-wrap: wrap; gap: .4rem; }
+/* O botão como está no Linktree hoje. */
+.p-botao-lt {
+  padding: .5rem .95rem; border-radius: 10px; background: #fff; color: #111;
+  font-family: system-ui, sans-serif; font-size: .92rem; font-weight: 600; box-shadow: 0 2px 0 rgba(0, 0, 0, .15);
+}
+.p-troca > .p-seta { color: var(--manjericao); transform: rotate(90deg); }
+.p-troca-para { display: grid; grid-template-columns: 112px 1fr; gap: 1rem; align-items: start; width: 100%; }
+.p-troca-para img {
+  width: 112px; aspect-ratio: 13 / 16; object-fit: cover; object-position: top; border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(239, 229, 200, .18), 0 14px 26px -12px rgba(0, 0, 0, .6);
+}
+.p-troca-icone {
+  width: 112px; aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%;
+  background: var(--pomodoro); color: var(--papel);
+}
+.p-troca-icone svg { width: 40px; height: 40px; }
+.p-troca-para h3 { font-family: var(--serif); font-weight: 500; font-size: 1.3rem; line-height: 1.2; }
+.p-troca-para p { margin-top: .3rem; font-size: .98rem; line-height: 1.5; color: var(--creme-suave); }
+
+.p-extras { margin-top: 3rem; }
+.p-extras h3 { font-family: var(--serif); font-weight: 400; font-size: 1.7rem; line-height: 1.15; }
+.p-extras-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.2rem; }
+.p-extras figure img { width: 100%; aspect-ratio: 13 / 16; object-fit: cover; object-position: top; border-radius: 12px; }
+.p-extras figcaption { margin-top: .7rem; font-size: .95rem; line-height: 1.45; color: var(--creme-suave); }
+.p-extras figcaption strong { display: block; color: var(--creme); font-weight: 600; }
+
+/* ---------- A reserva pronta ---------- */
+
+.p-reserva { display: grid; gap: 2.4rem; background: var(--creme); color: var(--verde); padding: 4.5rem var(--margem); }
+.p-reserva h2 { font-size: clamp(2.1rem, 8.4vw, 3.4rem); line-height: 1.06; }
+.p-reserva h2 em { color: var(--pomodoro); }
+.p-reserva-texto > p:last-child { margin-top: 1rem; font-size: 1.1rem; line-height: 1.65; max-width: 36ch; color: rgba(15, 61, 44, .88); }
+
+.p-conversa { max-width: 24rem; width: 100%; overflow: hidden; border-radius: 18px; box-shadow: 0 30px 60px -28px rgba(10, 43, 31, .55); font-family: system-ui, sans-serif; }
+.p-conversa-topo { display: flex; align-items: center; gap: .8rem; padding: .8rem 1rem; background: #075e54; color: #fff; }
+.p-conversa-topo strong { display: block; font-size: 1rem; }
+.p-conversa-topo small { font-size: .78rem; opacity: .8; }
+.p-conversa-foto {
+  width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; overflow: hidden;
+  background: var(--verde-noite);
+}
+.p-conversa-foto .tomate { position: static; width: 24px; height: 24px; transform: none; }
+.p-conversa-corpo { padding: 1.4rem 1rem 1.6rem; background: #efeae2; }
+.p-bolha {
+  position: relative; display: grid; margin-left: auto; width: fit-content; max-width: 88%;
+  padding: .6rem .8rem 1.3rem; border-radius: 10px 0 10px 10px; background: #d9fdd3; color: #111b21;
+  font-size: .95rem; line-height: 1.4; box-shadow: 0 1px .5px rgba(11, 20, 26, .13);
+}
+.p-bolha small { position: absolute; right: .6rem; bottom: .3rem; font-size: .7rem; color: #53bdeb; }
+
+/* ---------- Um link para tudo ---------- */
+
+.p-usos { background: var(--verde-noite); padding: 4.5rem var(--margem); }
+.p-usos-lista { display: grid; gap: 0; margin-top: 2rem; }
+.p-usos-lista li > div { display: grid; grid-template-columns: 3rem 1fr; column-gap: .6rem; padding: 1.2rem 0; border-top: 1px solid var(--verde-linha); }
+.p-usos-numero { grid-row: span 2; font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: #e2574a; line-height: 1.1; }
+.p-usos-lista h3 { font-family: var(--serif); font-weight: 500; font-size: 1.3rem; line-height: 1.2; }
+.p-usos-lista p { margin-top: .2rem; color: var(--creme-suave); }
+
+/* ---------- Convite ---------- */
+
+.p-convite { background: var(--papel); color: var(--verde); padding: 4.5rem var(--margem) 5rem; }
+.p-convite-caixa {
+  max-width: 40rem; margin: 0 auto; text-align: center; padding: 2.6rem 1.4rem 2.2rem;
+  background: var(--creme); border-radius: 8px; outline: 1px solid rgba(15, 61, 44, .35); outline-offset: -10px;
+}
+.p-convite-marca { font-size: 3.2rem; color: var(--verde); }
+.p-convite h2 { margin-top: 1.4rem; font-size: clamp(2.2rem, 9vw, 3.2rem); line-height: 1.05; }
+.p-convite-caixa > p:not(.p-assinatura) { margin: 1rem auto 0; max-width: 34ch; font-size: 1.1rem; line-height: 1.6; color: rgba(15, 61, 44, .9); }
+.p-convite-acoes { display: grid; gap: .7rem; margin-top: 1.8rem; }
+.p-assinatura { margin-top: 1.6rem; font-size: .95rem; color: var(--musgo); }
+.p-assinatura a { color: var(--verde); font-weight: 600; text-underline-offset: 3px; }
+
+.p-rodape {
+  padding: 2rem var(--margem) calc(2rem + env(safe-area-inset-bottom)); text-align: center;
+  font-size: .88rem; color: var(--creme-suave); background: var(--verde-noite);
+}
+
+/* ---------- Telas maiores ---------- */
+
+@media (min-width: 720px) {
+  .p-convite-acoes { grid-template-columns: auto auto; justify-content: center; }
+  .p-troca { grid-template-columns: 14rem auto 1fr; align-items: center; gap: 1.4rem; padding: 1.4rem 1.6rem; }
+  .p-troca > .p-seta { transform: none; }
+  .p-troca-para { grid-template-columns: 120px 1fr; align-items: center; }
+  .p-troca-para img, .p-troca-icone { width: 120px; }
+  .p-usos-lista { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; }
+}
+
+@media (min-width: 960px) {
+  .p-topo { padding-block: 1.2rem; }
+  .p-abertura { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; gap: 5vw; padding: 6rem var(--margem) 7rem; min-height: min(88vh, 820px); }
+  .p-previa figure { margin-left: auto; }
+
+  .p-comparacao, .p-trocas, .p-reserva, .p-usos, .p-convite { padding: 7rem var(--margem); }
+  .p-comparacao .p-cabeca { margin: 0 auto; text-align: center; }
+  /* Lado a lado, sem abas. */
+  .p-alternar { display: none; }
+  .p-lados { display: grid; grid-template-columns: 1fr 1fr; gap: 5vw; max-width: 64rem; margin: 3.5rem auto 0; }
+  .p-lado, .p-lado.is-ativo { display: block; animation: none; }
+  .celular { width: min(24vw, 320px); }
+
+  .p-trocas > .p-cabeca, .p-trocas-lista, .p-extras { max-width: 64rem; margin-inline: auto; }
+  .p-extras-grade { grid-template-columns: repeat(2, minmax(0, 18rem)); gap: 2rem; }
+
+  /* Na mesma largura das outras seções (64rem), centrada. */
+  .p-reserva {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem); align-items: center; gap: 6vw;
+    padding-inline: max(var(--margem), calc((100% - 64rem) / 2));
+  }
+  .p-reserva > * { max-width: none; }
+  .p-usos > .p-cabeca, .p-usos-lista { max-width: 64rem; margin-inline: auto; }
+  .p-usos-lista { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 2rem; }
+  .p-usos-lista li > div { grid-template-columns: 1fr; }
+  .p-usos-numero { grid-row: auto; margin-bottom: .6rem; }
+  .p-convite-caixa { padding: 3.4rem 3rem 2.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p-tocar { animation: none; }
+  .p-lado.is-ativo { animation: none; }
+}
