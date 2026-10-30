@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 type Props = {
-  /** '#reserva' leva à barra de reserva; um link do WhatsApp abre a conversa em outra aba. */
+  /** '#reserva' leva à seção de reservas; um link do WhatsApp abre a conversa em outra aba. */
   href?: string
   variante?: 'creme' | 'verde' | 'linha'
   className?: string
@@ -37,7 +37,7 @@ function IconeMesa() {
   )
 }
 
-function IconeWhatsApp() {
+export function IconeWhatsApp() {
   return (
     <svg viewBox="0 0 24 24">
       <path d="M4.5 19.5l1.1-3.6A8 8 0 1 1 8.4 18.6z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
