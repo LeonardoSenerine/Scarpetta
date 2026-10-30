@@ -28,6 +28,4 @@ for (const w of [640, 1200, 1500]) {
   await sharp('raw/img/19.jpg').resize({ width: w, withoutEnlargement: true }).webp({ quality: 84 }).toFile(`public/img/pizza-mesa-${w}.webp`)
 }
 
-// Imagem de compartilhamento (WhatsApp, Instagram): a pizza saindo do forno, em 1200x630.
-await sharp('raw/img/23.jpg').resize({ width: 1200 }).extract({ left: 0, top: 520, width: 1200, height: 630 })
-  .jpeg({ quality: 80 }).toFile('public/og.jpg')
+// A capa do link (public/og.jpg) é feita à parte, com marca e texto: `node scripts/og.mjs`.

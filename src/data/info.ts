@@ -11,7 +11,7 @@ type Avaliacoes = { nota: string; total: number; link: string }
 export const info = {
   nome: 'Scarpetta Cucina',
   slogan: 'Cozinha italiana afetiva',
-  descricao: 'Massas artesanais, risotos e pizzas de fermentação natural, no Doda Training Center em Itatiba/SP. Reserve sua mesa.',
+  descricao: 'Até não sobrar nada do molho. Massa fresca, pizza de fermentação natural e risotos num salão no meio do verde, dentro do Doda Training Center em Itatiba/SP. Reserve sua mesa.',
   // Domínio deduzido do e-mail da casa. Confirmar antes de publicar: é usado no Open Graph e no schema.org.
   site: 'https://scarpetta.com.br',
   endereco: {
