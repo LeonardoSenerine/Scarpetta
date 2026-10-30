@@ -2,13 +2,15 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { MotionConfig, motion } from 'motion/react'
 import { info } from '../data/info'
 import { Marca, Tomate } from '../components/Marca'
-import { IconeWhatsApp } from '../components/BotaoReserva'
+import { BotaoReserva, IconeWhatsApp } from '../components/BotaoReserva'
 import { curva } from '../components/Movimento'
 
 // Proposta para o Scarpetta: o que muda quando o link da bio deixa de ser o Linktree e passa a ser o site.
 // As capturas em public/proposta vêm de scripts/proposta.mjs; o print do Linktree, do celular.
 
 const AUTOR = { nome: 'Leonardo', marca: 'senerine.dev', link: 'https://senerine.dev' }
+// O convite abre a conversa com o Leonardo já com a mensagem escrita.
+const conversa = `https://wa.me/5518997307852?text=${encodeURIComponent(`Olá, Leonardo! Vi a proposta de site para o ${info.nome} e gostaria de conversar.`)}`
 // O endereço de onde a página está sendo vista: o mesmo do site, seja qual for o domínio.
 const host = window.location.host
 const titulo = `${info.nome} · ${info.slogan} em Itatiba/SP`
@@ -316,8 +318,8 @@ export function Proposta() {
               mostrar em 15 minutos como o site funcionaria no dia a dia de vocês. Sem compromisso.
             </p>
             <div className="p-convite-acoes">
-              <a className="botao botao-verde" href="/" target="_blank" rel="noreferrer">Abrir o site</a>
-              <a className="botao botao-linha-verde" href={AUTOR.link} target="_blank" rel="noreferrer">Falar com o {AUTOR.nome}</a>
+              <BotaoReserva variante="verde" href={conversa}>Conversar no WhatsApp</BotaoReserva>
+              <a className="botao botao-linha-verde" href="/" target="_blank" rel="noreferrer">Abrir o site</a>
             </div>
             <p className="p-assinatura">{AUTOR.nome} · <a href={AUTOR.link} target="_blank" rel="noreferrer">{AUTOR.marca}</a></p>
           </Surge>
