@@ -6,8 +6,9 @@
     <meta name="theme-color" content="#0f3d2c" />
     <!-- metadados -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <!-- Foto do hero (src/components/Hero.tsx), nos mesmos tamanhos. -->
-    <link rel="preload" as="image" href="/img/pizza-mesa-640.webp" imagesrcset="/img/pizza-mesa-640.webp 640w, /img/pizza-mesa-1200.webp 1200w, /img/pizza-mesa-1500.webp 1500w" imagesizes="(min-width: 960px) 44vw, 86vw" fetchpriority="high" />
+    <!-- Fotos do hero (src/components/Hero.tsx), nos mesmos tamanhos: o forno no celular, a pizza no desktop. -->
+    <link rel="preload" as="image" media="(max-width: 959px)" href="/img/forno-640.webp" imagesrcset="/img/forno-640.webp 640w, /img/forno-1200.webp 1200w" imagesizes="100vw" fetchpriority="high" />
+    <link rel="preload" as="image" media="(min-width: 960px)" href="/img/pizza-mesa-1200.webp" imagesrcset="/img/pizza-mesa-640.webp 640w, /img/pizza-mesa-1200.webp 1200w, /img/pizza-mesa-1500.webp 1500w" imagesizes="44vw" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Source+Sans+3:ital,wght@0,400..600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet" />
