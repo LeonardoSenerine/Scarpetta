@@ -35,6 +35,11 @@ for (const [n, name] of Object.entries(map)) {
   }
 }
 
+// Hero no desktop: a mesma pizza em plano aberto, com a tábua e a mesa, na resolução máxima do original.
+for (const w of [1200, 1500]) {
+  await sharp('raw/img/19.jpg').resize({ width: w, withoutEnlargement: true }).webp({ quality: 84 }).toFile(`public/img/pizza-mesa-${w}.webp`)
+}
+
 // Imagem de compartilhamento (WhatsApp, Instagram): a pizza saindo do forno, em 1200x630.
 await sharp('raw/img/23.jpg').resize({ width: 1200 }).extract({ left: 0, top: 520, width: 1200, height: 630 })
   .jpeg({ quality: 80 }).toFile('public/og.jpg')
