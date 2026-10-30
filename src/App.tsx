@@ -2,18 +2,18 @@ import { MotionConfig } from 'motion/react'
 import { Cabecalho } from './components/Cabecalho'
 import { Hero } from './components/Hero'
 import { Manifesto } from './components/Manifesto'
-import { Experiencias } from './components/Experiencias'
 import { Executivo } from './components/Executivo'
 import { Cardapio } from './components/Cardapio'
 import { Reserva } from './components/Reserva'
 import { Salao } from './components/Salao'
 import { Eventos } from './components/Eventos'
-import { EmCasa, Visite } from './components/Visite'
+import { Visite } from './components/Visite'
 import { BarraAcoes, Rodape } from './components/Rodape'
 import { RolagemSuave } from './components/RolagemSuave'
 import { Convite } from './components/Convite'
 
-// Ordem da visita: quem somos, como cozinhamos, o que comer, reservar, onde fica, eventos e como chegar.
+// Ordem da visita: primeiro o que se procura (o executivo de hoje, o cardápio, a reserva), depois a casa,
+// o lugar, os eventos e como chegar. Fundos alternam entre papel e verde para a página não virar um bloco só.
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
@@ -23,15 +23,13 @@ export default function App() {
       <Cabecalho />
       <main id="conteudo" tabIndex={-1}>
         <Hero />
-        <Manifesto />
-        <Experiencias />
         <Executivo />
         <Cardapio />
         <Reserva />
+        <Manifesto />
         <Salao />
         <Eventos />
         <Visite />
-        <EmCasa />
         <Convite />
       </main>
       <Rodape />

@@ -61,7 +61,7 @@ export function Cardapio() {
       <div className="cardapio-cabeca">
         <Titulo id="cardapio-titulo">O cardápio</Titulo>
         <Traco />
-        <p>Receitas italianas de sempre e algumas criações da casa. Os pratos com foto abrem em tamanho maior.</p>
+        <p>Receitas italianas de sempre e algumas criações da casa. Toque nos pratos com foto para ver de perto.</p>
       </div>
 
       <Destaques />
@@ -178,6 +178,7 @@ function ItemPrato({ prato, ordem, onVer }: { prato: Prato; ordem: number; onVer
     <>
       <span className="prato-linha">
         <span className="prato-nome" lang="it">{prato.nome}</span>
+        <span className="pontilhado" aria-hidden="true" />
         <span className="prato-preco">{precoBR(prato.preco)}</span>
       </span>
       <span className="prato-desc">{prato.descricao}</span>

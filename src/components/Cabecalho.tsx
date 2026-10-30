@@ -6,10 +6,8 @@ import { info } from '../data/info'
 import { useNaReserva } from '../lib/useNaReserva'
 
 const links = [
-  { href: '#executivo', rotulo: 'Menu executivo' },
   { href: '#cardapio', rotulo: 'Cardápio' },
   { href: '#reserva', rotulo: 'Reservas' },
-  { href: '#salao', rotulo: 'O salão' },
   { href: '#eventos', rotulo: 'Eventos' },
   { href: '#visite', rotulo: 'Como chegar' },
 ]

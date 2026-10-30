@@ -51,7 +51,6 @@ export function Convite() {
     <section className="convite" aria-labelledby="convite-titulo">
       <Faixa velocidade={2.2} />
       <div className="convite-conteudo">
-        <p className="sobretitulo">Quinta a domingo</p>
         <motion.h2
           id="convite-titulo"
           initial="oculto"
@@ -70,7 +69,7 @@ export function Convite() {
             </span>
           ))}
         </motion.h2>
-        <p className="convite-texto">Almoço e jantar, {turnosResumo()}, num salão no meio do verde.</p>
+        <p className="convite-texto">Quinta a domingo, {turnosResumo()}.</p>
         <div className="convite-acoes">
           <BotaoReserva />
           <a className="botao botao-linha" href="#cardapio">Ver o cardápio</a>
