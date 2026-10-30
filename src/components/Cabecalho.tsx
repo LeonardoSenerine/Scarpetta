@@ -3,10 +3,12 @@ import { AnimatePresence, motion } from 'motion/react'
 import { Marca } from './Marca'
 import { BotaoReserva } from './BotaoReserva'
 import { info } from '../data/info'
+import { useNaReserva } from '../lib/useNaReserva'
 
 const links = [
   { href: '#executivo', rotulo: 'Menu executivo' },
   { href: '#cardapio', rotulo: 'Cardápio' },
+  { href: '#reserva', rotulo: 'Reservas' },
   { href: '#salao', rotulo: 'O salão' },
   { href: '#eventos', rotulo: 'Eventos' },
   { href: '#visite', rotulo: 'Como chegar' },
@@ -16,6 +18,7 @@ export function Cabecalho() {
   const [solido, setSolido] = useState(false)
   const [oculto, setOculto] = useState(false)
   const [aberto, setAberto] = useState(false)
+  const naReserva = useNaReserva()
 
   // Some ao rolar para baixo depois do hero e volta ao rolar para cima.
   useEffect(() => {
@@ -55,7 +58,7 @@ export function Cabecalho() {
             <a key={l.href} href={l.href}>{l.rotulo}</a>
           ))}
         </nav>
-        <BotaoReserva className="cabecalho-reserva" />
+        <BotaoReserva className={`cabecalho-reserva ${naReserva ? 'is-escondido' : ''}`} />
         <button
           className="cabecalho-menu"
           aria-expanded={aberto}

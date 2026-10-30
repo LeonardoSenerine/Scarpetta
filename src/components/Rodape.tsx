@@ -4,6 +4,7 @@ import { info } from '../data/info'
 import { turnosResumo } from '../lib/horario'
 import { Marca } from './Marca'
 import { BotaoReserva } from './BotaoReserva'
+import { useNaReserva } from '../lib/useNaReserva'
 
 export function Rodape() {
   return (
@@ -25,9 +26,10 @@ export function Rodape() {
   )
 }
 
-// Barra fixa no celular: aparece depois do hero e some perto do rodapé.
+// Barra fixa no celular: aparece depois do hero e some perto do rodapé e enquanto a pessoa monta a reserva.
 export function BarraAcoes() {
   const [visivel, setVisivel] = useState(false)
+  const naReserva = useNaReserva()
 
   useEffect(() => {
     const onScroll = () => {
@@ -41,7 +43,7 @@ export function BarraAcoes() {
 
   return (
     <AnimatePresence>
-      {visivel && (
+      {visivel && !naReserva && (
         <motion.nav
           className="barra-acoes"
           aria-label="Ações rápidas"

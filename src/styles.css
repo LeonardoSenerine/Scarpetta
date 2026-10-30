@@ -1,13 +1,14 @@
 /* Scarpetta Cucina — identidade tirada do pôster do menu executivo:
    verde garrafa, creme de papel, o tomate do logo e a assinatura manuscrita.
-   Títulos em Bodoni, o tipo italiano nascido em Parma; texto corrido em Jost. */
+   Títulos em Fraunces, uma serifa calorosa que se lê bem em qualquer tamanho; texto corrido em Source Sans 3,
+   feita para leitura em tela. A caligrafia fica só na assinatura. */
 
 :root {
   --verde: #0f3d2c;
   --verde-noite: #0a2b1f;
   --verde-linha: rgba(239, 229, 200, 0.16);
   --creme: #efe5c8;
-  --creme-suave: rgba(239, 229, 200, 0.74);
+  --creme-suave: rgba(239, 229, 200, 0.86);
   --papel: #f6f0df;
   --pomodoro: #c4362b;
   --manjericao: #a9c99a;
@@ -15,8 +16,8 @@
   --aberto: #8fd18f;
 
   --script: 'Pinyon Script', cursive;
-  --serif: 'Bodoni Moda', 'Bodoni 72', Didot, 'Times New Roman', serif;
-  --sans: 'Jost', system-ui, sans-serif;
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --margem: 1.25rem;
   --cabecalho: 64px;
@@ -40,14 +41,15 @@ body {
   background: var(--verde-noite);
   color: var(--creme);
   font-family: var(--sans);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 img, video, svg { display: block; max-width: 100%; }
 h1, h2, h3, p, ul, figure { margin: 0; }
+h2, h3 { font-optical-sizing: auto; text-wrap: balance; }
 ul { padding: 0; list-style: none; }
 a { color: inherit; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
@@ -80,7 +82,7 @@ html.sem-rolagem { overflow: hidden; }
 .botao {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 48px; padding: 0 1.5rem; border-radius: 999px;
-  font-family: var(--sans); font-weight: 500; font-size: .95rem; letter-spacing: .01em;
+  font-family: var(--sans); font-weight: 600; font-size: 1rem; letter-spacing: .01em;
   text-decoration: none; white-space: nowrap;
   transition: transform .3s var(--curva), background-color .3s, color .3s, border-color .3s;
 }
@@ -190,24 +192,20 @@ html.sem-rolagem { overflow: hidden; }
 }
 .hero-marca { font-size: clamp(4.4rem, 21vw, 11rem); color: var(--creme); padding: .1em .2em 0; margin-bottom: -.3rem; }
 .hero-marca .marca-cucina { font-size: max(.11em, .7rem); }
-.hero-slogan { max-width: 32ch; font-size: .98rem; line-height: 1.55; color: var(--creme); text-wrap: balance; }
+.hero-slogan { max-width: 32ch; font-size: 1.1rem; line-height: 1.55; color: var(--creme); text-wrap: balance; }
 .hero-acoes { display: flex; gap: .7rem; flex-wrap: wrap; justify-content: center; }
-.hero-status { display: inline-flex; align-items: center; gap: .55rem; font-size: .86rem; color: var(--creme-suave); }
+.hero-status { display: inline-flex; align-items: center; gap: .55rem; font-size: .95rem; color: var(--creme-suave); }
 
-/* Quadro quadrado com a foto aberta e um contorno fino afastado, como passe-partout. */
-.hero-mesa { position: relative; display: grid; place-items: center; margin-top: 2rem; --lado: min(84vw, 380px); }
+/* A foto aberta, solta sobre o fundo, sem moldura. */
+.hero-mesa { position: relative; display: grid; place-items: center; margin-top: 2rem; --lado: min(88vw, 400px); }
 .hero-mesa-quadro {
-  position: relative; width: var(--lado); aspect-ratio: 1; overflow: hidden; border-radius: 4px;
+  position: relative; width: var(--lado); aspect-ratio: 1; overflow: hidden; border-radius: 6px;
   box-shadow: 0 40px 70px -34px rgba(0, 0, 0, .8);
 }
 .hero-mesa-quadro img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.hero-mesa::after {
-  content: ''; position: absolute; width: calc(var(--lado) + 22px); aspect-ratio: 1;
-  border: 1px solid rgba(239, 229, 200, .22); border-radius: 8px; pointer-events: none;
-}
 .etapa-estacao {
   position: absolute; top: .8rem; left: .8rem; padding: .25rem .7rem; border-radius: 999px;
-  font-size: .74rem; font-weight: 500; letter-spacing: .03em; background: rgba(246, 240, 223, .92); color: var(--verde);
+  font-size: .8rem; font-weight: 600; letter-spacing: .03em; background: rgba(246, 240, 223, .92); color: var(--verde);
 }
 
 /* ---------- Manifesto ---------- */
@@ -218,7 +216,7 @@ html.sem-rolagem { overflow: hidden; }
   display: grid; gap: 2.5rem;
 }
 .verbete { font-family: var(--serif); font-size: 1.5rem; font-style: italic; margin-bottom: 1rem; }
-.verbete em { font-family: var(--sans); font-style: normal; font-size: .8rem; color: var(--musgo); margin-left: .4rem; }
+.verbete em { font-family: var(--sans); font-style: normal; font-size: .9rem; color: var(--musgo); margin-left: .4rem; }
 .manifesto h2 {
   font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 7.6vw, 3.9rem);
   line-height: 1.08; letter-spacing: -.01em; max-width: 17ch; text-wrap: balance;
@@ -226,7 +224,7 @@ html.sem-rolagem { overflow: hidden; }
 .manifesto h2 .italico { font-style: italic; }
 .manifesto-texto { display: grid; gap: 1.6rem; }
 .manifesto-texto .verbete { margin-bottom: -.6rem; }
-.manifesto-intro { font-size: 1.06rem; line-height: 1.7; max-width: 36rem; }
+.manifesto-intro { font-size: 1.12rem; line-height: 1.7; max-width: 36rem; }
 .manifesto-fatos { max-width: 36rem; }
 
 /* Colagem: uma foto grande ao fundo e outra menor na frente, em profundidades diferentes. */
@@ -238,31 +236,127 @@ html.sem-rolagem { overflow: hidden; }
 .colagem-pequena .colagem-revela { outline: 8px solid var(--papel); }
 .colagem-revela .foto { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-/* ---------- Barra de reserva ---------- */
+/* ---------- Reservas ---------- */
 
-.reserva { background: var(--verde-noite); padding: 2.6rem var(--margem) 2.4rem; border-top: 1px solid var(--verde-linha); }
-.reserva-titulo {
-  font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 2rem; line-height: 1.1;
-  text-align: center; margin-bottom: 1.3rem;
+/* Texto e informações à esquerda; o pedido num cartão de papel à direita (embaixo no celular). */
+.reserva {
+  background: var(--verde-noite); padding: 4.5rem var(--margem); display: grid; gap: 2.6rem;
+  border-top: 1px solid var(--verde-linha);
+  background-image: radial-gradient(ellipse 70% 50% at 0% 0%, rgba(31, 90, 66, .5), transparent 70%);
 }
-.reserva-campos { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; max-width: 64rem; margin: 0 auto; }
-.campo { display: grid; gap: .35rem; min-width: 0; }
-.campo:first-child { grid-column: 1 / -1; }
-.campo > span { font-size: .88rem; color: var(--manjericao); }
-.campo select {
-  appearance: none; -webkit-appearance: none; width: 100%; min-height: 50px; padding: 0 2.6rem 0 1rem;
-  font: inherit; font-size: 1rem; color: var(--creme); cursor: pointer;
-  border: 1px solid rgba(239, 229, 200, .28); border-radius: 10px;
-  background: rgba(239, 229, 200, .06) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23c9ad72' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 1rem center / 12px;
-  transition: border-color .2s;
+.sobretitulo { font-size: .85rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--manjericao); margin-bottom: .6rem; }
+.reserva-lado h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 9vw, 3.6rem); line-height: 1.05; }
+.reserva-intro { margin-top: 1rem; font-size: 1.12rem; line-height: 1.65; color: var(--creme-suave); max-width: 36ch; }
+.reserva-passos { counter-reset: passo; margin: 2rem 0 0; padding: 0; list-style: none; display: grid; gap: 1rem; max-width: 30rem; }
+.reserva-passos li {
+  counter-increment: passo; position: relative; padding-left: 3rem; min-height: 2.2rem;
+  color: var(--creme-suave); font-size: 1rem; line-height: 1.5;
 }
-.campo select:hover { border-color: var(--creme-suave); }
-.campo select option { color: var(--verde-noite); background: var(--creme); }
-.reserva-enviar { grid-column: 1 / -1; margin-top: .4rem; min-height: 52px; }
-.reserva-nota { text-align: center; font-size: .85rem; color: var(--creme-suave); margin-top: 1.1rem; }
-.reserva-nota a { color: var(--creme); text-underline-offset: 3px; }
-.manifesto-fatos li { padding: 1rem 0; border-top: 1px solid rgba(15, 61, 44, .18); font-size: .98rem; }
-.manifesto-fatos strong { display: block; font-family: var(--serif); font-size: 1.4rem; font-weight: 500; line-height: 1.2; }
+.reserva-passos li::before {
+  content: counter(passo); position: absolute; left: 0; top: 0; width: 2.1rem; height: 2.1rem;
+  display: grid; place-items: center; border-radius: 50%; background: var(--pomodoro); color: var(--papel);
+  font-weight: 600; font-size: .95rem;
+}
+.reserva-passos strong { display: block; color: var(--creme); font-weight: 600; }
+.reserva-info { margin: 2rem 0 0; display: grid; gap: 0; max-width: 30rem; }
+.reserva-info > div { padding: .9rem 0; border-top: 1px solid var(--verde-linha); }
+.reserva-info dt { font-size: .85rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--manjericao); }
+.reserva-info dd { margin: .2rem 0 0; font-size: 1rem; }
+.reserva-info dd span { display: block; color: var(--creme-suave); }
+.reserva-info a { color: var(--creme); text-underline-offset: 3px; }
+.reserva-foto { display: none; }
+
+.reserva-cartao {
+  background: var(--papel); color: var(--verde); border-radius: 10px; padding: 1.6rem 1.2rem 1.4rem;
+  display: grid; gap: 1.5rem; box-shadow: 0 40px 70px -40px rgba(0, 0, 0, .8);
+}
+.reserva-grupo { border: 0; margin: 0; padding: 0; min-width: 0; }
+.reserva-grupo legend, .reserva-rotulo, .campo > span {
+  display: block; padding: 0; margin-bottom: .6rem; font-size: .95rem; font-weight: 600; color: var(--verde);
+}
+.campo em, .reserva-grupo legend em { font-style: normal; font-weight: 400; color: rgba(15, 61, 44, .7); }
+
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chips-dias {
+  flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity;
+  margin: 0 -1.2rem; padding: .2rem 1.2rem .4rem;
+}
+.chips-dias::-webkit-scrollbar { display: none; }
+.chip { position: relative; cursor: pointer; }
+.chip input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.chip > span:not(.chip-dia-nome):not(.chip-dia-data), .chip-dia {
+  display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 1rem;
+  border: 1px solid rgba(15, 61, 44, .28); border-radius: 999px; font-size: 1rem; font-weight: 600;
+  font-variant-numeric: tabular-nums; transition: background-color .2s, color .2s, border-color .2s;
+}
+.chip:not(.chip-dia):hover > span, .chip-dia:hover { border-color: var(--verde); }
+.chip:not(.chip-dia) input:checked + span { background: var(--verde); border-color: var(--verde); color: var(--creme); }
+.chip:not(.chip-dia) input:focus-visible + span, .chip-dia:has(input:focus-visible) { outline: 2px solid var(--pomodoro); outline-offset: 2px; }
+.chip-dia {
+  flex: none; flex-direction: column; gap: .05rem; min-width: 5.2rem; min-height: 4rem; padding: .5rem .8rem;
+  border-radius: 12px; scroll-snap-align: start; line-height: 1.2;
+}
+.chip-dia-nome { font-size: .95rem; font-weight: 600; }
+.chip-dia-data { font-size: .88rem; font-weight: 400; opacity: .8; }
+.chip-dia:has(input:checked) { background: var(--verde); border-color: var(--verde); color: var(--creme); }
+.reserva-turno + .reserva-turno { margin-top: .9rem; }
+.reserva-turno-nome { font-size: .88rem; color: rgba(15, 61, 44, .75); margin-bottom: .4rem; }
+
+.reserva-pessoas { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.reserva-pessoas .reserva-rotulo { margin: 0; }
+.contador { display: inline-flex; align-items: center; gap: .3rem; border: 1px solid rgba(15, 61, 44, .28); border-radius: 999px; padding: .25rem; }
+.contador button {
+  width: 40px; height: 40px; border-radius: 50%; font-size: 1.3rem; line-height: 1; color: var(--verde);
+  transition: background-color .2s;
+}
+.contador button:hover:not(:disabled) { background: rgba(15, 61, 44, .08); }
+.contador button:disabled { opacity: .3; cursor: default; }
+.contador output { min-width: 2.4rem; text-align: center; font-size: 1.15rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.reserva-linha { display: grid; gap: 1.2rem; }
+.campo { display: grid; min-width: 0; }
+.campo input, .campo textarea, .seletor-botao {
+  appearance: none; -webkit-appearance: none; width: 100%; min-height: 50px; padding: .7rem 1rem;
+  font: inherit; font-size: 1rem; color: var(--verde); background: #fffdf6;
+  border: 1px solid rgba(15, 61, 44, .28); border-radius: 10px; transition: border-color .2s;
+}
+.campo textarea { resize: vertical; min-height: 4.5rem; line-height: 1.5; }
+.campo input::placeholder, .campo textarea::placeholder { color: rgba(15, 61, 44, .5); }
+.campo input:hover, .campo textarea:hover, .seletor-botao:hover { border-color: rgba(15, 61, 44, .55); }
+.campo input:focus, .campo textarea:focus, .seletor-botao:focus-visible, .seletor.is-aberto .seletor-botao {
+  outline: none; border-color: var(--verde); box-shadow: 0 0 0 3px rgba(15, 61, 44, .14);
+}
+
+/* Seletor próprio (src/components/Seletor.tsx): botão com o valor e uma lista flutuante. */
+.seletor { position: relative; }
+.seletor-botao { display: flex; align-items: center; justify-content: space-between; gap: .8rem; text-align: left; cursor: pointer; }
+.seletor-botao > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.seletor-seta { width: 12px; flex: none; transition: transform .25s var(--curva); }
+.seletor.is-aberto .seletor-seta { transform: rotate(180deg); }
+.seletor-lista {
+  position: absolute; z-index: 20; top: calc(100% + .4rem); left: 0; right: 0; max-height: 16rem; overflow-y: auto;
+  margin: 0; padding: .35rem; list-style: none; transform-origin: top center;
+  background: #fffdf6; border: 1px solid rgba(15, 61, 44, .2); border-radius: 12px;
+  box-shadow: 0 24px 48px -18px rgba(10, 43, 31, .45), 0 2px 6px rgba(10, 43, 31, .08);
+}
+.seletor-opcao {
+  display: flex; align-items: center; justify-content: space-between; gap: .8rem;
+  min-height: 44px; padding: .55rem .8rem; border-radius: 8px; cursor: pointer; font-size: 1rem;
+}
+.seletor-opcao.is-ativa { background: rgba(15, 61, 44, .08); }
+.seletor-opcao[aria-selected='true'] { font-weight: 600; }
+.seletor-opcao svg { width: 16px; height: 16px; flex: none; color: var(--pomodoro); }
+
+.reserva-resumo {
+  display: flex; flex-wrap: wrap; gap: .2rem .6rem; padding: .9rem 1rem; border-radius: 10px;
+  background: rgba(15, 61, 44, .07); font-weight: 600; font-size: 1rem;
+}
+.reserva-resumo span + span::before { content: '·'; margin-right: .6rem; color: var(--pomodoro); }
+.reserva-enviar { width: 100%; min-height: 54px; font-size: 1.05rem; }
+.reserva-nota { text-align: center; font-size: .92rem; color: rgba(15, 61, 44, .75); margin-top: -.6rem; }
+
+.manifesto-fatos li { padding: 1rem 0; border-top: 1px solid rgba(15, 61, 44, .18); font-size: 1.02rem; }
+.manifesto-fatos strong { display: block; font-family: var(--serif); font-size: 1.35rem; font-weight: 500; line-height: 1.2; }
 
 /* ---------- Menu executivo ---------- */
 
@@ -282,7 +376,7 @@ html.sem-rolagem { overflow: hidden; }
   outline: 1px solid rgba(15, 61, 44, .35); outline-offset: -10px;
 }
 .executivo-selo {
-  display: inline-block; font-size: .78rem; font-weight: 500; letter-spacing: .04em;
+  display: inline-block; font-size: .85rem; font-weight: 600; letter-spacing: .04em;
   padding: .3rem .85rem; border: 1px solid rgba(15, 61, 44, .4); border-radius: 999px;
 }
 .executivo-selo.is-hoje { background: var(--pomodoro); border-color: var(--pomodoro); color: var(--papel); }
@@ -290,25 +384,25 @@ html.sem-rolagem { overflow: hidden; }
   font-family: var(--serif); font-style: italic; font-weight: 400; line-height: 1;
   font-size: clamp(2.6rem, 11vw, 3.8rem); margin: .7rem 0 .4rem; color: var(--verde);
 }
-.executivo-quando { display: flex; flex-direction: column; align-items: center; gap: .1rem; font-size: .95rem; }
+.executivo-quando { display: flex; flex-direction: column; align-items: center; gap: .1rem; font-size: 1rem; }
 .executivo-preco { font-family: var(--serif); font-size: 2.2rem; font-weight: 500; line-height: 1.1; }
-.executivo-regra { font-size: .9rem; color: rgba(15, 61, 44, .75); margin-top: .4rem; }
+.executivo-regra { font-size: .98rem; color: rgba(15, 61, 44, .85); margin-top: .4rem; }
 .executivo-etapa { margin-top: 2rem; }
 .executivo-etapa h3 {
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem;
-  font-family: var(--serif); font-weight: 500; font-size: 1.55rem; font-variant: small-caps; letter-spacing: .1em;
+  font-family: var(--sans); font-weight: 600; font-size: .9rem; text-transform: uppercase; letter-spacing: .16em;
   margin-bottom: .6rem;
 }
 .executivo-etapa h3::before, .executivo-etapa h3::after { content: ''; height: 1px; background: rgba(15, 61, 44, .4); }
 .executivo-etapa li { padding: .55rem 0; }
-.executivo-prato { font-family: var(--serif); font-weight: 500; font-size: 1.32rem; line-height: 1.2; }
-.executivo-desc { font-size: .88rem; line-height: 1.5; color: rgba(15, 61, 44, .78); max-width: 34ch; margin: .15rem auto 0; }
+.executivo-prato { font-family: var(--serif); font-weight: 500; font-size: 1.25rem; line-height: 1.25; }
+.executivo-desc { font-size: .96rem; line-height: 1.5; color: rgba(15, 61, 44, .85); max-width: 34ch; margin: .15rem auto 0; }
 .executivo-acoes { display: grid; justify-items: center; gap: 1rem; margin-top: 2.2rem; }
 .executivo-acoes .botao { white-space: normal; text-align: center; }
 /* No celular o cartão mostra só os nomes; as descrições abrem num toque. */
 .executivo-detalhes {
   display: none; margin: 1.4rem auto 0; min-height: 44px; padding: 0 1rem;
-  font-size: .88rem; color: var(--verde); text-decoration: underline; text-underline-offset: 3px;
+  font-size: .95rem; color: var(--verde); text-decoration: underline; text-underline-offset: 3px;
 }
 @media (max-width: 719px) {
   .executivo-detalhes { display: block; }
@@ -316,7 +410,7 @@ html.sem-rolagem { overflow: hidden; }
   .executivo-etapa { margin-top: 1.5rem; }
   .executivo-etapa li { padding: .3rem 0; }
 }
-.link-sutil { font-size: .85rem; color: rgba(15, 61, 44, .8); text-underline-offset: 3px; }
+.link-sutil { font-size: .92rem; color: rgba(15, 61, 44, .85); text-underline-offset: 3px; }
 
 /* ---------- Traço de molho (assinatura) ---------- */
 
@@ -327,7 +421,7 @@ html.sem-rolagem { overflow: hidden; }
 .cardapio { background: var(--verde); padding: 4.5rem 0 4.5rem; }
 .cardapio-cabeca { padding: 0 var(--margem); max-width: 60rem; margin: 0 auto 1.6rem; text-align: center; }
 .cardapio-cabeca h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 9vw, 3.6rem); line-height: 1.1; }
-.cardapio-cabeca p { color: var(--creme-suave); margin: .8rem auto 0; max-width: 40ch; font-size: .98rem; }
+.cardapio-cabeca p { color: var(--creme-suave); margin: .8rem auto 0; max-width: 42ch; font-size: 1.06rem; }
 
 /* Pratos da casa: no celular uma fileira que rola de lado; no desktop um zigue-zague. */
 .destaques {
@@ -340,10 +434,10 @@ html.sem-rolagem { overflow: hidden; }
   aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: #1a4a37; margin: 10px;
   box-shadow: 0 0 0 8px rgba(239, 229, 200, .92), 0 0 0 9px rgba(15, 61, 44, .4), 0 30px 46px -20px rgba(0, 0, 0, .65);
 }
-.destaque-categoria { font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--manjericao); margin-top: 1.2rem; }
-.destaque-texto h3 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.45rem; line-height: 1.15; margin-top: .3rem; }
+.destaque-categoria { font-size: .8rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--manjericao); margin-top: 1.2rem; }
+.destaque-texto h3 { font-family: var(--serif); font-weight: 500; font-size: 1.4rem; line-height: 1.2; margin-top: .3rem; }
 .destaque-desc { display: none; }
-.destaque-preco { color: var(--manjericao); font-size: .9rem; margin-top: .35rem; }
+.destaque-preco { color: var(--manjericao); font-size: 1rem; font-weight: 600; margin-top: .35rem; }
 
 /* As abas rolam sozinhas em telas estreitas; o degradê avisa que há mais categorias de cada lado. */
 .abas-moldura {
@@ -364,26 +458,26 @@ html.sem-rolagem { overflow: hidden; }
 }
 .abas::-webkit-scrollbar { display: none; }
 .aba {
-  position: relative; flex: none; padding: .85rem .85rem .75rem;
-  font-family: var(--serif); font-style: italic; font-size: 1.35rem; color: var(--creme-suave);
+  position: relative; flex: none; padding: 1rem .9rem .9rem;
+  font-family: var(--sans); font-weight: 600; font-size: 1.02rem; letter-spacing: .02em; color: var(--creme-suave);
   transition: color .3s;
 }
 .aba[aria-selected='true'] { color: var(--creme); }
 .aba-marcador { position: absolute; left: .85rem; right: .85rem; bottom: -1px; height: 2px; background: var(--manjericao); border-radius: 2px; }
 
 .cardapio-painel { max-width: 62rem; margin: 0 auto; padding: 1.6rem var(--margem) 0; min-height: 26rem; }
-.cardapio-intro { color: var(--manjericao); font-size: .92rem; margin-bottom: .5rem; }
+.cardapio-intro { color: var(--manjericao); font-size: 1rem; margin-bottom: .5rem; }
 .prato {
   padding: 1.15rem 0; border-bottom: 1px solid rgba(239, 229, 200, .1);
   animation: prato-entra .6s var(--curva) both; animation-delay: calc(var(--ordem, 0) * 45ms);
 }
 @keyframes prato-entra { from { opacity: 0; transform: translateY(14px); } }
 .prato-linha { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
-.prato-nome { font-family: var(--serif); font-weight: 500; font-size: 1.3rem; line-height: 1.2; }
-.prato-preco { font-size: .95rem; color: var(--manjericao); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.prato-desc { display: block; margin-top: .3rem; font-size: .92rem; line-height: 1.55; color: var(--creme-suave); max-width: 52ch; }
+.prato-nome { font-family: var(--serif); font-weight: 500; font-size: 1.22rem; line-height: 1.25; }
+.prato-preco { font-size: 1.02rem; font-weight: 600; color: var(--manjericao); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.prato-desc { display: block; margin-top: .35rem; font-size: 1rem; line-height: 1.55; color: var(--creme-suave); max-width: 52ch; }
 .prato-nota {
-  display: inline-block; margin-top: .55rem; font-size: .74rem; letter-spacing: .02em;
+  display: inline-block; margin-top: .55rem; font-size: .82rem; letter-spacing: .02em;
   padding: .12rem .6rem; border: 1px solid rgba(169, 201, 154, .55); border-radius: 999px; color: var(--manjericao);
 }
 .prato.tem-foto { display: grid; grid-template-columns: 76px 1fr; gap: 1rem; align-items: start; }
@@ -400,11 +494,11 @@ html.sem-rolagem { overflow: hidden; }
   max-width: 62rem; margin: 2.5rem var(--margem) 0; padding: 1.8rem 1.4rem; text-align: center;
   border: 1px solid rgba(169, 201, 154, .45); border-radius: 6px;
 }
-.especial-rotulo { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--manjericao); }
-.especial-nome { font-family: var(--serif); font-style: italic; font-size: 1.6rem; font-weight: 400; margin-top: .3rem; }
-.especial-desc { color: var(--creme-suave); font-size: .92rem; margin-top: .3rem; }
+.especial-rotulo { font-size: .82rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--manjericao); }
+.especial-nome { font-family: var(--serif); font-size: 1.6rem; font-weight: 500; margin-top: .3rem; }
+.especial-desc { color: var(--creme-suave); font-size: 1rem; margin-top: .3rem; }
 .especial-preco { color: var(--manjericao); margin-top: .5rem; }
-.cardapio-rodape { text-align: center; color: var(--creme-suave); padding: 2rem var(--margem) 0; font-size: .92rem; }
+.cardapio-rodape { text-align: center; color: var(--creme-suave); padding: 2rem var(--margem) 0; font-size: 1rem; }
 .cardapio-rodape a { color: var(--creme); text-underline-offset: 3px; }
 
 .lupa {
@@ -416,7 +510,7 @@ html.sem-rolagem { overflow: hidden; }
 @keyframes lupa-entra { from { opacity: 0; transform: scale(.97); } }
 .lupa-foto { width: min(92vw, 520px); border-radius: 10px; overflow: hidden; background: var(--verde-noite); }
 .lupa-imagem { aspect-ratio: 1; background-size: cover; background-position: center; }
-.lupa-foto figcaption { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 1.1rem; font-family: var(--serif); font-size: 1.25rem; font-style: italic; }
+.lupa-foto figcaption { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 1.1rem; font-family: var(--serif); font-size: 1.25rem; font-weight: 500; }
 .lupa-foto figcaption span:last-child { font-family: var(--sans); font-style: normal; font-size: .95rem; color: var(--manjericao); }
 .lupa-fechar {
   position: absolute; top: calc(1rem + env(safe-area-inset-top)); right: 1rem;
@@ -442,7 +536,7 @@ html.sem-rolagem { overflow: hidden; }
 .etapa-midia { position: relative; aspect-ratio: 4 / 5; border-radius: 4px; overflow: hidden; background: #133b2b; }
 .etapa-midia .clipe { display: block; width: 100%; height: 100%; object-fit: cover; }
 .etapa h3 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(2.1rem, 9vw, 3.4rem); line-height: 1; margin-top: 1rem; }
-.etapa > p { color: var(--creme-suave); font-size: .94rem; line-height: 1.55; margin-top: .5rem; max-width: 32ch; }
+.etapa > p { color: var(--creme-suave); font-size: 1rem; line-height: 1.55; margin-top: .5rem; max-width: 32ch; }
 .etapa-final {
   align-self: stretch; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: .4rem;
   padding: 2rem 1.6rem; border-left: 1px solid var(--verde-linha);
@@ -461,12 +555,12 @@ html.sem-rolagem { overflow: hidden; }
 .salao-tile-0 { grid-column: 1 / -1; aspect-ratio: 4 / 5; }
 .salao-tile .clipe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .salao-painel h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 9vw, 4rem); line-height: 1.05; }
-.salao-intro { margin-top: 1rem; font-size: 1.04rem; line-height: 1.7; max-width: 38ch; }
+.salao-intro { margin-top: 1rem; font-size: 1.12rem; line-height: 1.7; max-width: 38ch; }
 .salao-lista { margin: 1.6rem 0 2rem; display: grid; gap: 1rem; max-width: 34rem; }
 .salao-lista li { display: grid; grid-template-columns: 1.1rem 1fr; gap: .8rem; align-items: start; padding-top: 1rem; border-top: 1px solid rgba(15, 61, 44, .18); }
 .salao-lista .tomate { position: static; width: 1.1rem; height: 1.1rem; transform: none; margin-top: .25rem; }
 .salao-lista h3 { font-family: var(--serif); font-size: 1.35rem; font-weight: 500; line-height: 1.2; }
-.salao-lista p { font-size: .95rem; color: rgba(15, 61, 44, .8); margin-top: .15rem; }
+.salao-lista p { font-size: 1rem; color: rgba(15, 61, 44, .85); margin-top: .15rem; }
 
 /* ---------- Eventos ---------- */
 
@@ -480,9 +574,9 @@ html.sem-rolagem { overflow: hidden; }
 }
 .eventos-texto { max-width: 34rem; }
 .eventos h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.2rem, 8vw, 3.4rem); line-height: 1.08; }
-.eventos-texto > p:not(.eventos-email) { margin-top: 1rem; font-size: 1.04rem; line-height: 1.7; }
+.eventos-texto > p:not(.eventos-email) { margin-top: 1rem; font-size: 1.12rem; line-height: 1.7; }
 .eventos-acoes { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.8rem; }
-.eventos-email { margin-top: 1rem; font-size: .85rem; color: var(--musgo); }
+.eventos-email { margin-top: 1rem; font-size: .95rem; color: var(--musgo); }
 
 /* ---------- Como chegar ---------- */
 
@@ -490,14 +584,14 @@ html.sem-rolagem { overflow: hidden; }
 .visite-info { padding: 4.5rem var(--margem) 2.5rem; max-width: 32rem; }
 .visite h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 9vw, 3.4rem); line-height: 1.05; }
 .visite address { font-style: normal; margin-top: 1.2rem; font-size: 1.04rem; line-height: 1.55; }
-.visite-referencia { color: var(--manjericao); font-size: .95rem; margin-top: .5rem; }
-.horarios { width: 100%; border-collapse: collapse; margin-top: 1.6rem; font-size: .94rem; }
+.visite-referencia { color: var(--manjericao); font-size: 1.02rem; margin-top: .5rem; }
+.horarios { width: 100%; border-collapse: collapse; margin-top: 1.6rem; font-size: 1rem; }
 .horarios caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .horarios th, .horarios td { padding: .8rem 0; border-top: 1px solid var(--verde-linha); vertical-align: top; }
-.horarios th { text-align: left; font-weight: 500; }
+.horarios th { text-align: left; font-weight: 600; }
 .horarios td { text-align: right; color: var(--creme-suave); }
 .horarios td span { display: block; }
-.visite-status { display: flex; align-items: center; gap: .55rem; font-size: .88rem; color: var(--creme-suave); padding-top: .8rem; border-top: 1px solid var(--verde-linha); }
+.visite-status { display: flex; align-items: center; gap: .55rem; font-size: .95rem; color: var(--creme-suave); padding-top: .8rem; border-top: 1px solid var(--verde-linha); }
 .visite-acoes { display: grid; gap: .7rem; margin-top: 1.8rem; }
 .visite-nota { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1.5rem; font-size: .9rem; color: var(--creme-suave); text-underline-offset: 3px; }
 .estrelas { color: var(--manjericao); letter-spacing: .12em; }
@@ -529,10 +623,10 @@ html.sem-rolagem { overflow: hidden; }
 }
 .rodape-marca { font-size: 4rem; color: var(--creme); }
 .rodape-slogan { margin-top: 1.2rem; color: var(--creme); }
-.rodape-endereco { margin-top: .6rem; font-size: .9rem; line-height: 1.6; }
-.rodape-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 1.4rem; margin-top: 1rem; font-size: .92rem; }
+.rodape-endereco { margin-top: .6rem; font-size: .98rem; line-height: 1.6; }
+.rodape-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 1.4rem; margin-top: 1rem; font-size: 1rem; }
 .rodape-links a { display: inline-block; padding: .65rem .2rem; text-underline-offset: 3px; }
-.rodape-legal { margin-top: 1.4rem; font-size: .8rem; }
+.rodape-legal { margin-top: 1.4rem; font-size: .88rem; }
 
 .barra-acoes {
   position: fixed; z-index: 30; left: .7rem; right: .7rem; bottom: calc(.7rem + env(safe-area-inset-bottom));
@@ -543,7 +637,7 @@ html.sem-rolagem { overflow: hidden; }
 }
 .barra-acoes a {
   min-height: 46px; display: grid; place-items: center; border-radius: 999px;
-  font-size: .9rem; font-weight: 500; text-decoration: none; color: var(--creme);
+  font-size: .95rem; font-weight: 600; text-decoration: none; color: var(--creme);
 }
 .barra-acoes .barra-principal {
   display: inline-flex; min-height: 46px; padding-right: .9rem; font-size: .9rem; justify-content: flex-start;
@@ -555,6 +649,7 @@ html.sem-rolagem { overflow: hidden; }
 
 @media (min-width: 720px) {
   :root { --margem: 2.5rem; }
+  .reserva-linha { grid-template-columns: 1fr 1fr; }
   .visite-acoes { grid-template-columns: auto auto; justify-content: start; }
 }
 
@@ -563,10 +658,11 @@ html.sem-rolagem { overflow: hidden; }
 
   .cabecalho { padding-right: var(--margem); }
   .cabecalho-menu { display: none; }
-  .cabecalho-nav { display: flex; gap: 2rem; font-size: .92rem; }
+  .cabecalho-nav { display: flex; gap: 1.8rem; font-size: 1rem; font-weight: 500; }
   .cabecalho-nav a { text-decoration: none; opacity: .85; transition: opacity .2s; }
   .cabecalho-nav a:hover { opacity: 1; }
-  .cabecalho-reserva { display: inline-flex; min-height: 42px; }
+  .cabecalho-reserva { display: inline-flex; min-height: 42px; transition: opacity .3s, transform .3s var(--curva), visibility .3s; }
+  .cabecalho-reserva.is-escondido { opacity: 0; visibility: hidden; transform: translateY(-6px); }
   .cabecalho-marca { font-size: 2.4rem; }
 
   /* No desktop: texto à esquerda, a pizza em plano aberto à direita. */
@@ -577,20 +673,21 @@ html.sem-rolagem { overflow: hidden; }
   }
   .hero-conteudo { padding: 0; gap: 1.4rem; }
   .hero-marca { font-size: clamp(6.5rem, 10vw, 11rem); }
-  .hero-slogan { font-size: 1.12rem; max-width: 34ch; }
+  .hero-slogan { font-size: 1.25rem; max-width: 34ch; }
   .hero-mesa { margin: 0; --lado: min(44vw, 82svh, 720px); }
-  .hero-mesa-quadro { box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .8); }
-  .hero-mesa::after { width: calc(var(--lado) + 28px); }
+  .hero-mesa-quadro { border-radius: 8px; box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .8); }
 
   .manifesto { grid-template-columns: 1.1fr 1fr; column-gap: 6vw; align-items: center; padding: 8rem var(--margem) 7rem; }
   .manifesto-colagem { height: 600px; }
 
-  .reserva { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 3rem; align-items: end; padding: 2.4rem var(--margem); }
-  .reserva-titulo { text-align: left; margin: 0 0 .4rem; font-size: 2.4rem; }
-  .reserva-campos { grid-template-columns: minmax(10.5rem, 1.4fr) minmax(5.5rem, 1fr) minmax(5.5rem, 1fr) auto; align-items: end; max-width: none; margin: 0; }
-  .campo:first-child { grid-column: auto; }
-  .reserva-enviar { grid-column: auto; margin-top: 0; }
-  .reserva-nota { grid-column: 1 / -1; text-align: left; }
+  .reserva { grid-template-columns: minmax(0, 1fr) minmax(0, 34rem); gap: 6vw; align-items: start; padding: 7rem var(--margem); }
+  .reserva-lado { position: sticky; top: calc(var(--cabecalho) + 2rem); }
+  .reserva-foto {
+    display: block; margin-top: 2.2rem; width: min(100%, 22rem); aspect-ratio: 4 / 3; overflow: hidden; border-radius: 6px;
+    background: #133b2b;
+  }
+  .reserva-cartao { padding: 2.2rem 2.2rem 1.8rem; }
+  .chips-dias { flex-wrap: wrap; overflow: visible; margin: 0; padding: 0; }
   .executivo { display: grid; grid-template-columns: 1fr minmax(0, 40rem) 1fr; align-items: center; padding: 7rem var(--margem); }
   /* Uma foto de cada lado do cartão, como pratos ao redor do menu na mesa. */
   .executivo-fotos { display: contents; }
