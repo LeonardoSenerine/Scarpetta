@@ -1,5 +1,3 @@
-import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { Foto } from './Foto'
 import { Leitura } from './Movimento'
 
@@ -9,15 +7,21 @@ const fatos = [
   { titulo: 'Um salão no meio do verde', texto: 'dentro do Doda Training Center, em Itatiba.' },
 ]
 
-// O nome da casa explicado: fare la scarpetta. A definição ganha tinta conforme é lida,
-// e ao lado duas fotos se sobrepõem e correm em velocidades diferentes com a rolagem.
-export function Manifesto() {
-  const colagem = useRef<HTMLDivElement>(null)
-  const reduzir = useReducedMotion()
-  const { scrollYProgress } = useScroll({ target: colagem, offset: ['start end', 'end start'] })
-  const yGrande = useTransform(scrollYProgress, [0, 1], reduzir ? [0, 0] : [40, -40])
-  const yPequena = useTransform(scrollYProgress, [0, 1], reduzir ? [0, 0] : [120, -120])
+// Pratos em que o pão faz a scarpetta: molho de tomate, ragù, manteiga e parmesão.
+const pratos = [
+  { nome: 'arancini-bruschetta', alt: 'Arancini de risoto e bruschettas de tomate em travessas sobre a mesa de madeira' },
+  { nome: 'melanzane', alt: 'Melanzane alla parmigiana sobre molho de tomates frescos, com folhas de manjericão' },
+  { nome: 'fettuccine-garfo', alt: 'Garfo enrolando fettuccine fresco ao molho de manteiga e parmesão' },
+  { nome: 'parmigiana', alt: 'Filetto alla parmigiana gratinado sobre molho de tomate, com batatas rústicas ao fundo' },
+  { nome: 'lasagna-detalhe', alt: 'Lasagna alla bolognese em detalhe, com camadas de massa fresca e sálvia' },
+  { nome: 'penne', alt: 'Penne alla vodka no molho cremoso de tomate' },
+  { nome: 'robalo-quadrado', alt: 'Robalo em crosta de ervas sobre purê de mandioquinha' },
+  { nome: 'budino', alt: 'Budino al pistacchio com calda e pistache crocante' },
+]
 
+// O nome da casa explicado: fare la scarpetta. A definição ganha tinta conforme é lida e, embaixo,
+// uma faixa de pratos corre devagar de ponta a ponta (parada para quem pede menos movimento).
+export function Manifesto() {
   return (
     <section className="manifesto" aria-labelledby="manifesto-titulo">
       <div className="manifesto-texto">
@@ -44,17 +48,14 @@ export function Manifesto() {
         </ul>
       </div>
 
-      <div className="manifesto-colagem" ref={colagem}>
-        {[
-          { classe: 'colagem-grande', y: yGrande, nome: 'lasagna-detalhe', alt: 'Lasagna alla bolognese em detalhe, com camadas de massa fresca e sálvia', sizes: '(min-width: 960px) 30vw, 66vw' },
-          { classe: 'colagem-pequena', y: yPequena, nome: 'fettuccine-garfo', alt: 'Garfo enrolando fettuccine fresco ao molho de manteiga e parmesão', sizes: '(min-width: 960px) 20vw, 48vw' },
-        ].map((f) => (
-          <motion.div key={f.nome} className={f.classe} style={{ y: f.y }}>
-            <div className="colagem-revela">
-              <Foto nome={f.nome} alt={f.alt} sizes={f.sizes} />
-            </div>
-          </motion.div>
-        ))}
+      <div className="faixa" aria-label="Pratos da casa" role="region">
+        <ul className="faixa-trilho">
+          {[...pratos, ...pratos].map((p, i) => (
+            <li key={i} className="faixa-foto" aria-hidden={i >= pratos.length || undefined}>
+              <Foto nome={p.nome} alt={i >= pratos.length ? '' : p.alt} sizes="(min-width: 960px) 18rem, 46vw" />
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )
