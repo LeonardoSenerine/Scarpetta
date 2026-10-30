@@ -1,7 +1,7 @@
-import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react'
+import { Fragment, useEffect, useId, useRef, useState, type KeyboardEvent } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 
-type Opcao = { valor: string; rotulo: string }
+export type Opcao = { valor: string; rotulo: string; detalhe?: string; grupo?: string }
 
 type Props = {
   rotulo: string
@@ -9,22 +9,24 @@ type Props = {
   valor: string
   opcoes: Opcao[]
   onChange: (valor: string) => void
+  className?: string
 }
 
-// Lista de escolha no estilo do site, no lugar do <select> nativo (cujo menu aberto não aceita estilo).
-// Segue o padrão de combobox só de leitura: setas, Home/End, Enter, Esc e busca pela primeira letra.
-export function Seletor({ rotulo, opcional, valor, opcoes, onChange }: Props) {
+// Lista de escolha no estilo do site, no lugar do <select> nativo (cujo menu aberto não aceita estilo),
+// igual no computador e no celular. Segue o padrão de combobox só de leitura: setas, Home/End, Enter, Esc
+// e busca pela primeira letra. Opções com `grupo` ganham um título (Almoço, Jantar) antes da primeira do grupo.
+export function Seletor({ rotulo, opcional, valor, opcoes, onChange, className = '' }: Props) {
   const id = useId()
   const [aberto, setAberto] = useState(false)
+  const [acima, setAcima] = useState(false)
   const [ativo, setAtivo] = useState(0)
   const raiz = useRef<HTMLDivElement>(null)
   const botao = useRef<HTMLButtonElement>(null)
-  const lista = useRef<HTMLUListElement>(null)
 
   const indice = Math.max(0, opcoes.findIndex((o) => o.valor === valor))
   const atual = opcoes[indice]
 
-  // Fecha ao clicar fora.
+  // Fecha ao tocar fora.
   useEffect(() => {
     if (!aberto) return
     const fora = (e: PointerEvent) => {
@@ -36,10 +38,13 @@ export function Seletor({ rotulo, opcional, valor, opcoes, onChange }: Props) {
 
   // Mantém a opção ativa visível quando a lista rola.
   useEffect(() => {
-    if (aberto) lista.current?.children[ativo]?.scrollIntoView({ block: 'nearest' })
-  }, [aberto, ativo])
+    if (aberto) document.getElementById(`${id}-${ativo}`)?.scrollIntoView({ block: 'nearest' })
+  }, [aberto, ativo, id])
 
+  // Abre para cima quando não cabe embaixo (perto do fim da tela, comum no celular).
   const abrir = () => {
+    const caixa = botao.current?.getBoundingClientRect()
+    if (caixa) setAcima(window.innerHeight - caixa.bottom < 300 && caixa.top > window.innerHeight - caixa.bottom)
     setAtivo(indice)
     setAberto(true)
   }
@@ -83,62 +88,73 @@ export function Seletor({ rotulo, opcional, valor, opcoes, onChange }: Props) {
   }
 
   return (
-    <div className={`campo seletor ${aberto ? 'is-aberto' : ''}`} ref={raiz}>
+    <div className={`campo seletor ${aberto ? 'is-aberto' : ''} ${acima ? 'is-acima' : ''} ${className}`} ref={raiz}>
       <span id={`${id}-rotulo`}>
         {rotulo} {opcional && <em>(opcional)</em>}
       </span>
-      <button
-        ref={botao}
-        type="button"
-        role="combobox"
-        className="seletor-botao"
-        aria-haspopup="listbox"
-        aria-expanded={aberto}
-        aria-controls={`${id}-lista`}
-        aria-labelledby={`${id}-rotulo ${id}-valor`}
-        aria-activedescendant={aberto ? `${id}-${ativo}` : undefined}
-        onClick={() => (aberto ? setAberto(false) : abrir())}
-        onKeyDown={onKeyDown}
-      >
-        <span id={`${id}-valor`}>{atual?.rotulo}</span>
-        <svg className="seletor-seta" viewBox="0 0 12 8" aria-hidden="true">
-          <path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1.6" />
-        </svg>
-      </button>
-      <AnimatePresence>
-        {aberto && (
-          <motion.ul
-            ref={lista}
-            id={`${id}-lista`}
-            role="listbox"
-            aria-labelledby={`${id}-rotulo`}
-            className="seletor-lista"
-            initial={{ opacity: 0, y: -6, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.98 }}
-            transition={{ duration: 0.18, ease: [0.2, 0.7, 0.2, 1] }}
-          >
-            {opcoes.map((o, i) => (
-              <li
-                key={o.valor}
-                id={`${id}-${i}`}
-                role="option"
-                aria-selected={o.valor === valor}
-                className={`seletor-opcao ${i === ativo ? 'is-ativa' : ''}`}
-                onPointerEnter={() => setAtivo(i)}
-                onClick={() => escolher(i)}
-              >
-                <span>{o.rotulo}</span>
-                {o.valor === valor && (
-                  <svg viewBox="0 0 16 16" aria-hidden="true">
-                    <path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                )}
-              </li>
-            ))}
-          </motion.ul>
-        )}
-      </AnimatePresence>
+      <div className="seletor-caixa">
+        <button
+          ref={botao}
+          type="button"
+          role="combobox"
+          className="seletor-botao"
+          aria-haspopup="listbox"
+          aria-expanded={aberto}
+          aria-controls={`${id}-lista`}
+          aria-labelledby={`${id}-rotulo ${id}-valor`}
+          aria-activedescendant={aberto ? `${id}-${ativo}` : undefined}
+          onClick={() => (aberto ? setAberto(false) : abrir())}
+          onKeyDown={onKeyDown}
+        >
+          <span id={`${id}-valor`} className="seletor-valor">
+            {atual?.rotulo}
+            {atual?.detalhe && <small>{atual.detalhe}</small>}
+          </span>
+          <svg className="seletor-seta" viewBox="0 0 12 8" aria-hidden="true">
+            <path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1.6" />
+          </svg>
+        </button>
+        <AnimatePresence>
+          {aberto && (
+            <motion.ul
+              id={`${id}-lista`}
+              role="listbox"
+              aria-labelledby={`${id}-rotulo`}
+              className="seletor-lista"
+              initial={{ opacity: 0, y: acima ? 6 : -6, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: acima ? 6 : -6, scale: 0.98 }}
+              transition={{ duration: 0.18, ease: [0.2, 0.7, 0.2, 1] }}
+            >
+              {opcoes.map((o, i) => (
+                <Fragment key={o.valor}>
+                  {o.grupo && o.grupo !== opcoes[i - 1]?.grupo && (
+                    <li role="presentation" className="seletor-grupo">{o.grupo}</li>
+                  )}
+                  <li
+                    id={`${id}-${i}`}
+                    role="option"
+                    aria-selected={o.valor === valor}
+                    className={`seletor-opcao ${i === ativo ? 'is-ativa' : ''}`}
+                    onPointerEnter={() => setAtivo(i)}
+                    onClick={() => escolher(i)}
+                  >
+                    <span>
+                      {o.rotulo}
+                      {o.detalhe && <small>{o.detalhe}</small>}
+                    </span>
+                    {o.valor === valor && (
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                  </li>
+                </Fragment>
+              ))}
+            </motion.ul>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   )
 }
