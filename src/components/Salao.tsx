@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { info } from '../data/info'
 import { Clipe } from './Clipe'
 import { Titulo } from './Movimento'
+import { BotaoReserva } from './BotaoReserva'
 
 const lugares = [
   {
@@ -23,42 +24,35 @@ const lugares = [
   },
 ]
 
-// O lugar em tela cheia: o vídeo ocupa a seção inteira e as três abas trocam o que se vê.
-// Só o vídeo da aba escolhida toca; os outros ficam parados por baixo, prontos para a troca.
+// O lugar em três vídeos reais da casa, cada um com seu nome: no celular, cartões que correm de lado;
+// no desktop, lado a lado.
 export function Salao() {
-  const [ativo, setAtivo] = useState(0)
-  const lugar = lugares[ativo]
-
   return (
     <section className="salao" id="salao" aria-labelledby="salao-titulo">
-      <div className="salao-videos">
-        {lugares.map((l, i) => (
-          <div key={l.clipe} className={`salao-video ${i === ativo ? 'is-ativo' : ''}`} aria-hidden={i !== ativo}>
-            <Clipe nome={l.clipe} rotulo={l.rotulo} tocar={i === ativo} />
-          </div>
-        ))}
+      <div className="salao-cabeca">
+        <p className="sobretitulo">O lugar</p>
+        <Titulo id="salao-titulo">Uma casa no meio da mata</Titulo>
+        <p className="salao-intro">
+          Longe do barulho da cidade, o Scarpetta é um almoço sem pressa com a luz do dia entrando pelas janelas, ou um
+          jantar com a varanda acesa.
+        </p>
       </div>
 
-      <div className="salao-conteudo">
-        <Titulo id="salao-titulo">Uma casa no meio da mata</Titulo>
-        <div className="salao-abas" role="tablist" aria-label="Conheça o lugar">
-          {lugares.map((l, i) => (
-            <button
-              key={l.clipe}
-              role="tab"
-              id={`salao-aba-${i}`}
-              aria-selected={i === ativo}
-              aria-controls="salao-legenda"
-              onClick={() => setAtivo(i)}
-            >
-              {l.titulo}
-            </button>
-          ))}
-        </div>
-        <p id="salao-legenda" role="tabpanel" aria-labelledby={`salao-aba-${ativo}`} className="salao-legenda" key={lugar.clipe}>
-          {lugar.texto}
-        </p>
-        <a className="salao-rota" href="#visite">Como chegar</a>
+      <ul className="salao-cartoes">
+        {lugares.map((l) => (
+          <li key={l.clipe} className="salao-cartao">
+            <div className="salao-midia">
+              <Clipe nome={l.clipe} rotulo={l.rotulo} />
+            </div>
+            <h3>{l.titulo}</h3>
+            <p>{l.texto}</p>
+          </li>
+        ))}
+      </ul>
+
+      <div className="salao-acoes">
+        <BotaoReserva variante="verde" />
+        <a className="botao botao-linha-verde" href={info.rotas} target="_blank" rel="noreferrer">Como chegar</a>
       </div>
     </section>
   )

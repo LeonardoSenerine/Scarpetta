@@ -4,6 +4,7 @@ import { agoraEmItatiba, hojeEmItatiba, hora, turnosResumo } from '../lib/horari
 import { Titulo } from './Movimento'
 import { IconeWhatsApp } from './BotaoReserva'
 import { Seletor, type Opcao } from './Seletor'
+import { Traco } from './Traco'
 
 const diasCurto = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
 const diasLongo = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']
@@ -80,7 +81,9 @@ export function Reserva() {
   return (
     <section className="reserva" id="reserva" aria-labelledby="reserva-titulo">
       <div className="reserva-cabeca">
+        <p className="sobretitulo">Reservas</p>
         <Titulo id="reserva-titulo">Reserve sua mesa</Titulo>
+        <Traco />
         <p>Escolha o dia, o horário e quantas pessoas vêm. A mensagem sai pronta no WhatsApp e a confirmação chega por lá.</p>
       </div>
 

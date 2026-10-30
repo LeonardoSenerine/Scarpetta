@@ -12,8 +12,8 @@ const etapas = [
   { nome: 'Dolci', texto: 'A sobremesa que fecha a noite' },
 ]
 
-// Eventos em papel: a foto ocupa a borda (em cima no celular, metade da tela no desktop) e, ao lado,
-// as ocasiões, um cartão de menu em verde (o avesso do executivo) e as duas formas de pedir orçamento.
+// Eventos em destaque: a foto ocupa a borda (em cima no celular, metade da tela no desktop) e, ao lado,
+// as ocasiões, um cartão de menu no estilo do executivo e as duas formas de pedir orçamento.
 export function Eventos() {
   return (
     <section className="eventos" id="eventos" aria-labelledby="eventos-titulo">
@@ -22,10 +22,11 @@ export function Eventos() {
       </div>
 
       <div className="eventos-conteudo">
+        <p className="sobretitulo">Eventos</p>
         <Titulo id="eventos-titulo">Eventos e confraternizações</Titulo>
         <p className="eventos-lead">
-          Aniversário, almoço da empresa ou um jantar só para a sua turma. O menu é montado com você, do primeiro
-          antepasto à sobremesa.
+          Reunimos sua turma no nosso salão, no meio do verde. O menu é montado com você, do primeiro antepasto à
+          sobremesa.
         </p>
         <ul className="eventos-ocasioes">
           {ocasioes.map((o) => <li key={o}>{o}</li>)}
@@ -44,8 +45,8 @@ export function Eventos() {
         </div>
 
         <div className="eventos-acoes">
-          <BotaoReserva variante="verde" href={wa('Olá! Gostaria de fazer um evento no Scarpetta.')}>Planejar meu evento</BotaoReserva>
-          <a className="botao botao-linha-verde" href={`mailto:${info.email}?subject=${encodeURIComponent('Evento no Scarpetta')}`}>
+          <BotaoReserva href={wa('Olá! Gostaria de fazer um evento no Scarpetta.')}>Planejar meu evento</BotaoReserva>
+          <a className="botao botao-linha" href={`mailto:${info.email}?subject=${encodeURIComponent('Evento no Scarpetta')}`}>
             Pedir orçamento por e-mail
           </a>
         </div>

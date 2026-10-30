@@ -3,6 +3,7 @@ import { funcionamento, info } from '../data/info'
 import { hora } from '../lib/horario'
 import { useStatus } from '../lib/useStatus'
 import { Titulo } from './Movimento'
+import { BotaoReserva } from './BotaoReserva'
 
 export function Visite() {
   const [mapaAtivo, setMapaAtivo] = useState(false)
@@ -42,9 +43,8 @@ export function Visite() {
 
         <div className="visite-acoes">
           <a className="botao botao-creme" href={info.rotas} target="_blank" rel="noreferrer">Abrir rota no mapa</a>
+          <BotaoReserva variante="linha" href={info.reserva}>Reservar pelo WhatsApp</BotaoReserva>
         </div>
-
-        <EmCasa />
 
         {info.avaliacoes && (
           <a className="visite-nota" href={info.avaliacoes.link} target="_blank" rel="noreferrer">
@@ -78,27 +78,26 @@ export function Visite() {
   )
 }
 
-// Delivery, dentro de "Como chegar": mostra os canais diretos quando existirem; até lá, um botão para o Linktree.
-// Preencha info.ifood e info.deliveryProprio para trocar esse botão pelos links de pedido.
-function EmCasa() {
+// Delivery: mostra os canais diretos quando existirem; até lá, um único botão honesto para o Linktree.
+export function EmCasa() {
   const canais = [
     info.deliveryProprio && { rotulo: 'Pedir no nosso delivery', href: info.deliveryProprio },
     info.ifood && { rotulo: 'Pedir pelo iFood', href: info.ifood },
   ].filter((c): c is { rotulo: string; href: string } => !!c)
 
   return (
-    <div className="visite-casa" id="delivery">
-      <h3>Prefere em casa?</h3>
-      <p>As mesmas massas e pizzas, por delivery.</p>
-      <div className="visite-casa-acoes">
+    <section className="em-casa" id="delivery" aria-labelledby="em-casa-titulo">
+      <Titulo id="em-casa-titulo">Scarpetta em casa</Titulo>
+      <p>As mesmas massas e pizzas, para pedir por delivery.</p>
+      <div className="em-casa-acoes">
         {canais.length > 0 ? (
-          canais.map((c) => (
-            <a key={c.href} className="botao botao-linha" href={c.href} target="_blank" rel="noreferrer">{c.rotulo}</a>
+          canais.map((c, i) => (
+            <a key={c.href} className={`botao ${i ? 'botao-linha' : 'botao-creme'}`} href={c.href} target="_blank" rel="noreferrer">{c.rotulo}</a>
           ))
         ) : (
-          <a className="botao botao-linha" href={info.linktree} target="_blank" rel="noreferrer">Ver opções de delivery</a>
+          <a className="botao botao-creme" href={info.linktree} target="_blank" rel="noreferrer">Ver opções de delivery</a>
         )}
       </div>
-    </div>
+    </section>
   )
 }

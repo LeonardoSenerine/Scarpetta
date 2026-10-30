@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { executivo } from '../data/executivo'
 import { info, wa } from '../data/info'
-import { precoBR } from '../lib/horario'
-import { estadoExecutivo } from '../lib/executivo'
+import { hojeEmItatiba, precoBR } from '../lib/horario'
 import { Foto } from './Foto'
 import { BotaoReserva } from './BotaoReserva'
 import { Titulo } from './Movimento'
@@ -18,7 +17,10 @@ const periodo = (inicio: string, fim: string) =>
 
 export function Executivo() {
   const [detalhes, setDetalhes] = useState(false)
-  const { valeHoje, encerrado } = estadoExecutivo()
+  const hoje = hojeEmItatiba()
+  const valeHoje = hoje >= executivo.inicio && hoje <= executivo.fim
+  // Depois da sexta, o menu da semana sai do ar até o arquivo ser atualizado.
+  const encerrado = hoje > executivo.fim
 
   const selo = valeHoje
     ? 'Servido hoje'
