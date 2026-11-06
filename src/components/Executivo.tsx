@@ -46,7 +46,7 @@ export function Executivo() {
             <span>{encerrado ? 'Toda quinta e sexta' : `Quinta e sexta, ${periodo(executivo.inicio, executivo.fim)}`}</span>
             <span className="executivo-preco">{precoBR(executivo.preco)}</span>
           </p>
-          <p className="executivo-regra">Entrada, principal e sobremesa. Você escolhe um de cada.</p>
+          <p className="executivo-regra">Entrada, prato principal e sobremesa, com uma escolha em cada etapa.</p>
         </header>
 
         {!encerrado && (

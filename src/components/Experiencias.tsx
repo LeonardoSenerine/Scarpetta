@@ -12,7 +12,7 @@ const etapas = [
     clipe: 'molho',
     estacao: 'No forno',
     verbo: 'Condire',
-    texto: 'Tomate San Marzano DOP espalhado na massa de fermentação natural, antes de ir ao forno.',
+    texto: 'Tomate San Marzano DOP sobre a massa de fermentação natural, antes do forno a lenha.',
   },
   {
     clipe: 'girar',
@@ -24,7 +24,7 @@ const etapas = [
     clipe: 'adocar',
     estacao: 'Na sobremesa',
     verbo: 'Addolcire',
-    texto: 'Vulcano alla Nutella: o bolinho quente se abre e encontra o gelato.',
+    texto: 'Vulcano alla Nutella: o bolo quente se abre sobre o gelato.',
   },
 ]
 
@@ -63,8 +63,8 @@ export function Experiencias() {
           <div className="experiencias-intro">
             <Titulo id="experiencias-titulo">Da bancada à mesa</Titulo>
             <p>
-              Tudo o que chega à mesa passa pelas mãos de quem está na casa. São momentos reais, gravados na cozinha e no
-              salão do Scarpetta.
+              Cada prato é preparado pela equipe da casa, da bancada ao serviço. Os vídeos a seguir foram gravados na
+              cozinha e no salão do Scarpetta.
             </p>
             <a className="link-claro" href={info.instagram} target="_blank" rel="noreferrer">
               Mais no {info.instagramUsuario}
@@ -85,7 +85,7 @@ export function Experiencias() {
           <article className="etapa etapa-final">
             <Tomate className="etapa-tomate" />
             <h3 lang="it">Fare la scarpetta</h3>
-            <p>E no fim, o pão passa pelo prato até não sobrar nada do molho.</p>
+            <p>Ao final, o pão percorre o prato até não restar molho algum.</p>
             <BotaoReserva />
           </article>
         </motion.div>

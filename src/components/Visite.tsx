@@ -13,7 +13,7 @@ export function Visite() {
     <section className="visite" id="visite" aria-labelledby="visite-titulo">
       <div className="visite-info">
         <Titulo id="visite-titulo">Como chegar</Titulo>
-        <p className="visite-referencia">{info.endereco.referencia}, num espaço cercado de natureza.</p>
+        <p className="visite-referencia">{info.endereco.referencia}, em um espaço cercado de natureza.</p>
         <address>
           {info.endereco.rua}<br />
           {info.endereco.bairro}<br />
@@ -88,7 +88,7 @@ export function EmCasa() {
   return (
     <section className="em-casa" id="delivery" aria-labelledby="em-casa-titulo">
       <Titulo id="em-casa-titulo">Scarpetta em casa</Titulo>
-      <p>As mesmas massas e pizzas, para pedir por delivery.</p>
+      <p>As massas e pizzas da casa, com entrega.</p>
       <div className="em-casa-acoes">
         {canais.length > 0 ? (
           canais.map((c, i) => (

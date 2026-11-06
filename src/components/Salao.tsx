@@ -14,7 +14,7 @@ const lugares = [
     clipe: 'salao',
     rotulo: 'Fachada do Scarpetta de dia, com o letreiro e a mata ao fundo',
     titulo: 'A varanda',
-    texto: 'Mesas do lado de fora, à sombra das árvores. À noite, o varal de lâmpadas acende.',
+    texto: 'Mesas ao ar livre, à sombra das árvores. À noite, a varanda é iluminada por um varal de lâmpadas.',
   },
   {
     clipe: 'caminho',
@@ -33,8 +33,8 @@ export function Salao() {
         <p className="sobretitulo">O lugar</p>
         <Titulo id="salao-titulo">Uma casa no meio da mata</Titulo>
         <p className="salao-intro">
-          Longe do barulho da cidade, o Scarpetta é um almoço sem pressa com a luz do dia entrando pelas janelas, ou um
-          jantar com a varanda acesa.
+          Afastado do movimento da cidade, o salão recebe o almoço com luz natural e o jantar com a varanda
+          iluminada.
         </p>
       </div>
 

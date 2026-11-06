@@ -84,7 +84,7 @@ export function Reserva() {
         <p className="sobretitulo">Reservas</p>
         <Titulo id="reserva-titulo">Reserve sua mesa</Titulo>
         <Traco />
-        <p>Escolha o dia, o horário e quantas pessoas vêm. A mensagem sai pronta no WhatsApp e a confirmação chega por lá.</p>
+        <p>Informe o dia, o horário e o número de pessoas. O pedido segue pelo WhatsApp, por onde confirmamos a sua reserva.</p>
       </div>
 
       <form className="reserva-form" onSubmit={enviar}>
@@ -94,12 +94,12 @@ export function Reserva() {
           <Seletor rotulo="Pessoas" valor={pessoas} opcoes={opcoesPessoas} onChange={setPessoas} />
           <label className="campo">
             <span>Seu nome</span>
-            <input type="text" name="nome" autoComplete="name" required value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Como devemos chamar você" />
+            <input type="text" name="nome" autoComplete="name" required value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome para a reserva" />
           </label>
           <Seletor rotulo="Ocasião" opcional valor={ocasiao} opcoes={opcoesOcasiao} onChange={setOcasiao} />
           <label className="campo reserva-obs">
             <span>Observações <em>(opcional)</em></span>
-            <textarea rows={2} value={observacoes} onChange={(e) => setObservacoes(e.target.value)} placeholder="Cadeirinha para bebê, restrição alimentar, mesa na varanda…" />
+            <textarea rows={2} value={observacoes} onChange={(e) => setObservacoes(e.target.value)} placeholder="Cadeira para bebê, restrições alimentares, preferência pela varanda…" />
           </label>
         </div>
 
@@ -108,8 +108,8 @@ export function Reserva() {
           <span>Enviar pedido pelo WhatsApp</span>
         </button>
         <p className="reserva-nota">
-          Quinta a domingo, {turnosResumo()}. A mesa fica garantida quando confirmarmos pelo WhatsApp.
-          Grupos com mais de {MAX_PESSOAS} pessoas ou jantares fechados: veja <a href="#eventos">eventos</a>.
+          Atendemos de quinta a domingo, {turnosResumo()}. A reserva é garantida após a nossa confirmação.
+          Para grupos com mais de {MAX_PESSOAS} pessoas ou jantares fechados, consulte <a href="#eventos">eventos</a>.
         </p>
       </form>
     </section>

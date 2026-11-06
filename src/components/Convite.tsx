@@ -70,7 +70,7 @@ export function Convite() {
             </span>
           ))}
         </motion.h2>
-        <p className="convite-texto">Almoço e jantar, {turnosResumo()}, num salão no meio do verde.</p>
+        <p className="convite-texto">Almoço e jantar, {turnosResumo()}, em um salão cercado de verde.</p>
         <div className="convite-acoes">
           <BotaoReserva />
           <a className="botao botao-linha" href="#cardapio">Ver o cardápio</a>

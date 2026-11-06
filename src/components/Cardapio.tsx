@@ -61,7 +61,7 @@ export function Cardapio() {
       <div className="cardapio-cabeca">
         <Titulo id="cardapio-titulo">O cardápio</Titulo>
         <Traco />
-        <p>Receitas italianas de sempre e algumas criações da casa. Os pratos com foto abrem em tamanho maior.</p>
+        <p>Receitas clássicas da cozinha italiana e criações da casa. Os pratos com foto podem ser vistos em detalhe.</p>
       </div>
 
       <Destaques />
